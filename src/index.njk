@@ -1,0 +1,82 @@
+---
+layout: layouts/base.njk
+clase_body: pagina-inicio
+---
+{% from "partials/macros.njk" import tarjeta, grilla, simbolo %}
+{%- set todos = collections.articulos -%}
+{%- set dest = todos | destacados -%}
+{%- set principal = dest[0] if dest.length else todos[0] -%}
+{%- set recientes = todos | excepto(principal.url if principal else "") | limitar(4) -%}
+
+<section class="portada">
+  <div class="contenedor portada__grilla">
+    <div class="portada__texto">
+      <h1 class="portada__titulo">Leer el territorio para decidir mejor</h1>
+      <p class="portada__bajada">Geoanalytics es una plataforma paraguaya de geomarketing, inteligencia comercial y análisis territorial. Publicamos artículos, mapas e indicadores con fuentes y métodos explícitos, y ayudamos a empresas a responder dónde, cuánto y frente a quién compiten.</p>
+      <div class="portada__acciones">
+        <a class="boton boton--claro" href="/articulos/">Leer publicaciones</a>
+        <a class="boton boton--contorno" href="/servicios/">Conocer los servicios</a>
+      </div>
+    </div>
+    <figure class="portada__escena">
+      <div class="hero3d" data-hero3d>
+        <img class="hero3d__fijo" src="/media/portadas/hero-3d.webp" alt="Ilustración en 3D de tres capas de análisis territorial apiladas sobre el contorno de Paraguay: territorio, accesibilidad y área de influencia alrededor de Asunción." width="1258" height="840" fetchpriority="high">
+      </div>
+      <figcaption>Capas de un análisis territorial sobre el contorno de Paraguay (Natural Earth). Alturas y bandas ilustrativas.</figcaption>
+    </figure>
+  </div>
+</section>
+<script type="module" src="/assets/js/hero3d.js"></script>
+
+{% if principal %}
+<section class="seccion" aria-labelledby="ult-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="ult-t" class="seccion__titulo">Publicaciones recientes</h2>
+      <a class="seccion__mas" href="/articulos/">Ver todas</a>
+    </div>
+    <div class="destacado">
+      {{ tarjeta(principal, categorias, "grande", 3) }}
+      {% if recientes.length %}
+      <div class="destacado__lista">
+        {% for a in recientes %}{{ tarjeta(a, categorias, "lista", 3) }}{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% for c in categorias %}{% if not c.oculta_en_menu %}
+{%- set arts = todos | deCategoria(c.slug) | limitar(3) -%}
+<section class="seccion seccion--banda" aria-labelledby="cat-{{ c.slug }}">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="cat-{{ c.slug }}" class="seccion__titulo seccion__titulo--cat cat--{{ c.slug }}">{{ simbolo(c.simbolo) }}{{ c.nombre }}</h2>
+      <a class="seccion__mas" href="/{{ c.slug }}/">Ir a la sección</a>
+    </div>
+    <p class="seccion__bajada">{{ c.bajada }}</p>
+    {% if arts.length %}
+      {{ grilla(arts, categorias) }}
+    {% else %}
+      <p class="vacio">Las primeras publicaciones de esta sección están en preparación. Temas previstos: {{ c.temas | join(", ") | lower }}.</p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}{% endfor %}
+
+<section class="seccion" aria-labelledby="serv-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="serv-t" class="seccion__titulo">Servicios para empresas</h2>
+      <span class="seccion__enlaces"><a class="seccion__mas" href="/simulador/">Simular el costo de un estudio</a><a class="seccion__mas" href="/servicios/">Todos los servicios</a></span>
+    </div>
+    <ul class="servicios-indice">
+      {% for s in collections.servicios %}
+      <li><a href="{{ s.url }}"><span class="servicios-indice__nombre">{{ s.data.title }}</span><span class="servicios-indice__desc">{{ s.data.description }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% include "partials/cta.njk" %}

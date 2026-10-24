@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+---
+{% from "partials/macros.njk" import grilla %}
+<header class="cabecera-pagina">
+  <div class="contenedor">
+    <p class="miga"><a href="/servicios/">Servicios</a></p>
+    <h1 class="cabecera-pagina__titulo">{{ title }}</h1>
+    <p class="cabecera-pagina__bajada">{{ description }}</p>
+  </div>
+</header>
+
+<div class="contenedor servicio">
+  <div class="prosa servicio__cuerpo">
+    {{ content | safe }}
+  </div>
+  <aside class="servicio__lateral">
+    {% if preguntas and preguntas.length %}
+    <div class="lateral-caja">
+      <p class="lateral__titulo">Preguntas que ayuda a responder</p>
+      <ul class="lista-preguntas">
+        {% for p in preguntas %}<li>{{ p }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <a class="boton" href="/contacto/?servicio={{ slug }}">Consultar por este servicio</a>
+  </aside>
+</div>
+
+{%- set arts = collections.articulos | conServicio(slug) | limitar(3) -%}
+{% if arts.length %}
+<section class="seccion seccion--suave" aria-labelledby="sa-t">
+  <div class="contenedor">
+    <h2 id="sa-t" class="seccion__titulo">Publicaciones relacionadas</h2>
+    {{ grilla(arts, categorias) }}
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,21 @@
+{
+  "name": "geoanalytics-sitio",
+  "version": "1.0.0",
+  "description": "Sitio editorial de Geoanalytics E.I.R.L. — geomarketing, inteligencia comercial y análisis territorial en Paraguay.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "contorno": "node scripts/extraer-paraguay.js"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.7",
+    "sharp": "^0.35.5",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  }
+}

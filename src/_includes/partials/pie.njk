@@ -1,0 +1,41 @@
+{% from "partials/macros.njk" import simbolo %}
+<footer class="pie">
+  <div class="contenedor pie__grilla">
+    <div class="pie__marca">
+      <p class="pie__nombre">{{ site.razon_social }}</p>
+      <p>{{ site.lema }}.</p>
+      {% if site.contacto.email or site.contacto.telefono or site.contacto.direccion %}
+      <ul class="pie__contacto">
+        {% if site.contacto.email %}<li><a href="mailto:{{ site.contacto.email }}">{{ site.contacto.email }}</a></li>{% endif %}
+        {% if site.contacto.telefono %}<li><a href="tel:{{ site.contacto.telefono | replace(' ', '') }}">{{ site.contacto.telefono }}</a></li>{% endif %}
+        {% if site.contacto.direccion %}<li>{{ site.contacto.direccion }}</li>{% endif %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div>
+      <p class="pie__titulo">Leyenda</p>
+      <ul class="pie__lista">
+        {% for c in categorias %}{% if not c.oculta_en_menu %}
+        <li><a class="cat cat--{{ c.slug }}" href="/{{ c.slug }}/">{{ simbolo(c.simbolo) }}<span>{{ c.nombre }}</span></a></li>
+        {% endif %}{% endfor %}
+        <li><a href="/articulos/">Todas las publicaciones</a></li>
+        <li><a href="/archivo/">Archivo por año</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="pie__titulo">Geoanalytics</p>
+      <ul class="pie__lista">
+        <li><a href="/servicios/">Servicios</a></li>
+        <li><a href="/sobre/">Sobre Geoanalytics</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+        <li><a href="/feed.xml">Suscripción RSS</a></li>
+        {% if site.contacto.linkedin %}<li><a href="{{ site.contacto.linkedin }}" rel="me noopener" target="_blank">LinkedIn</a></li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="contenedor pie__legal">
+    <p>© {{ build.anio }} {{ site.razon_social }}. Los contenidos citan sus fuentes; los datos públicos pertenecen a sus respectivos productores.</p>
+  </div>
+</footer>

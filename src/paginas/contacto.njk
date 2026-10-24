@@ -1,0 +1,82 @@
+---
+layout: layouts/pagina.njk
+title: Contacto
+bajada: Cuéntenos qué decisión está evaluando. Respondemos cada consulta con una propuesta de próximos pasos.
+description: Solicite una consulta a Geoanalytics sobre geomarketing, inteligencia comercial, mapas o análisis de datos.
+permalink: /contacto/
+---
+<section class="seccion">
+  <div class="contenedor contacto">
+    <form class="formulario" id="form-contacto" action="https://api.web3forms.com/submit" method="POST" data-configurado="{{ 'si' if site.formulario.access_key else 'no' }}">
+      <input type="hidden" name="access_key" value="{{ site.formulario.access_key }}">
+      <input type="hidden" name="subject" value="{{ site.formulario.asunto }}">
+      <input type="hidden" name="from_name" value="Sitio web {{ site.nombre }}">
+      <input type="hidden" name="redirect" value="{{ '/gracias/' | absoluta(site.url) }}">
+      <input type="checkbox" name="botcheck" class="trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="campo-par">
+        <div class="campo">
+          <label for="f-nombre">Nombre y apellido</label>
+          <input id="f-nombre" name="nombre" type="text" autocomplete="name" required>
+        </div>
+        <div class="campo">
+          <label for="f-empresa">Empresa u organización</label>
+          <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required>
+        </div>
+      </div>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="f-email">Correo electrónico</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label for="f-tel">Teléfono o WhatsApp <span class="opcional">(opcional)</span></label>
+          <input id="f-tel" name="telefono" type="tel" autocomplete="tel">
+        </div>
+      </div>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="f-cargo">Cargo <span class="opcional">(opcional)</span></label>
+          <input id="f-cargo" name="cargo" type="text" autocomplete="organization-title">
+        </div>
+        <div class="campo">
+          <label for="f-servicio">Tema de la consulta</label>
+          <select id="f-servicio" name="tema">
+            <option value="">Seleccione una opción</option>
+            {% for s in collections.servicios %}<option value="{{ s.data.title }}" data-slug="{{ s.data.slug }}">{{ s.data.title }}</option>{% endfor %}
+            {% for c in categorias %}{% if not c.oculta_en_menu %}<option value="Consulta sobre {{ c.nombre }}" data-slug="{{ c.slug }}">Consulta general sobre {{ c.nombre | lower }}</option>{% endif %}{% endfor %}
+            <option value="Cotización desde el simulador" data-slug="simulador">Cotización de un estudio (desde el simulador)</option>
+            <option value="Otro">Otro tema</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="f-msg">¿Qué necesita decidir o entender?</label>
+        <textarea id="f-msg" name="mensaje" rows="6" required placeholder="Por ejemplo: evaluar zonas para una nueva sucursal en el área metropolitana, conocer la cobertura actual de nuestra red de distribuidores…"></textarea>
+      </div>
+      <div class="campo campo--check">
+        <input id="f-ok" name="acepta_contacto" type="checkbox" value="Sí" required>
+        <label for="f-ok">Acepto que Geoanalytics use estos datos solo para responder esta consulta.</label>
+      </div>
+      <button class="boton" type="submit">Enviar consulta</button>
+      <p class="formulario__estado" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="contacto__lateral">
+      <h2 class="lateral__titulo">Qué conviene contarnos</h2>
+      <ul class="lista-preguntas">
+        <li>La decisión que está evaluando y para cuándo.</li>
+        <li>La zona geográfica de interés.</li>
+        <li>Qué datos tiene su empresa (ventas, clientes, puntos de venta).</li>
+      </ul>
+      {% if site.contacto.email or site.contacto.whatsapp %}
+      <h2 class="lateral__titulo">Otros canales</h2>
+      <ul class="lista-simple">
+        {% if site.contacto.email %}<li><a href="mailto:{{ site.contacto.email }}">{{ site.contacto.email }}</a></li>{% endif %}
+        {% if site.contacto.whatsapp %}<li><a href="https://wa.me/{{ site.contacto.whatsapp | replace('+','') | replace(' ','') }}" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
+      </ul>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+<script src="/assets/js/contacto.js" defer></script>

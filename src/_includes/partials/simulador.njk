@@ -1,0 +1,86 @@
+{#- Simulador de costos. Variable "modo": "publico" o "interno" -#}
+<script type="application/json" id="simulador-config">{{ simulador | json | safe }}</script>
+<div class="simulador contenedor" data-simulador data-modo="{{ modo }}">
+  <form class="simulador__form" onsubmit="return false" aria-label="Datos del estudio">
+    <fieldset class="sim-bloque">
+      <legend>Tipo de estudio</legend>
+      <div class="sim-tipos">
+        {% for t in simulador.tipos %}
+        <label class="sim-tipo">
+          <input type="radio" name="tipo" value="{{ t.id }}" id="s-tipo-{{ t.id }}"{% if loop.first %} checked{% endif %}>
+          <span class="sim-tipo__nombre">{{ t.nombre }}</span>
+          <span class="sim-tipo__desc">{{ t.descripcion }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <fieldset class="sim-bloque">
+      <legend>Tamaño del estudio</legend>
+      <label class="sim-etiqueta" for="s-cantidad-num">Cantidad de <span data-unidades>unidades</span></label>
+      <div class="sim-cantidad">
+        <input type="range" id="s-cantidad" aria-label="Cantidad (control deslizante)">
+        <input type="number" id="s-cantidad-num" inputmode="numeric">
+      </div>
+    </fieldset>
+
+    <fieldset class="sim-bloque">
+      <legend>Trabajo de campo fuera de Asunción y Gran Asunción</legend>
+      <label class="sim-etiqueta" for="s-fuera">Proporción del campo en el interior del país: <strong id="s-fuera-valor">0 %</strong></label>
+      <input type="range" id="s-fuera" min="0" max="100" step="5" value="0">
+      <div class="campo" id="s-distancia-campo" hidden>
+        <label for="s-distancia">Distancia promedio desde Asunción</label>
+        <select id="s-distancia">
+          {% for d in simulador.viaje.distancias %}<option value="{{ d.id }}">{{ d.nombre }}</option>{% endfor %}
+        </select>
+      </div>
+      <p class="sim-ayuda">Se suman viáticos, hotel y transporte del equipo de campo, al costo.</p>
+    </fieldset>
+  </form>
+
+  <section class="simulador__resultado" aria-labelledby="r-titulo" aria-live="polite">
+    <h2 id="r-titulo" class="sim-res__titulo">Precio referencial</h2>
+    <p class="sim-res__total" id="r-total">—</p>
+    <p class="sim-res__rango" id="r-rango"></p>
+
+    <dl class="sim-desglose">
+      <div><dt>Diseño y coordinación</dt><dd id="r-diseno"></dd></div>
+      <div><dt>Trabajo de campo</dt><dd id="r-campo"></dd></div>
+      <div><dt>Procesamiento, análisis e informe</dt><dd id="r-analisis"></dd></div>
+      <div><dt>Viáticos, hotel y transporte<small id="r-viaje-detalle"></small></dt><dd id="r-viaje"></dd></div>
+      <div class="sim-desglose__sub"><dt>Subtotal</dt><dd id="r-subtotal"></dd></div>
+      <div><dt>IVA ({{ (simulador.iva * 100) | round }} %)</dt><dd id="r-iva"></dd></div>
+      <div class="sim-desglose__total"><dt>Total con IVA</dt><dd id="r-con-iva"></dd></div>
+    </dl>
+
+    <div class="sim-escala">
+      <p class="sim-escala__titulo">Economía de escala: precio por <span id="r-unidad-nombre">unidad</span> <strong id="r-unidad"></strong></p>
+      <p class="sim-escala__nota" id="r-escala"></p>
+      <div class="sim-grafico" id="r-grafico"></div>
+    </div>
+
+    {% if modo == "interno" %}
+    <div class="sim-interno" aria-label="Detalle interno">
+      <p class="sim-interno__titulo">Detalle interno (no visible para clientes)</p>
+      <dl>
+        <div><dt>Costo operativo</dt><dd id="i-costo"></dd></div>
+        <div class="sim-interno__nota"><dd id="i-costo-detalle"></dd></div>
+        <div class="sim-interno__nota"><dd id="i-proporcion"></dd></div>
+        <div><dt>Margen aplicado</dt><dd id="i-margen"></dd></div>
+        <div><dt>Ganancia</dt><dd id="i-ganancia"></dd></div>
+        <div class="sim-interno__nota"><dd id="i-unitario"></dd></div>
+        <div class="sim-interno__nota"><dd id="i-campo"></dd></div>
+        <div class="sim-interno__nota"><dd id="i-viaje"></dd></div>
+      </dl>
+    </div>
+    {% endif %}
+
+    <a class="boton boton--secundario sim-res__cta" id="r-cotizar" href="/contacto/">Solicitar cotización formal</a>
+    <p class="sim-res__aviso">Estimación orientativa, sin valor contractual. La cotización final depende del alcance, el cuestionario, la muestra y los plazos.</p>
+  </section>
+  <div class="sim-barra" hidden>
+    <span>Precio referencial <strong id="r-barra-total"></strong></span>
+    <button type="button" class="boton boton--claro">Ver detalle</button>
+  </div>
+</div>
+<script type="module" src="/assets/js/simulador.js"></script>

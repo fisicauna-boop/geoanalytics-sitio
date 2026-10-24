@@ -1,0 +1,15 @@
+---
+layout: layouts/pagina.njk
+title: Etiquetas
+bajada: Todos los temas tratados en las publicaciones, con la cantidad de artículos de cada uno.
+permalink: /etiquetas/
+---
+<section class="seccion">
+  <div class="contenedor">
+    {% if collections.etiquetas.length %}
+    <ul class="nube">
+      {% for e in collections.etiquetas %}<li><a href="/etiquetas/{{ e.slug }}/">{{ e.nombre }} <span>{{ e.articulos.length }}</span></a></li>{% endfor %}
+    </ul>
+    {% else %}<p class="vacio">Aún no hay etiquetas.</p>{% endif %}
+  </div>
+</section>

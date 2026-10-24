@@ -1,0 +1,19 @@
+---
+layout: layouts/pagina.njk
+title: Buscar publicaciones
+bajada: Busque por tema, lugar, método o etiqueta.
+permalink: /buscar/
+noindex: true
+---
+<section class="seccion">
+  <div class="contenedor">
+    <form class="filtro" id="form-buscar" role="search">
+      <label class="visualmente-oculto" for="q">Términos de búsqueda</label>
+      <input id="q" name="q" type="search" placeholder="Por ejemplo: área de influencia, retail, Asunción" autocomplete="off" autofocus>
+      <button class="boton" type="submit">Buscar</button>
+    </form>
+    <p class="resultados__estado" id="estado-busqueda" role="status" aria-live="polite"></p>
+    <div class="grilla" id="resultados"></div>
+  </div>
+</section>
+<script src="/assets/js/buscar.js" defer></script>

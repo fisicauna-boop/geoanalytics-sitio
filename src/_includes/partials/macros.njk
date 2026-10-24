@@ -1,0 +1,45 @@
+{#- Símbolo de leyenda cartográfica para cada categoría -#}
+{% macro simbolo(tipo, clase="") %}
+<svg class="simbolo {{ clase }}" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+{%- if tipo == "cuadrado" -%}<rect x="1.5" y="1.5" width="9" height="9" />
+{%- elif tipo == "triangulo" -%}<path d="M6 1.2 11 10.5H1z" />
+{%- elif tipo == "rombo" -%}<path d="M6 .8 11.2 6 6 11.2.8 6z" />
+{%- else -%}<circle cx="6" cy="6" r="4.6" />{%- endif -%}
+</svg>
+{% endmacro %}
+
+{#- Etiqueta de categoría con su símbolo -#}
+{% macro categoriaTag(cat, enlace=true) %}
+{%- if cat -%}
+{%- if enlace -%}<a class="cat cat--{{ cat.slug }}" href="/{{ cat.slug }}/">{{ simbolo(cat.simbolo) }}<span>{{ cat.nombre }}</span></a>
+{%- else -%}<span class="cat cat--{{ cat.slug }}">{{ simbolo(cat.simbolo) }}<span>{{ cat.nombre }}</span></span>{%- endif -%}
+{%- endif -%}
+{% endmacro %}
+
+{#- Tarjeta de artículo. variante: "normal" | "grande" | "lista" -#}
+{% macro tarjeta(art, categorias, variante="normal", nivel=3) %}
+{%- set cat = categorias | buscarPor("slug", art.data.categoria) -%}
+<article class="tarjeta tarjeta--{{ variante }}">
+  {% if variante != "lista" %}
+  <a class="tarjeta__img" href="{{ art.url }}" tabindex="-1" aria-hidden="true">
+    {% if art.data.imagen %}<img src="{{ art.data.imagen }}" alt="" loading="lazy" decoding="async" width="1200" height="675">
+    {% else %}<span class="tarjeta__sinimg"></span>{% endif %}
+  </a>
+  {% endif %}
+  <div class="tarjeta__cuerpo">
+    <div class="tarjeta__meta">
+      {{ categoriaTag(cat, false) }}
+      <time datetime="{{ art.date | fechaCorta }}">{{ art.date | fecha }}</time>
+    </div>
+    <h{{ nivel }} class="tarjeta__titulo"><a href="{{ art.url }}">{{ art.data.title }}</a></h{{ nivel }}>
+    {% if art.data.description and variante != "lista" %}<p class="tarjeta__resumen">{{ art.data.description }}</p>{% endif %}
+  </div>
+</article>
+{% endmacro %}
+
+{#- Grilla de tarjetas -#}
+{% macro grilla(articulos, categorias, nivel=3) %}
+<div class="grilla">
+{% for a in articulos %}{{ tarjeta(a, categorias, "normal", nivel) }}{% endfor %}
+</div>
+{% endmacro %}

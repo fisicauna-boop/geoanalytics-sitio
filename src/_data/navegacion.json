@@ -1,0 +1,34 @@
+[
+  {
+    "texto": "Inicio",
+    "url": "/"
+  },
+  {
+    "texto": "Artículos",
+    "url": "/articulos/"
+  },
+  {
+    "texto": "Geomarketing",
+    "url": "/geomarketing/"
+  },
+  {
+    "texto": "Inteligencia comercial",
+    "url": "/inteligencia-comercial/"
+  },
+  {
+    "texto": "Datos y mapas",
+    "url": "/datos-y-mapas/"
+  },
+  {
+    "texto": "Servicios",
+    "url": "/servicios/"
+  },
+  {
+    "texto": "Simulador",
+    "url": "/simulador/"
+  },
+  {
+    "texto": "Sobre Geoanalytics",
+    "url": "/sobre/"
+  }
+]

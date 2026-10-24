@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "partials/seo.njk" %}
+<meta name="theme-color" content="#0E2A47">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="{{ site.nombre }} — publicaciones" href="/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<link rel="stylesheet" href="/assets/css/estilos.css">
+{% block head %}{% endblock %}
+</head>
+<body class="{{ clase_body }}" data-base="{{ '/' | url }}">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+{% include "partials/encabezado.njk" %}
+<main id="contenido">
+{% block contenido %}{{ content | safe }}{% endblock %}
+</main>
+{% include "partials/pie.njk" %}
+<script src="/assets/js/main.js" defer></script>
+{% block scripts %}{% endblock %}
+{% if site.analitica.goatcounter %}
+<script data-goatcounter="https://{{ site.analitica.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{% endif %}
+</body>
+</html>

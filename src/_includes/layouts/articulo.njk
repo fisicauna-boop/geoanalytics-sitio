@@ -1,0 +1,102 @@
+---
+layout: layouts/base.njk
+tipo_og: article
+clase_body: pagina-articulo
+---
+{% from "partials/macros.njk" import categoriaTag, grilla %}
+{%- set cat = categorias | buscarPor("slug", categoria) -%}
+{%- set misServicios = collections.servicios | filtrarPor("slug", servicios) -%}
+{%- set urlAbs = page.url | absoluta(site.url) -%}
+
+<article class="articulo">
+  <header class="articulo__cabecera contenedor contenedor--ancho">
+    <div class="articulo__cat">{{ categoriaTag(cat) }}</div>
+    <h1 class="articulo__titulo">{{ title }}</h1>
+    {% if description %}<p class="articulo__bajada">{{ description }}</p>{% endif %}
+    <p class="articulo__meta">
+      <span>{{ autor }}</span>
+      <span>Publicado el <time datetime="{{ page.date | fechaCorta }}">{{ page.date | fecha }}</time></span>
+      {% if actualizado %}<span>Actualizado el <time datetime="{{ actualizado | fechaCorta }}">{{ actualizado | fecha }}</time></span>{% endif %}
+      <span>{{ content | lectura }} min de lectura</span>
+    </p>
+  </header>
+
+  {% if imagen %}
+  <figure class="articulo__portada contenedor contenedor--ancho">
+    <img src="{{ imagen }}" alt="{{ imagen_alt }}" width="1200" height="675" fetchpriority="high">
+    {% if imagen_credito %}<figcaption>{{ imagen_credito }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  <div class="articulo__marco contenedor contenedor--ancho">
+    <div class="articulo__cuerpo prosa">
+      {{ content | safe }}
+
+      {% for v in visualizaciones %}
+      <figure class="viz" data-viz="{{ v.tipo }}"
+        {% if v.archivo %}data-archivo="{{ v.archivo }}"{% endif %}
+        {% if v.lat %}data-lat="{{ v.lat }}" data-lng="{{ v.lng }}" data-zoom="{{ v.zoom or 7 }}"{% endif %}
+        {% if v.embed_url %}data-embed="{{ v.embed_url }}"{% endif %}
+        {% if v.unidad %}data-unidad="{{ v.unidad }}"{% endif %}>
+        {% if v.titulo %}<p class="viz__titulo">{{ v.titulo }}</p>{% endif %}
+        <div class="viz__lienzo" role="img" aria-label="{{ v.titulo or 'Visualización' }}"></div>
+        {% if v.fuente or v.nota %}<figcaption>{% if v.nota %}<span>{{ v.nota }}</span> {% endif %}{% if v.fuente %}<span>Fuente: {{ v.fuente }}</span>{% endif %}</figcaption>{% endif %}
+      </figure>
+      {% endfor %}
+
+      {% if enlaces and enlaces.length %}
+      <section class="fuentes" aria-labelledby="fuentes-t">
+        <h2 id="fuentes-t">Fuentes y enlaces</h2>
+        <ul>
+          {% for e in enlaces %}<li><a href="{{ e.url }}" target="_blank" rel="noopener">{{ e.titulo or e.url }}</a>{% if e.nota %} <span class="fuentes__nota">{{ e.nota }}</span>{% endif %}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if etiquetas and etiquetas.length %}
+      <ul class="etiquetas" aria-label="Etiquetas">
+        {% for t in etiquetas %}<li><a href="/etiquetas/{{ t | slug }}/">{{ t }}</a></li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <aside class="articulo__lateral" aria-label="Compartir y servicios relacionados">
+      <div class="compartir">
+        <p class="lateral__titulo">Compartir</p>
+        <ul>
+          <li><a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlAbs | enc }}" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://wa.me/?text={{ (title + ' ' + urlAbs) | enc }}" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ urlAbs | enc }}" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://x.com/intent/post?url={{ urlAbs | enc }}&text={{ title | enc }}" target="_blank" rel="noopener">X</a></li>
+          <li><a href="mailto:?subject={{ title | enc }}&body={{ urlAbs | enc }}">Correo</a></li>
+          <li><button type="button" class="enlace-btn" data-copiar="{{ urlAbs }}">Copiar enlace</button></li>
+        </ul>
+      </div>
+
+      {% if misServicios.length %}
+      <div class="lateral-servicios">
+        <p class="lateral__titulo">Servicios relacionados</p>
+        <ul>
+          {% for s in misServicios %}<li><a href="{{ s.url }}">{{ s.data.title }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+
+  {% include "partials/cta.njk" %}
+</article>
+
+{%- set rel = collections.articulos | relacionados(page.url, 3) -%}
+{% if rel.length %}
+<section class="seccion seccion--suave" aria-labelledby="rel-t">
+  <div class="contenedor">
+    <h2 id="rel-t" class="seccion__titulo">Para seguir leyendo</h2>
+    {{ grilla(rel, categorias) }}
+  </div>
+</section>
+{% endif %}
+
+{% if visualizaciones and visualizaciones.length or "data-viz" in content %}
+<script src="/assets/js/visualizaciones.js" defer></script>
+{% endif %}

@@ -1,0 +1,23 @@
+---
+layout: layouts/pagina.njk
+title: Archivo
+bajada: Todas las publicaciones ordenadas por año.
+permalink: /archivo/
+---
+{% from "partials/macros.njk" import categoriaTag %}
+<section class="seccion">
+  <div class="contenedor contenedor--lectura">
+    {% for grupo in collections.archivo %}
+    <h2 class="archivo__anio">{{ grupo.anio }}</h2>
+    <ol class="archivo">
+      {% for a in grupo.articulos %}
+      <li>
+        <time datetime="{{ a.date | fechaCorta }}">{{ a.date | fecha }}</time>
+        <a href="{{ a.url }}">{{ a.data.title }}</a>
+        {{ categoriaTag(categorias | buscarPor("slug", a.data.categoria), false) }}
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}<p class="vacio">Aún no hay publicaciones.</p>{% endfor %}
+  </div>
+</section>

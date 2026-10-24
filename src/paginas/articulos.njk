@@ -1,0 +1,50 @@
+---
+layout: layouts/base.njk
+title: Artículos
+description: Todas las publicaciones de Geoanalytics sobre geomarketing, inteligencia comercial, datos y mapas en Paraguay.
+pagination:
+  data: collections.articulos
+  size: 12
+  alias: lote
+permalink: "/articulos/{% if pagination.pageNumber > 0 %}pagina/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+{% from "partials/macros.njk" import grilla, simbolo %}
+<header class="cabecera-pagina">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">Artículos</h1>
+    <p class="cabecera-pagina__bajada">Estudios, análisis, mapas y opiniones técnicas. {{ collections.articulos.length }} {{ "publicación" if collections.articulos.length == 1 else "publicaciones" }} hasta hoy.</p>
+    <form class="filtro" action="/buscar/" role="search">
+      <label class="visualmente-oculto" for="q-art">Buscar en los artículos</label>
+      <input id="q-art" name="q" type="search" placeholder="Buscar por tema, lugar o etiqueta">
+      <button class="boton" type="submit">Buscar</button>
+    </form>
+    <ul class="chips" aria-label="Filtrar por sección">
+      <li><a href="/articulos/" aria-current="page">Todas</a></li>
+      {% for c in categorias %}
+      {%- if (collections.articulos | deCategoria(c.slug)).length -%}
+      <li><a class="cat--{{ c.slug }}" href="/{{ c.slug }}/">{{ simbolo(c.simbolo) }}{{ c.nombre }}</a></li>
+      {%- endif -%}
+      {% endfor %}
+      <li><a href="/etiquetas/">Etiquetas</a></li>
+      <li><a href="/archivo/">Archivo</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="seccion">
+  <div class="contenedor">
+    {% if lote.length %}
+      {{ grilla(lote, categorias, 2) }}
+    {% else %}
+      <p class="vacio">Todavía no hay publicaciones. La primera aparecerá aquí apenas se publique desde el panel de contenidos.</p>
+    {% endif %}
+
+    {% if pagination.pages.length > 1 %}
+    <nav class="paginacion" aria-label="Páginas de artículos">
+      {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}" rel="prev">Más recientes</a>{% endif %}
+      <span>Página {{ pagination.pageNumber + 1 }} de {{ pagination.pages.length }}</span>
+      {% if pagination.href.next %}<a href="{{ pagination.href.next }}" rel="next">Anteriores</a>{% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</section>

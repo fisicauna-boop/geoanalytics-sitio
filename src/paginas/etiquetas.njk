@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.etiquetas
+  size: 1
+  alias: etq
+  addAllPagesToCollections: false
+permalink: "/etiquetas/{{ etq.slug }}/"
+eleventyComputed:
+  title: "Etiqueta: {{ etq.nombre }}"
+  description: "Publicaciones de Geoanalytics sobre {{ etq.nombre }}."
+---
+{% from "partials/macros.njk" import grilla %}
+<header class="cabecera-pagina">
+  <div class="contenedor">
+    <p class="miga"><a href="/etiquetas/">Etiquetas</a></p>
+    <h1 class="cabecera-pagina__titulo">{{ etq.nombre }}</h1>
+    <p class="cabecera-pagina__bajada">{{ etq.articulos.length }} {{ "publicación" if etq.articulos.length == 1 else "publicaciones" }} con esta etiqueta.</p>
+  </div>
+</header>
+<section class="seccion">
+  <div class="contenedor">{{ grilla(etq.articulos, categorias, 2) }}</div>
+</section>

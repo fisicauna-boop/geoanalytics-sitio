@@ -1,0 +1,39 @@
+[
+  {
+    "slug": "geomarketing",
+    "nombre": "Geomarketing",
+    "simbolo": "circulo",
+    "titulo_pagina": "Geomarketing",
+    "bajada": "Dónde abrir, a quién se llega y con quién se compite. Análisis de localización, cobertura comercial, competencia y oportunidades territoriales.",
+    "temas": ["Evaluación de localizaciones", "Áreas de influencia y cobertura", "Mapeo de competencia", "Oportunidades territoriales"],
+    "servicios": ["analisis-de-localizacion", "areas-de-influencia-y-cobertura", "mapeo-de-competencia"]
+  },
+  {
+    "slug": "inteligencia-comercial",
+    "nombre": "Inteligencia comercial",
+    "simbolo": "cuadrado",
+    "titulo_pagina": "Inteligencia comercial",
+    "bajada": "Mercados, canales y puntos de venta leídos con datos. Estudios de mercado, retail, distribución y desempeño de redes comerciales.",
+    "temas": ["Estudios de mercado", "Retail y formatos comerciales", "Distribución y logística comercial", "Redes de puntos de venta"],
+    "servicios": ["estudios-de-mercado-y-potencial", "redes-de-distribucion-y-puntos-de-venta"]
+  },
+  {
+    "slug": "datos-y-mapas",
+    "nombre": "Datos y mapas",
+    "simbolo": "triangulo",
+    "titulo_pagina": "Datos y mapas",
+    "bajada": "Visualizaciones, mapas temáticos e indicadores construidos con datos públicos, con fuentes citadas y método explicado.",
+    "temas": ["Mapas temáticos", "Indicadores territoriales", "Datos públicos y abiertos", "Métodos y herramientas"],
+    "servicios": ["mapas-tableros-e-indicadores", "estudios-de-mercado-y-potencial"]
+  },
+  {
+    "slug": "opinion",
+    "nombre": "Opinión técnica",
+    "simbolo": "rombo",
+    "titulo_pagina": "Opinión técnica",
+    "bajada": "Columnas y reflexiones sobre territorio, datos y decisiones comerciales.",
+    "temas": [],
+    "servicios": [],
+    "oculta_en_menu": true
+  }
+]

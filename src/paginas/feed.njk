@@ -1,0 +1,24 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>{{ site.nombre }}</title>
+  <link>{{ "/" | absoluta(site.url) }}</link>
+  <atom:link href="{{ '/feed.xml' | absoluta(site.url) }}" rel="self" type="application/rss+xml"/>
+  <description>{{ site.descripcion }}</description>
+  <language>es-py</language>
+  {% for a in collections.articulos | limitar(30) %}
+  <item>
+    <title>{{ a.data.title }}</title>
+    <link>{{ a.url | absoluta(site.url) }}</link>
+    <guid isPermaLink="true">{{ a.url | absoluta(site.url) }}</guid>
+    <pubDate>{{ a.date.toUTCString() }}</pubDate>
+    <category>{{ (categorias | buscarPor("slug", a.data.categoria)).nombre }}</category>
+    <description>{{ a.data.description }}</description>
+  </item>
+  {% endfor %}
+</channel>
+</rss>

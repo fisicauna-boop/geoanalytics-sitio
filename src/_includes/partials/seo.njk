@@ -1,0 +1,60 @@
+{#- Metadatos para buscadores y redes sociales. Cada página puede definir:
+    title, description, imagen, imagen_alt, tipo_og ("article" en artículos), noindex -#}
+{%- set tituloCompleto = (title + " | " + site.nombre) if (title and page.url != "/") else (site.nombre + " — " + site.lema) -%}
+{%- set desc = description or site.descripcion -%}
+{%- set img = (imagen or site.imagen_social) | absoluta(site.url) -%}
+{%- set canonica = page.url | absoluta(site.url) -%}
+<title>{{ tituloCompleto }}</title>
+<meta name="description" content="{{ desc }}">
+<link rel="canonical" href="{{ canonica }}">
+{% if noindex %}<meta name="robots" content="noindex">{% endif %}
+<meta property="og:site_name" content="{{ site.nombre }}">
+<meta property="og:locale" content="es_PY">
+<meta property="og:type" content="{{ tipo_og or 'website' }}">
+<meta property="og:title" content="{{ title or site.nombre }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ canonica }}">
+<meta property="og:image" content="{{ img }}">
+{% if imagen_alt %}<meta property="og:image:alt" content="{{ imagen_alt }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title or site.nombre }}">
+<meta name="twitter:description" content="{{ desc }}">
+<meta name="twitter:image" content="{{ img }}">
+{% if tipo_og == "article" %}
+<meta property="article:published_time" content="{{ page.date | fechaISO }}">
+{% if actualizado %}<meta property="article:modified_time" content="{{ actualizado | fechaISO }}">{% endif %}
+<meta property="article:section" content="{{ (categorias | buscarPor('slug', categoria)).nombre }}">
+{% for t in etiquetas %}<meta property="article:tag" content="{{ t }}">
+{% endfor %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ title | json | safe }},
+  "description": {{ desc | json | safe }},
+  "image": [{{ img | json | safe }}],
+  "datePublished": "{{ page.date | fechaISO }}",
+  "dateModified": "{{ (actualizado or page.date) | fechaISO }}",
+  "inLanguage": "es-PY",
+  "mainEntityOfPage": {{ canonica | json | safe }},
+  "articleSection": {{ (categorias | buscarPor('slug', categoria)).nombre | json | safe }},
+  "keywords": {{ etiquetas | join(", ") | json | safe }},
+  "author": { "@type": "Organization", "name": {{ autor | json | safe }} },
+  "publisher": { "@type": "Organization", "name": {{ site.razon_social | json | safe }}, "url": {{ site.url | json | safe }} }
+}
+</script>
+{% elif page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ site.razon_social | json | safe }},
+  "alternateName": {{ site.nombre | json | safe }},
+  "url": {{ site.url | json | safe }},
+  "description": {{ site.descripcion | json | safe }},
+  "areaServed": "Paraguay"{% if site.contacto.email %},
+  "email": {{ site.contacto.email | json | safe }}{% endif %}{% if site.contacto.linkedin %},
+  "sameAs": [{{ site.contacto.linkedin | json | safe }}]{% endif %}
+}
+</script>
+{% endif %}

@@ -1,0 +1,157 @@
+{
+  "aviso_valores": "Valores de ejemplo. Reemplácelos por los costos reales de Geoanalytics antes de publicar.",
+  "moneda": "US$",
+  "iva": 0.1,
+  "rango_referencial": 0.1,
+  "redondeo": 10,
+  "margen_min": 0.5,
+  "margen_max": 0.7,
+  "margen_gastos_viaje": 0,
+  "viaje": {
+    "viatico_dia": 25,
+    "hotel_noche": 35,
+    "costo_km": 0.45,
+    "dias_por_viaje": 5,
+    "distancias": [
+      { "id": "cerca", "nombre": "Hasta 100 km de Asunción (sin pernocte)", "km": 80, "pernocte": false },
+      { "id": "media", "nombre": "Entre 100 y 300 km", "km": 200, "pernocte": true },
+      { "id": "lejos", "nombre": "Más de 300 km", "km": 420, "pernocte": true }
+    ]
+  },
+  "tipos": [
+    {
+      "id": "trade",
+      "nombre": "Trade marketing",
+      "descripcion": "Auditoría en puntos de venta: presencia, precios, exhibición y quiebres de stock.",
+      "unidad": "punto de venta",
+      "unidades": "puntos de venta",
+      "cantidad_min": 20,
+      "cantidad_max": 2000,
+      "cantidad_inicial": 300,
+      "paso": 10,
+      "margen": 0.55,
+      "costo_diseno": 250,
+      "costo_analisis": 450,
+      "costo_unitario": 3.2,
+      "productividad_dia": 12,
+      "equipo": 4,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 101, "factor": 0.9 },
+        { "desde": 301, "factor": 0.8 },
+        { "desde": 801, "factor": 0.72 }
+      ]
+    },
+    {
+      "id": "customer",
+      "nombre": "Customer (encuesta a consumidores)",
+      "descripcion": "Encuestas cuantitativas a clientes o consumidores: hábitos, satisfacción, intención de compra.",
+      "unidad": "encuesta",
+      "unidades": "encuestas",
+      "cantidad_min": 50,
+      "cantidad_max": 3000,
+      "cantidad_inicial": 400,
+      "paso": 10,
+      "margen": 0.6,
+      "costo_diseno": 300,
+      "costo_analisis": 400,
+      "costo_unitario": 4,
+      "productividad_dia": 10,
+      "equipo": 5,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 101, "factor": 0.9 },
+        { "desde": 401, "factor": 0.8 },
+        { "desde": 1001, "factor": 0.7 }
+      ]
+    },
+    {
+      "id": "mystery",
+      "nombre": "Cliente incógnito (mystery shopper)",
+      "descripcion": "Visitas encubiertas para evaluar atención, procesos y experiencia de compra.",
+      "unidad": "visita",
+      "unidades": "visitas",
+      "cantidad_min": 10,
+      "cantidad_max": 400,
+      "cantidad_inicial": 40,
+      "paso": 5,
+      "margen": 0.6,
+      "costo_diseno": 200,
+      "costo_analisis": 350,
+      "costo_unitario": 22,
+      "productividad_dia": 5,
+      "equipo": 3,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 31, "factor": 0.92 },
+        { "desde": 81, "factor": 0.85 }
+      ]
+    },
+    {
+      "id": "focus",
+      "nombre": "Cualitativo: grupos focales",
+      "descripcion": "Grupos de discusión moderados: reclutamiento, sala, incentivos, moderación y análisis.",
+      "unidad": "grupo",
+      "unidades": "grupos",
+      "cantidad_min": 2,
+      "cantidad_max": 16,
+      "cantidad_inicial": 4,
+      "paso": 1,
+      "margen": 0.65,
+      "costo_diseno": 250,
+      "costo_analisis": 600,
+      "costo_unitario": 420,
+      "productividad_dia": 2,
+      "equipo": 2,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 5, "factor": 0.92 },
+        { "desde": 9, "factor": 0.85 }
+      ]
+    },
+    {
+      "id": "entrevistas",
+      "nombre": "Cualitativo: entrevistas en profundidad",
+      "descripcion": "Entrevistas individuales a clientes, distribuidores o referentes del sector.",
+      "unidad": "entrevista",
+      "unidades": "entrevistas",
+      "cantidad_min": 5,
+      "cantidad_max": 60,
+      "cantidad_inicial": 15,
+      "paso": 1,
+      "margen": 0.7,
+      "costo_diseno": 200,
+      "costo_analisis": 500,
+      "costo_unitario": 85,
+      "productividad_dia": 4,
+      "equipo": 1,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 11, "factor": 0.92 },
+        { "desde": 26, "factor": 0.85 }
+      ]
+    },
+    {
+      "id": "localizacion",
+      "nombre": "Geomarketing: evaluación de localizaciones",
+      "descripcion": "Análisis territorial de sitios o zonas candidatas: demanda, accesibilidad y competencia.",
+      "unidad": "sitio evaluado",
+      "unidades": "sitios evaluados",
+      "cantidad_min": 1,
+      "cantidad_max": 40,
+      "cantidad_inicial": 5,
+      "paso": 1,
+      "margen": 0.65,
+      "costo_diseno": 500,
+      "costo_analisis": 500,
+      "costo_unitario": 140,
+      "productividad_dia": 4,
+      "equipo": 2,
+      "escala": [
+        { "desde": 1, "factor": 1 },
+        { "desde": 6, "factor": 0.85 },
+        { "desde": 16, "factor": 0.75 }
+      ]
+    }
+  ]
+}

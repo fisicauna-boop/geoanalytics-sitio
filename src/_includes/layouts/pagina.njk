@@ -1,0 +1,10 @@
+---
+layout: layouts/base.njk
+---
+<header class="cabecera-pagina">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">{{ title }}</h1>
+    {% if bajada %}<p class="cabecera-pagina__bajada">{{ bajada }}</p>{% endif %}
+  </div>
+</header>
+{{ content | safe }}

@@ -1,0 +1,60 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: categorias
+  size: 1
+  alias: cat
+permalink: "/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.titulo_pagina }}"
+  description: "{{ cat.bajada }}"
+---
+{% from "partials/macros.njk" import grilla, tarjeta, simbolo %}
+{%- set arts = collections.articulos | deCategoria(cat.slug) -%}
+{%- set servs = collections.servicios | filtrarPor("slug", cat.servicios) -%}
+<header class="cabecera-pagina cabecera-pagina--cat cat--{{ cat.slug }}">
+  <div class="contenedor">
+    <p class="miga"><a href="/articulos/">Artículos</a></p>
+    <h1 class="cabecera-pagina__titulo">{{ simbolo(cat.simbolo, "simbolo--grande") }}{{ cat.titulo_pagina }}</h1>
+    <p class="cabecera-pagina__bajada">{{ cat.bajada }}</p>
+    {% if cat.temas.length %}
+    <ul class="temas" aria-label="Temas de la sección">
+      {% for t in cat.temas %}<li>{{ t }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</header>
+
+<section class="seccion">
+  <div class="contenedor">
+    {% if arts.length %}
+      <div class="destacado destacado--cat">
+        {{ tarjeta(arts[0], categorias, "grande", 2) }}
+        {% if arts.length > 1 %}
+        <div class="destacado__lista">
+          {% for a in arts | limitar(5) %}{% if not loop.first %}{{ tarjeta(a, categorias, "lista", 2) }}{% endif %}{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% if arts.length > 5 %}
+      <h2 class="seccion__titulo seccion__titulo--sep">Más en {{ cat.nombre }}</h2>
+      {{ grilla(arts.slice(5), categorias) }}
+      {% endif %}
+    {% else %}
+      <p class="vacio">Las primeras publicaciones de esta sección están en preparación.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if servs.length %}
+<section class="seccion seccion--suave" aria-labelledby="cs-t">
+  <div class="contenedor">
+    <h2 id="cs-t" class="seccion__titulo">Servicios vinculados a esta sección</h2>
+    <ul class="servicios-indice">
+      {% for s in servs %}<li><a href="{{ s.url }}"><span class="servicios-indice__nombre">{{ s.data.title }}</span><span class="servicios-indice__desc">{{ s.data.description }}</span></a></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+{% set categoria = cat.slug %}
+{% include "partials/cta.njk" %}

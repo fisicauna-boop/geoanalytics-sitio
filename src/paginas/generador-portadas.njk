@@ -1,0 +1,41 @@
+---
+layout: layouts/pagina.njk
+title: Generador de portadas 3D
+bajada: Herramienta interna para crear la imagen principal de un artículo. Elija una escena, pruebe variaciones y descargue la imagen; luego súbala desde el panel de contenidos.
+permalink: /generador-portadas/
+noindex: true
+eleventyExcludeFromCollections: true
+---
+<section class="seccion">
+  <div class="contenedor generador" data-generador>
+    <div class="generador__lienzo" aria-label="Vista previa de la portada"></div>
+    <form class="generador__controles" onsubmit="return false">
+      <div class="campo">
+        <label for="g-escena">Escena</label>
+        <select id="g-escena" name="escena">
+          <option value="capas">Capas de análisis</option>
+          <option value="isocronas">Áreas de influencia</option>
+          <option value="red">Red de distribución</option>
+          <option value="hexagonos">Mapa de hexágonos</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="g-fondo">Fondo</label>
+        <select id="g-fondo" name="fondo">
+          <option value="marino">Azul marino</option>
+          <option value="blanco">Claro</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="g-semilla">Variación</label>
+        <input id="g-semilla" name="semilla" type="number" min="1" max="9999" value="1" inputmode="numeric">
+      </div>
+      <div class="generador__botones">
+        <button class="boton boton--fantasma" type="button" data-otra>Otra variación</button>
+        <button class="boton" type="button" data-descargar>Descargar imagen (PNG)</button>
+      </div>
+      <p class="generador__nota">Imagen de 1200 × 675 px. Las escenas son ilustraciones abstractas y no representan datos.</p>
+    </form>
+  </div>
+</section>
+<script type="module" src="/assets/js/portadas3d.js"></script>

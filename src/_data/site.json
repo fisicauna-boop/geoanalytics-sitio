@@ -1,0 +1,24 @@
+{
+  "nombre": "Geoanalytics",
+  "razon_social": "Geoanalytics E.I.R.L.",
+  "lema": "Geomarketing, inteligencia comercial y análisis territorial en Paraguay",
+  "descripcion": "Plataforma paraguaya de geomarketing, inteligencia comercial, análisis de datos y análisis territorial. Artículos, mapas, indicadores y servicios para empresas.",
+  "url": "https://geoanalytics.github.io",
+  "idioma": "es-PY",
+  "ubicacion": "Paraguay",
+  "imagen_social": "/media/portadas/social-por-defecto.jpg",
+  "contacto": {
+    "email": "",
+    "telefono": "",
+    "whatsapp": "",
+    "linkedin": "",
+    "direccion": ""
+  },
+  "formulario": {
+    "access_key": "",
+    "asunto": "Nueva consulta desde el sitio de Geoanalytics"
+  },
+  "analitica": {
+    "goatcounter": ""
+  }
+}
