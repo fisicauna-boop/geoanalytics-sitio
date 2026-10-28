@@ -1,0 +1,79 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: soluciones
+  size: 1
+  alias: sol
+permalink: "/soluciones/{{ sol.id }}/"
+eleventyComputed:
+  title: "{{ sol.titulo }}"
+  description: "{{ sol.bajada }}"
+---
+{% from "partials/iconos.njk" import icono as dibujarIcono %}
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor cabecera-servicio">
+    <span class="cabecera-servicio__icono">{{ dibujarIcono(sol.icono) }}</span>
+    <p class="miga"><a href="/soluciones/">Soluciones para Retail y Distribución</a> <span aria-hidden="true">/</span> {{ sol.nombre }}</p>
+    <h1 class="cabecera-pagina__titulo">{{ sol.titulo }}</h1>
+    <p class="cabecera-pagina__bajada">{{ sol.bajada }}</p>
+    <ul class="chips chips--oscuro" aria-label="Soluciones en esta página">
+      {% for x in sol.soluciones %}<li><a href="#sol-{{ loop.index }}">{{ x.titulo }}</a></li>{% endfor %}
+    </ul>
+  </div>
+</header>
+
+<section class="seccion" aria-labelledby="preg-t">
+  <div class="contenedor solucion-intro">
+    <div>
+      <h2 id="preg-t" class="seccion__titulo">Preguntas que resolvemos</h2>
+      <ul class="lista-preguntas lista-preguntas--grande">{% for p in sol.preguntas %}<li>{{ p }}</li>{% endfor %}</ul>
+    </div>
+    <div class="lateral-caja">
+      <p class="lateral__titulo">Entregables habituales</p>
+      <ul class="lista-preguntas">{% for e in sol.entregables %}<li>{{ e }}</li>{% endfor %}</ul>
+      <a class="boton" href="/contacto/?tema={{ sol.id }}">Solicitar propuesta</a>
+    </div>
+  </div>
+</section>
+
+<section class="seccion seccion--suave" aria-label="Soluciones">
+  <div class="contenedor">
+    <ol class="soluciones-lista">
+      {% for x in sol.soluciones %}
+      {%- set serv = collections.servicios | buscarPor("slug", x.servicio) -%}
+      {%- set d = demos | buscarPor("id", x.demo) if x.demo else null -%}
+      <li class="solucion-item" id="sol-{{ loop.index }}">
+        <span class="solucion-item__num" aria-hidden="true">{{ "0" if loop.index < 10 }}{{ loop.index }}</span>
+        <div class="solucion-item__texto">
+          <h2 class="solucion-item__titulo">{{ x.titulo }}</h2>
+          <p>{{ x.texto }}</p>
+          <div class="solucion-item__enlaces">
+            {% if serv %}<a href="{{ serv.url }}">Servicio: {{ serv.data.title }}</a>{% endif %}
+            {% if x.simulador %}<a href="/simulador/?tipo={{ x.simulador }}">Calcular cuánto me alcanza</a>{% endif %}
+          </div>
+        </div>
+        <div class="solucion-item__mide">
+          <p class="lateral__titulo">Qué medimos</p>
+          <ul>{% for m in x.mide %}<li>{{ m }}</li>{% endfor %}</ul>
+        </div>
+        {% if d %}
+        <a class="solucion-item__demo" href="{{ d.url }}">
+          <img src="{{ d.imagen }}" alt="" width="600" height="338" loading="lazy">
+          <span><strong>Laboratorio: {{ d.titulo }}</strong>Explórelo con datos simulados</span>
+        </a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{% include "partials/metodologia.njk" %}
+
+{%- set otra = soluciones | rechazarPor("id", sol.id) -%}
+{% set cta_titulo = "¿Qué decisión necesita resolver en su " + ("cadena" if sol.id == "supermercados" else "distribuidora") + "?" %}
+{% set cta_texto = "Cuéntenos el desafío. Le respondemos con el enfoque, los datos necesarios, el alcance, los plazos y los costos." %}
+{% set cta_boton = "Solicitar propuesta" %}
+{% set categoria = sol.id %}
+{% include "partials/cta.njk" %}
+{% if otra.length %}<p class="contenedor solucion-otra">¿Busca la otra mirada? <a href="/soluciones/{{ otra[0].id }}/">{{ otra[0].titulo }}</a></p>{% endif %}

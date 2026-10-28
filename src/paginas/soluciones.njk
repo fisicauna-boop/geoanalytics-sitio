@@ -1,0 +1,33 @@
+---
+layout: layouts/base.njk
+title: Soluciones para Retail y Distribución
+description: "Soluciones de Geoanalytics para supermercados y distribuidoras en Paraguay: góndolas, precios, compradores, sucursales, rutas, territorios, productividad y costos."
+permalink: /soluciones/
+---
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">Soluciones para Retail y Distribución</h1>
+    <p class="cabecera-pagina__bajada">Dos caminos según quién decide: la cadena que vende al consumidor y la distribuidora que abastece a los puntos de venta. Cada solución combina trabajo de campo, estadística y análisis territorial.</p>
+  </div>
+</header>
+<section class="seccion">
+  <div class="contenedor">
+    {% include "partials/soluciones-tarjetas.njk" %}
+  </div>
+</section>
+<section class="seccion seccion--suave" aria-labelledby="lab-t">
+  <div class="contenedor lab-banda">
+    <div>
+      <h2 id="lab-t" class="seccion__titulo">Pruebe antes de conversar</h2>
+      <p class="seccion__bajada">En el laboratorio de inteligencia comercial puede explorar una góndola, un tablero de rutas y costos, un tablero por sucursal y un simulador de encuestas. Todo con datos ficticios, claramente identificados.</p>
+    </div>
+    <div class="lab-banda__acciones">
+      <a class="boton" href="/demostraciones/">Entrar al laboratorio</a>
+      <a class="boton boton--fantasma" href="/simulador/">Calcular cuánto me alcanza</a>
+    </div>
+  </div>
+</section>
+{% set cta_titulo = "¿Su caso no encaja en ninguno de los dos?" %}
+{% set cta_texto = "También trabajamos con farmacias, consumo masivo, servicios y cualquier empresa con puntos de venta o equipos en el territorio." %}
+{% set cta_boton = "Contarnos su caso" %}
+{% include "partials/cta.njk" %}

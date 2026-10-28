@@ -16,9 +16,9 @@
   },
   {
     "id": "ruteo",
-    "titulo": "Optimización de rutas",
+    "titulo": "Tablero de rutas y costos",
     "subtitulo": "Field operations",
-    "texto": "Reparta visitas entre vendedores y compare la distancia de una ruta sin ordenar con la ruta optimizada.",
+    "texto": "Reparta visitas entre vendedores y compare distancias, horas y costos de una cartera sin ordenar frente a zonas y rutas optimizadas.",
     "url": "/demostraciones/ruteo/",
     "imagen": "/media/demos/ruteo.webp",
     "pestana": "Route efficiency",
@@ -26,14 +26,29 @@
     "calcula": [
       "Reparto de la cartera en zonas con igual cantidad de visitas",
       "Orden de visita optimizado con vecino más cercano y 2-opt",
-      "Kilómetros y horas por vendedor, antes y después"
+      "Kilómetros, horas y costo por vendedor, antes y después"
+    ]
+  },
+  {
+    "id": "sucursales",
+    "titulo": "Desempeño por sucursal",
+    "subtitulo": "Retail analytics",
+    "texto": "Un tablero de una cadena ficticia: ventas frente al objetivo, disponibilidad, precios y experiencia de compra por sucursal y categoría, con alertas.",
+    "url": "/demostraciones/sucursales/",
+    "imagen": "/media/demos/sucursales.webp",
+    "pestana": "Store performance",
+    "pestana_sub": "Sucursales y categorías",
+    "calcula": [
+      "Indicadores por sucursal y categoría en el período elegido",
+      "Ranking de sucursales y promedio por zona",
+      "Alertas de sucursales y categorías bajo el umbral"
     ]
   },
   {
     "id": "encuestas",
-    "titulo": "Encuestas y muestreo",
+    "titulo": "Simulador de encuestas",
     "subtitulo": "Market research",
-    "texto": "Calcule el tamaño de muestra y el margen de error, y vea cómo cambian los resultados de una encuesta simulada.",
+    "texto": "Calcule el tamaño de muestra y el margen de error, y segmente las respuestas de una encuesta simulada por zona, edad o canal.",
     "url": "/demostraciones/encuestas/",
     "imagen": "/media/demos/encuestas.webp",
     "pestana": "Consumer pulse",
@@ -41,7 +56,7 @@
     "calcula": [
       "Tamaño de muestra según confianza, margen de error y población",
       "Margen de error para una muestra dada",
-      "Intervalos de confianza por zona en una encuesta simulada"
+      "Intervalos de confianza por zona, edad o canal de compra"
     ]
   }
 ]

@@ -96,15 +96,22 @@ if (raiz) {
     $("#r-puntos-v").textContent = n; $("#r-vend-v").textContent = k;
     datos = escenarios(semilla, n, k);
     const min = Math.max(1, Number($("#r-min").value) || 20), vel = Math.max(1, Number($("#r-vel").value) || 22);
+    const ckm = Math.max(0, Number($("#r-ckm").value) || 0), chora = Math.max(0, Number($("#r-chora").value) || 0);
+    const horas = (r, km) => km / vel + (r.length * min) / 60;
+    const costo = (r) => { const km = largoRuta(datos.dep, r); return km * ckm + horas(r, km) * chora; };
     const kmA = datos.antes.reduce((s, r) => s + largoRuta(datos.dep, r), 0);
     const kmD = datos.despues.reduce((s, r) => s + largoRuta(datos.dep, r), 0);
+    const cA = datos.antes.reduce((s, r) => s + costo(r), 0), cD = datos.despues.reduce((s, r) => s + costo(r), 0);
+    const us = (x) => `US$ ${n0.format(x)}`;
     $("#r-km-antes").textContent = `${n0.format(kmA)} km`;
     $("#r-km-despues").textContent = `${n0.format(kmD)} km`;
-    $("#r-ahorro").textContent = `${n0.format(kmA - kmD)} km menos (${n0.format((1 - kmD / kmA) * 100)} %)`;
+    $("#r-c-antes").textContent = us(cA);
+    $("#r-c-despues").textContent = us(cD);
+    $("#r-ahorro").textContent = `${n0.format(kmA - kmD)} km y ${us(cA - cD)} menos por día (unos ${us((cA - cD) * 22)} al mes)`;
     const rutas = datos[vista];
     $("#r-tabla tbody").innerHTML = rutas.map((r, v) => {
-      const km = largoRuta(datos.dep, r), h = km / vel + (r.length * min) / 60;
-      return `<tr><td><span class="punto-color" style="background:${COLORES.at(v % COLORES.length)}"></span>Vendedor ${v + 1}</td><td>${r.length}</td><td>${n1.format(km)}</td><td>${n1.format(h)}</td></tr>`;
+      const km = largoRuta(datos.dep, r), h = horas(r, km);
+      return `<tr><td><span class="punto-color" style="background:${COLORES.at(v % COLORES.length)}"></span>Vendedor ${v + 1}</td><td>${r.length}</td><td>${n1.format(km)}</td><td>${n1.format(h)}</td><td>${us(costo(r))}</td></tr>`;
     }).join("");
     dibujar();
   }
@@ -114,7 +121,7 @@ if (raiz) {
     raiz.querySelectorAll(".vista-btn").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     calcular();
   }));
-  ["#r-puntos", "#r-vend", "#r-min", "#r-vel"].forEach((s) => $(s).addEventListener("input", calcular));
+  ["#r-puntos", "#r-vend", "#r-min", "#r-vel", "#r-ckm", "#r-chora"].forEach((s) => $(s).addEventListener("input", calcular));
   $("#r-nueva").addEventListener("click", () => { semilla += 1; calcular(); });
   calcular();
   window.__demoListo = true;

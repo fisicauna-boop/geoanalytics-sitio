@@ -208,6 +208,13 @@ Para editar archivos que no están en el panel, ábralos en GitHub, presione el 
 
 ---
 
+## 6 ter. Soluciones para Retail y Distribución y Laboratorio
+
+- **Soluciones** (`/soluciones/`) tiene dos accesos: **supermercados** (`/soluciones/supermercados/`) y **distribuidoras** (`/soluciones/distribuidoras/`). Aparecen también en la portada, en el menú y en el formulario de contacto (tema preseleccionado desde cada página).
+- Cada página lista las soluciones con lo que se mide, el servicio relacionado, la demostración del laboratorio y un enlace al simulador con el tipo de estudio ya elegido (`/simulador/?tipo=mystery`, por ejemplo).
+- Se editan en el panel, **Soluciones para Retail y Distribución** (archivo `src/_data/soluciones.json`). No cambie el campo «Identificador»: forma la dirección de la página.
+- El **Laboratorio de inteligencia comercial** (`/demostraciones/`, la dirección no cambió) tiene cuatro demostraciones con datos ficticios: góndola 3D, tablero de rutas y costos, desempeño por sucursal y categoría, y simulador de encuestas con segmentación. Los nombres de sucursales y los costos de ruta son de ejemplo y están rotulados como simulados.
+
 ## 6 bis. Simulador de costos de estudios
 
 La página **Simulador** (`/simulador/`) responde dos preguntas:

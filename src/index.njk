@@ -13,7 +13,7 @@ clase_body: pagina-inicio
       <h1 class="portada__titulo">La ventaja no está en tener datos. <span>Está en saber qué hacer con ellos.</span></h1>
       <p class="portada__bajada">Integramos estadística, investigación de mercados, trade marketing, ruteo y geomarketing para convertir información dispersa en decisiones que se pueden ejecutar y medir.</p>
       <div class="portada__acciones">
-        <a class="boton boton--claro" href="/demostraciones/">Explorar las demostraciones</a>
+        <a class="boton boton--claro" href="/demostraciones/">Entrar al laboratorio</a>
         <a class="boton boton--contorno" href="#contacto">Solicitar propuesta</a>
       </div>
     </div>
@@ -35,8 +35,19 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/hero3d.js"></script>
 
-{# 2. Servicios #}
-<section class="seccion" aria-labelledby="serv-t">
+{# 2. Soluciones para Retail y Distribución #}
+<section class="seccion" aria-labelledby="sol-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="sol-t" class="seccion__titulo">Soluciones para Retail y Distribución</h2>
+      <a class="seccion__mas" href="/soluciones/">Ver las soluciones</a>
+    </div>
+    {% include "partials/soluciones-tarjetas.njk" %}
+  </div>
+</section>
+
+{# 3. Servicios #}
+<section class="seccion seccion--suave" aria-labelledby="serv-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
       <h2 id="serv-t" class="seccion__titulo">Una mirada integral, respuestas accionables</h2>
@@ -56,12 +67,15 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 3. Vitrina de demostraciones #}
+{# 4. Laboratorio de inteligencia comercial #}
 <section class="seccion seccion--oscura" aria-labelledby="demo-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
-      <h2 id="demo-t" class="seccion__titulo">Menos promesas, más demostración</h2>
-      <a class="seccion__mas" href="/demostraciones/">Ver las demostraciones</a>
+      <div>
+        <p class="seccion__ante">Laboratorio de inteligencia comercial</p>
+        <h2 id="demo-t" class="seccion__titulo">Menos promesas, más demostración</h2>
+      </div>
+      <a class="seccion__mas" href="/demostraciones/">Entrar al laboratorio</a>
     </div>
     <div class="vitrina" data-vitrina>
       <div class="vitrina__pestanas" role="tablist" aria-label="Demostraciones">
@@ -90,7 +104,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 4. Industrias y metodología #}
+{# 5. Industrias y metodología #}
 <section class="seccion" aria-labelledby="ind-t">
   <div class="contenedor dos-columnas">
     <div>
@@ -116,7 +130,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 5. Artículos y contacto #}
+{# 6. Artículos y contacto #}
 {%- set arts = collections.articulos | limitar(3) -%}
 {% if arts.length %}
 <section class="seccion seccion--suave" aria-labelledby="art-t">

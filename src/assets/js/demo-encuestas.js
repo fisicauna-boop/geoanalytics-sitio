@@ -16,26 +16,48 @@ export function margenError(z, n, p, N) {
 
 function rng(semilla) { let s = (semilla * 2654435761) >>> 0 || 1; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 
-// Población simulada: tres zonas con distribución de respuestas 1 a 5 conocida
-export const ZONAS = [
-  { nombre: "Asunción", peso: 0.35, dist: [0.05, 0.08, 0.17, 0.4, 0.3] },
-  { nombre: "Central", peso: 0.4, dist: [0.07, 0.1, 0.2, 0.38, 0.25] },
-  { nombre: "Interior", peso: 0.25, dist: [0.04, 0.06, 0.15, 0.4, 0.35] },
-];
-export const realSatisf = (z) => z.dist.at(3) + z.dist.at(4);
-export const realTotal = () => ZONAS.reduce((s, z) => s + z.peso * realSatisf(z), 0);
+// Población simulada: cada cliente tiene zona, edad y canal de compra (independientes).
+// La probabilidad de estar satisfecho (respuesta 4 o 5) = base + efecto de cada atributo.
+export const SEGMENTOS = {
+  zona: { nombre: "Zona", grupos: [
+    { nombre: "Asunción", peso: 0.35, ef: 0.03 }, { nombre: "Central", peso: 0.4, ef: -0.04 }, { nombre: "Interior", peso: 0.25, ef: 0.05 } ] },
+  edad: { nombre: "Edad", grupos: [
+    { nombre: "18 a 29 años", peso: 0.32, ef: -0.07 }, { nombre: "30 a 49 años", peso: 0.4, ef: 0.01 }, { nombre: "50 años o más", peso: 0.28, ef: 0.07 } ] },
+  canal: { nombre: "Canal de compra", grupos: [
+    { nombre: "Supermercado", peso: 0.5, ef: 0.04 }, { nombre: "Almacén de barrio", peso: 0.35, ef: -0.02 }, { nombre: "Compra en línea", peso: 0.15, ef: -0.1 } ] },
+};
+const BASE = 0.66, CLAVES = ["zona", "edad", "canal"];
+const pSat = (g) => Math.min(0.97, Math.max(0.03, BASE + CLAVES.reduce((s, k) => s + SEGMENTOS[k].grupos[g[k]].ef, 0)));
+
+// Valor real (exacto) de la población simulada para un grupo de un segmento, o el total
+export function realGrupo(clave, gi) {
+  let num = 0, den = 0;
+  SEGMENTOS.zona.grupos.forEach((z, zi) => SEGMENTOS.edad.grupos.forEach((e, ei) => SEGMENTOS.canal.grupos.forEach((c, ci) => {
+    const g = { zona: zi, edad: ei, canal: ci };
+    if (clave && g[clave] !== gi) return;
+    const w = z.peso * e.peso * c.peso; num += w * pSat(g); den += w;
+  })));
+  return num / den;
+}
+export const realTotal = () => realGrupo(null);
 
 export function muestrear(n, semilla) {
   const r = rng(semilla);
   const elegir = (probs) => { let u = r(), i = 0; while (i < probs.length - 1 && u > probs.at(i)) { u -= probs.at(i); i++; } return i; };
-  const pesos = ZONAS.map((z) => z.peso);
-  const res = ZONAS.map(() => ({ n: 0, satisf: 0 })), hist = [0, 0, 0, 0, 0];
+  const personas = [], hist = [0, 0, 0, 0, 0];
   for (let k = 0; k < n; k++) {
-    const zi = elegir(pesos), v = elegir(ZONAS.at(zi).dist);
-    const z = res.at(zi); z.n++; if (v >= 3) z.satisf++;
-    hist[v]++;
+    const g = {}; CLAVES.forEach((c) => (g[c] = elegir(SEGMENTOS[c].grupos.map((x) => x.peso))));
+    const sat = r() < pSat(g);
+    const v = sat ? (r() < 0.55 ? 3 : 4) : elegir([0.2, 0.3, 0.5]);
+    hist[v]++; personas.push({ ...g, sat });
   }
-  return { res, hist, n };
+  return { personas, hist, n };
+}
+export function porSegmento(m, clave) {
+  return SEGMENTOS[clave].grupos.map((g, gi) => {
+    const sub = m.personas.filter((p) => p[clave] === gi);
+    return { nombre: g.nombre, n: sub.length, p: sub.length ? sub.filter((p) => p.sat).length / sub.length : 0, real: realGrupo(clave, gi) };
+  });
 }
 
 // ---------------- Interfaz ----------------
@@ -69,14 +91,18 @@ if (raiz) {
   function simular() {
     const n = Number($("#es-n").value);
     $("#es-n-v").textContent = n0.format(n);
-    const m = muestrear(n, semilla);
-    // Intervalos por zona y total
-    const filas = ZONAS.map((z, i) => ({ nombre: z.nombre, n: m.res.at(i).n, p: m.res.at(i).n ? m.res.at(i).satisf / m.res.at(i).n : 0, real: realSatisf(z) }));
-    const totSat = m.res.reduce((s, r) => s + r.satisf, 0);
+    const m = muestrear(n, semilla), clave = $("#es-seg").value;
+    // Intervalos por grupo del segmento elegido y total
+    const filas = porSegmento(m, clave);
+    const totSat = m.personas.filter((p) => p.sat).length;
     filas.push({ nombre: "Total", n, p: totSat / n, real: realTotal(), total: true });
-    const W = 580, izq = 118, der = 100, x0 = 0.4, x1 = 1, X = (v) => izq + ((v - x0) / (x1 - x0)) * (W - izq - der);
+    const chico = filas.filter((f) => !f.total && f.n < 100).map((f) => f.nombre);
+    $("#es-nota-seg").textContent = chico.length
+      ? `Atención: ${chico.join(", ")} ${chico.length > 1 ? "tienen" : "tiene"} menos de 100 casos. Su intervalo es ancho; para comparar segmentos chicos conviene sobrerrepresentarlos en la muestra.`
+      : "Todos los segmentos tienen al menos 100 casos.";
+    const W = 580, izq = 150, der = 100, x0 = 0.4, x1 = 1, X = (v) => izq + ((v - x0) / (x1 - x0)) * (W - izq - der);
     const alto = 46, H = 40 + filas.length * alto;
-    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Porcentaje de clientes satisfechos por zona con intervalos de confianza">`;
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Porcentaje de clientes satisfechos por ${SEGMENTOS[clave].nombre.toLowerCase()} con intervalos de confianza">`;
     svg += `<text x="${izq}" y="16" class="g-titulo-claro">Clientes satisfechos (respuestas 4 y 5)</text>`;
     [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].forEach((t) => (svg += `<line x1="${X(t)}" x2="${X(t)}" y1="28" y2="${H - 6}" class="g-grilla-claro"/><text x="${X(t)}" y="${H}" text-anchor="middle" class="g-eje-claro">${Math.round(t * 100)} %</text>`));
     filas.forEach((f, i) => {
@@ -108,6 +134,7 @@ if (raiz) {
   raiz.querySelectorAll("#c-muestra input, #c-muestra select").forEach((el) => el.addEventListener("input", calcMuestra));
   raiz.querySelectorAll("#c-error input, #c-error select").forEach((el) => el.addEventListener("input", calcError));
   $("#es-n").addEventListener("input", simular);
+  $("#es-seg").addEventListener("change", simular);
   $("#es-nueva").addEventListener("click", () => { semilla += 1; simular(); });
   calcMuestra(); calcError(); simular();
   window.__demoListo = true;

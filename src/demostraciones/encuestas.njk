@@ -1,7 +1,7 @@
 ---
 layout: layouts/demo.njk
-title: Encuestas y muestreo
-bajada: Calcule cuántas encuestas necesita y con qué margen de error, y vea en una encuesta simulada cómo el tamaño de la muestra cambia la precisión de los resultados.
+title: Simulador de encuestas
+bajada: Calcule cuántas encuestas necesita y con qué margen de error, y vea en una encuesta simulada cómo cambian los resultados al segmentar por zona, edad o canal de compra.
 description: Calculadora de tamaño de muestra y margen de error, con una encuesta de satisfacción simulada que muestra intervalos de confianza.
 permalink: /demostraciones/encuestas/
 demo_id: encuestas
@@ -71,16 +71,18 @@ con_datos_reales: En un estudio real, la muestra se estratifica por zona, canal 
     <div class="encuesta-sim__cabecera">
       <div>
         <h2 class="seccion__titulo">Encuesta de satisfacción simulada</h2>
-        <p class="seccion__bajada">Una población ficticia de clientes en tres zonas. Cada barra es la estimación de la muestra con su intervalo de confianza del 95 %; la marca vertical es el valor real de la población simulada.</p>
+        <p class="seccion__bajada">Una población ficticia de clientes con zona, edad y canal de compra. Elija cómo segmentar: cada barra es la estimación de la muestra con su intervalo de confianza del 95 %; la marca vertical es el valor real de la población simulada.</p>
       </div>
       <form class="encuesta-sim__controles" onsubmit="return false">
         <label for="es-n">Tamaño de la muestra: <strong id="es-n-v">300</strong></label>
         <input type="range" id="es-n" min="60" max="3000" step="30" value="300">
+        <label for="es-seg">Segmentar las respuestas por</label>
+        <select id="es-seg"><option value="zona">Zona</option><option value="edad">Edad</option><option value="canal">Canal de compra</option></select>
         <button class="boton boton--fantasma" type="button" id="es-nueva">Tomar otra muestra</button>
       </form>
     </div>
     <div class="encuesta-sim__graficos">
-      <div id="es-intervalos" class="es-intervalos"></div>
+      <div><div id="es-intervalos" class="es-intervalos"></div><p class="calculadora__nota" id="es-nota-seg"></p></div>
       <div id="es-distribucion" class="es-distribucion"></div>
     </div>
   </div>

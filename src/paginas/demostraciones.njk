@@ -1,18 +1,18 @@
 ---
 layout: layouts/base.njk
-title: Demostraciones interactivas
-description: Pruebe con datos simulados cómo Geoanalytics analiza una góndola, optimiza rutas de visita y calcula muestras y márgenes de error.
+title: Laboratorio de inteligencia comercial
+description: Explore con datos simulados una góndola 3D, un tablero de rutas y costos, un tablero por sucursal y categoría y un simulador de encuestas.
 permalink: /demostraciones/
 ---
 <header class="cabecera-pagina cabecera-pagina--oscura">
   <div class="contenedor">
-    <h1 class="cabecera-pagina__titulo">Demostraciones interactivas</h1>
-    <p class="cabecera-pagina__bajada">Tres ejemplos de cómo convertimos datos en decisiones. Todos usan datos simulados que se generan en su navegador: no representan clientes, marcas ni resultados reales.</p>
+    <h1 class="cabecera-pagina__titulo">Laboratorio de inteligencia comercial</h1>
+    <p class="cabecera-pagina__bajada">Cuatro herramientas para explorar cómo convertimos datos en decisiones. Todas usan datos ficticios que se generan en su navegador: no representan clientes, marcas, sucursales ni resultados reales.</p>
   </div>
 </header>
 <section class="seccion">
   <div class="contenedor">
-    <div class="demos-grilla demos-grilla--claro">
+    <div class="demos-grilla demos-grilla--claro demos-grilla--dos">
       {% for d in demos %}
       <a class="demo-tarjeta" href="{{ d.url }}">
         <img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy">

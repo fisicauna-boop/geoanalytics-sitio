@@ -1,0 +1,115 @@
+[
+  {
+    "id": "supermercados",
+    "nombre": "Supermercados",
+    "titulo": "Soluciones para supermercados",
+    "antetitulo": "Retail",
+    "icono": "gondola",
+    "imagen": "/media/demos/gondola.webp",
+    "resumen": "Mida lo que pasa en la góndola, en la caja y en cada sucursal: disponibilidad, precios, surtido, experiencia de compra y dónde crecer.",
+    "bajada": "Para cadenas y supermercados que necesitan saber qué está pasando en cada sucursal y en cada categoría, con datos comparables entre locales y períodos.",
+    "preguntas": [
+      "¿Qué productos faltan en góndola y en qué sucursales se repite el quiebre?",
+      "¿Nuestros precios y promociones son competitivos frente a la competencia directa?",
+      "¿El surtido de cada sucursal responde a quién compra en esa zona?",
+      "¿Qué sucursales ofrecen una experiencia de compra por debajo del estándar de la cadena?",
+      "¿Dónde conviene abrir la próxima sucursal?"
+    ],
+    "soluciones": [
+      {
+        "titulo": "Auditoría de góndolas, SKU y disponibilidad",
+        "texto": "Relevamos cada góndola con formulario digital y fotos: presencia de SKU, quiebres, frentes, share of shelf y cumplimiento del planograma.",
+        "mide": ["Disponibilidad en góndola (OSA)", "Quiebres por SKU", "Share of shelf", "Cumplimiento de planograma"],
+        "servicio": "trade-marketing-y-retail-intelligence",
+        "demo": "gondola"
+      },
+      {
+        "titulo": "Análisis de precios, promociones y surtido",
+        "texto": "Comparamos precios de góndola, promociones y amplitud de surtido contra la competencia y entre sucursales de la propia cadena.",
+        "mide": ["Índice de precios frente a la competencia", "Cumplimiento de promociones", "Amplitud y profundidad de surtido"],
+        "servicio": "trade-marketing-y-retail-intelligence",
+        "demo": "sucursales"
+      },
+      {
+        "titulo": "Estudios de compradores y satisfacción",
+        "texto": "Encuestas a la salida de caja o en línea para entender quién compra, por qué elige la cadena y qué tan satisfecho queda, con márgenes de error explícitos.",
+        "mide": ["Perfil del comprador", "Satisfacción e intención de recomendar", "Motivos de elección y de abandono"],
+        "servicio": "investigacion-de-mercados-y-encuestas",
+        "demo": "encuestas",
+        "simulador": "customer"
+      },
+      {
+        "titulo": "Evaluación de sucursales y experiencia de compra",
+        "texto": "Visitas de cliente incógnito y tableros por sucursal y categoría para comparar atención, orden, limpieza, tiempos de espera y ejecución comercial.",
+        "mide": ["Puntaje de experiencia por sucursal", "Tiempo de espera en caja", "Ranking de sucursales y categorías"],
+        "servicio": "investigacion-de-mercados-y-encuestas",
+        "demo": "sucursales",
+        "simulador": "mystery"
+      },
+      {
+        "titulo": "Geomarketing y oportunidades de expansión",
+        "texto": "Analizamos población, competencia, accesibilidad y áreas de influencia para evaluar sucursales actuales y ubicaciones candidatas.",
+        "mide": ["Área de influencia de cada sucursal", "Potencial de demanda por zona", "Superposición con la competencia"],
+        "servicio": "geomarketing-y-expansion-comercial",
+        "simulador": "localizacion"
+      }
+    ],
+    "entregables": ["Base de datos por sucursal, categoría y SKU, con fotos y ubicación", "Tablero de indicadores para seguimiento periódico", "Informe con hallazgos priorizados y recomendaciones", "Presentación de resultados al equipo comercial"]
+  },
+  {
+    "id": "distribuidoras",
+    "nombre": "Distribuidoras",
+    "titulo": "Soluciones para distribuidoras",
+    "antetitulo": "Distribución",
+    "icono": "ruta",
+    "imagen": "/media/demos/ruteo.webp",
+    "resumen": "Ordene rutas y territorios, mida la productividad del equipo de campo y controle costos, cobertura y ejecución de las marcas que distribuye.",
+    "bajada": "Para distribuidoras y fuerzas de venta que necesitan cubrir más puntos de venta con el mismo equipo, controlar el costo de servir y demostrar ejecución a las marcas.",
+    "preguntas": [
+      "¿Las rutas actuales recorren más kilómetros de los necesarios?",
+      "¿La cartera está bien repartida entre vendedores y territorios?",
+      "¿Visitamos a cada cliente con la frecuencia que su potencial justifica?",
+      "¿Cuánto nos cuesta atender cada zona, canal o cliente?",
+      "¿Cómo demostramos a las marcas que su producto está bien ejecutado en el punto de venta?"
+    ],
+    "soluciones": [
+      {
+        "titulo": "Optimización de rutas y territorios",
+        "texto": "Georreferenciamos la cartera, diseñamos territorios equilibrados y calculamos el orden de visita que reduce kilómetros y tiempos muertos.",
+        "mide": ["Kilómetros y horas por ruta", "Equilibrio de carga entre vendedores", "Clientes por territorio"],
+        "servicio": "ruteo-y-optimizacion-operativa",
+        "demo": "ruteo"
+      },
+      {
+        "titulo": "Productividad de vendedores y equipos de campo",
+        "texto": "Medimos visitas efectivas, tiempo en el punto de venta y tiempo de traslado de cada vendedor para encontrar dónde se pierde capacidad.",
+        "mide": ["Visitas efectivas por día", "Tiempo en punto de venta y en traslado", "Cumplimiento de la ruta planificada"],
+        "servicio": "operaciones-de-campo-y-censos",
+        "demo": "ruteo"
+      },
+      {
+        "titulo": "Cobertura y frecuencia de visitas a puntos de venta",
+        "texto": "Censamos y clasificamos el universo de puntos de venta de la zona y definimos qué frecuencia de visita merece cada uno según su potencial.",
+        "mide": ["Cobertura sobre el universo de puntos de venta", "Frecuencia de visita por segmento", "Puntos con potencial no atendidos"],
+        "servicio": "geomarketing-y-expansion-comercial",
+        "simulador": "trade"
+      },
+      {
+        "titulo": "Control de costos, presupuestos y KPI",
+        "texto": "Armamos tableros con el costo de servir por zona y canal, el avance contra el presupuesto y los indicadores comerciales que la gerencia necesita ver cada semana.",
+        "mide": ["Costo por visita y por kilómetro", "Avance frente al presupuesto", "Indicadores por zona, canal y vendedor"],
+        "servicio": "estadistica-y-data-analytics",
+        "demo": "sucursales"
+      },
+      {
+        "titulo": "Auditorías comerciales y ejecución de marcas",
+        "texto": "Auditamos la ejecución de las marcas distribuidas en el punto de venta para informar a cada proveedor con evidencia verificable.",
+        "mide": ["Presencia y quiebres por marca", "Precio y exhibición en el punto de venta", "Evidencia fotográfica georreferenciada"],
+        "servicio": "trade-marketing-y-retail-intelligence",
+        "demo": "gondola",
+        "simulador": "trade"
+      }
+    ],
+    "entregables": ["Cartera georreferenciada y territorios propuestos", "Rutas por vendedor y día, listas para cargar en su sistema", "Tablero de productividad, costos y cobertura", "Informe con escenarios y su impacto estimado"]
+  }
+]

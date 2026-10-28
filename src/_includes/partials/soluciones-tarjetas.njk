@@ -1,0 +1,18 @@
+{#- Dos accesos: supermercados y distribuidoras -#}
+{% from "partials/iconos.njk" import icono as dibujarIcono %}
+<div class="soluciones-acceso">
+  {% for s in soluciones %}
+  <a class="solucion-tarjeta" href="/soluciones/{{ s.id }}/">
+    <span class="solucion-tarjeta__imagen"><img src="{{ s.imagen }}" alt="" width="1200" height="675" loading="lazy"></span>
+    <span class="solucion-tarjeta__cuerpo">
+      <span class="solucion-tarjeta__ante"><span class="solucion-tarjeta__icono">{{ dibujarIcono(s.icono) }}</span>{{ s.antetitulo }}</span>
+      <span class="solucion-tarjeta__titulo">{{ s.titulo }}</span>
+      <span class="solucion-tarjeta__texto">{{ s.resumen }}</span>
+      <span class="solucion-tarjeta__lista">
+        {% for x in s.soluciones %}<span>{{ x.titulo }}</span>{% endfor %}
+      </span>
+      <span class="solucion-tarjeta__mas">Ver soluciones para {{ s.nombre | lower }} <span aria-hidden="true">→</span></span>
+    </span>
+  </a>
+  {% endfor %}
+</div>

@@ -4,6 +4,10 @@
     "url": "/"
   },
   {
+    "texto": "Soluciones",
+    "url": "/soluciones/"
+  },
+  {
     "texto": "Servicios",
     "url": "/servicios/"
   },
@@ -12,7 +16,7 @@
     "url": "/industrias/"
   },
   {
-    "texto": "Demostraciones",
+    "texto": "Laboratorio",
     "url": "/demostraciones/"
   },
   {

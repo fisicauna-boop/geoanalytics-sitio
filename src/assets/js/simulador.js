@@ -271,6 +271,10 @@ if (raiz) {
   num.addEventListener("input", () => { rango.value = num.value; actualizar(); });
   num.addEventListener("change", () => { const t = tipoSel(); num.value = Math.min(t.cantidad_max, Math.max(t.cantidad_min, Number(num.value) || t.cantidad_inicial)); rango.value = num.value; actualizar(); });
   [fuera, dist, presu].forEach((el) => el.addEventListener("input", actualizar));
+  // ?tipo=customer (desde las páginas de soluciones) preselecciona el estudio
+  const tipoUrl = new URLSearchParams(location.search).get("tipo");
+  const radioUrl = tipoUrl && raiz.querySelector(`input[name="tipo"][value="${CSS.escape(tipoUrl)}"]`);
+  if (radioUrl) radioUrl.checked = true;
   configurarCantidad(tipoSel());
   actualizar();
   new ResizeObserver(() => { if (ultimo) $("#r-grafico").innerHTML = grafico(tipoSel(), Math.max(tipoSel().cantidad_min, parseInt(String(ultimo.cantidad).replace(/\D/g, ""), 10) || tipoSel().cantidad_min)); }).observe($("#r-grafico"));

@@ -111,6 +111,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("buscarPor", (arr, clave, valor) =>
     (arr || []).find((x) => (x.data ? x.data[clave] : x[clave]) === valor));
 
+  eleventyConfig.addFilter("rechazarPor", (arr, clave, valor) =>
+    (arr || []).filter((x) => (x.data ? x.data[clave] : x[clave]) !== valor));
+
   eleventyConfig.addFilter("filtrarPor", (arr, clave, valores) => {
     const lista = Array.isArray(valores) ? valores : [valores];
     return (arr || []).filter((x) => lista.includes(x.data ? x.data[clave] : x[clave]));

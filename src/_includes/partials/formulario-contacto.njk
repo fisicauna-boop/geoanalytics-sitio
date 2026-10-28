@@ -34,6 +34,7 @@
       <label for="f-servicio">Tema de la consulta</label>
       <select id="f-servicio" name="tema">
         <option value="">Seleccione una opción</option>
+        {% for so in soluciones %}<option value="{{ so.titulo }}" data-slug="{{ so.id }}">{{ so.titulo }}</option>{% endfor %}
         {% for s in collections.servicios %}<option value="{{ s.data.title }}" data-slug="{{ s.data.slug }}">{{ s.data.title }}</option>{% endfor %}
         {% for c in categorias %}{% if not c.oculta_en_menu %}<option value="Consulta sobre {{ c.nombre }}" data-slug="{{ c.slug }}">Consulta general sobre {{ c.nombre | lower }}</option>{% endif %}{% endfor %}
         <option value="Cotización desde el simulador" data-slug="simulador">Cotización de un estudio (desde el simulador)</option>

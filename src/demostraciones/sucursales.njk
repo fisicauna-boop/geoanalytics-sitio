@@ -1,0 +1,64 @@
+---
+layout: layouts/demo.njk
+title: Desempeño por sucursal y categoría
+bajada: Un tablero de una cadena ficticia de doce sucursales. Elija el indicador, la zona y el período, y vea qué sucursales y categorías quedan por debajo del umbral que usted define.
+description: Tablero interactivo de ventas frente al objetivo, disponibilidad en góndola, cumplimiento de precio y experiencia de compra por sucursal y categoría, con datos simulados.
+permalink: /demostraciones/sucursales/
+demo_id: sucursales
+servicio: estadistica-y-data-analytics
+con_datos_reales: En un proyecto real el tablero se alimenta con las ventas del sistema de la cadena, las auditorías de góndola, los relevamientos de precios y las visitas de cliente incógnito, y se actualiza con la frecuencia que la gerencia necesita.
+---
+<section class="seccion demo" data-demo-sucursales>
+  <div class="contenedor">
+    <form class="sc-filtros" onsubmit="return false" aria-label="Filtros del tablero">
+      <div class="campo"><label for="sc-ind">Indicador</label>
+        <select id="sc-ind">{% for i in [["ventas","Ventas frente al objetivo"],["osa","Disponibilidad en góndola (OSA)"],["precio","Cumplimiento de precio y promociones"],["experiencia","Experiencia de compra"]] %}<option value="{{ i[0] }}">{{ i[1] }}</option>{% endfor %}</select></div>
+      <div class="campo"><label for="sc-zona">Zona</label>
+        <select id="sc-zona"><option value="">Todas</option><option>Asunción</option><option>Central</option><option>Interior</option></select></div>
+      <div class="campo"><label for="sc-periodo">Período</label>
+        <select id="sc-periodo"><option value="4">Últimas 4 semanas</option><option value="8">Últimas 8 semanas</option><option value="12">Últimas 12 semanas</option></select></div>
+      <div class="campo"><label for="sc-umbral">Umbral de alerta: <strong id="sc-umbral-v">92 %</strong></label>
+        <input type="range" id="sc-umbral" min="75" max="115" step="1" value="92"></div>
+      <button class="boton boton--fantasma" type="button" id="sc-nueva">Generar otra cadena</button>
+    </form>
+    <p class="sc-desc" id="sc-desc"></p>
+
+    <dl class="sc-kpis">
+      <div><dt>Promedio</dt><dd id="sc-k-prom">—</dd></div>
+      <div><dt>Mejor sucursal</dt><dd><span id="sc-k-mejor"></span> <small id="sc-k-mejor-v"></small></dd></div>
+      <div><dt>Sucursal más baja</dt><dd><span id="sc-k-peor"></span> <small id="sc-k-peor-v"></small></dd></div>
+      <div><dt>Sucursales bajo el umbral</dt><dd id="sc-k-alerta">—</dd></div>
+    </dl>
+
+    <div class="sc-grilla">
+      <div class="sc-mapa">
+        <div class="sc-mapa__cabecera">
+          <p class="demo__grafico-titulo">Sucursal × categoría <span class="sc-ayuda">Toque una fila para ver su evolución</span></p>
+          <label class="sc-orden">Ordenar <select id="sc-orden"><option value="total">por promedio</option><option value="id">por número</option></select></label>
+        </div>
+        <div class="tabla-scroll"><table class="sc-tabla" id="sc-tabla"><thead></thead><tbody></tbody><tfoot></tfoot></table></div>
+        <p class="sc-escala" id="sc-escala"></p>
+      </div>
+      <div class="sc-lateral">
+        <div>
+          <p class="demo__grafico-titulo" id="sc-tend-titulo">Evolución</p>
+          <p class="sc-leyenda"><span class="sc-leyenda__foco"></span><span id="sc-ley-foco"></span> <span class="sc-leyenda__cadena"></span><span id="sc-ley-cadena"></span></p>
+          <div class="sc-tendencia" id="sc-tendencia"></div>
+        </div>
+        <div>
+          <p class="demo__grafico-titulo">Alertas prioritarias</p>
+          <ul class="sc-alertas" id="sc-alertas"></ul>
+        </div>
+        <details class="demo__metodo">
+          <summary>Cómo se calcula</summary>
+          <ul>
+            <li>Cada celda es el promedio semanal del indicador en el período elegido.</li>
+            <li>El promedio de la sucursal pondera igual a las seis categorías; el de la cadena pondera igual a las sucursales.</li>
+            <li>Una alerta marca toda combinación de sucursal y categoría por debajo del umbral. En un tablero real, además se compara con la variación habitual de cada sucursal para no alarmar por ruido.</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="module" src="/assets/js/demo-sucursales.js"></script>

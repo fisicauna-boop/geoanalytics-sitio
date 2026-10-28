@@ -331,6 +331,50 @@ content:
             description: Solo el nombre elegido al registrarse, por ejemplo "geoanalytics".
 
   # ------------------------------------------------------------------
+  - name: soluciones
+    label: Soluciones para Retail y Distribución
+    type: file
+    path: src/_data/soluciones.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: Identificador (no cambiar; forma la dirección /soluciones/...)
+        type: string
+      - { name: nombre, label: Nombre corto, type: string }
+      - { name: titulo, label: Título, type: string }
+      - { name: antetitulo, label: Antetítulo, type: string }
+      - name: icono
+        label: Ícono
+        type: select
+        options: { values: [datos, gondola, ruta, encuesta, mapa, campo] }
+      - { name: imagen, label: Imagen de la tarjeta, type: image }
+      - { name: resumen, label: Resumen para la tarjeta, type: text }
+      - { name: bajada, label: Bajada de la página, type: text }
+      - { name: preguntas, label: Preguntas que resolvemos, type: string, list: true }
+      - name: soluciones
+        label: Soluciones
+        type: object
+        list: true
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Descripción, type: text }
+          - { name: mide, label: Qué medimos, type: string, list: true }
+          - name: servicio
+            label: Servicio relacionado
+            type: select
+            options: { values: [estadistica-y-data-analytics, trade-marketing-y-retail-intelligence, ruteo-y-optimizacion-operativa, investigacion-de-mercados-y-encuestas, geomarketing-y-expansion-comercial, operaciones-de-campo-y-censos] }
+          - name: demo
+            label: Demostración del laboratorio (opcional)
+            type: select
+            options: { values: ["", gondola, ruteo, sucursales, encuestas] }
+          - name: simulador
+            label: Tipo de estudio en el simulador (opcional)
+            type: select
+            options: { values: ["", trade, customer, mystery, focus, entrevistas, localizacion] }
+      - { name: entregables, label: Entregables habituales, type: string, list: true }
+
+  # ------------------------------------------------------------------
   - name: simulador
     label: Simulador de costos
     type: file
