@@ -1,0 +1,45 @@
+---
+layout: layouts/demo.njk
+title: Góndola 3D
+bajada: Una góndola simulada de cinco estantes. Gírela, pase el cursor sobre los productos y vea cómo se calculan los indicadores de trade marketing.
+description: Demostración interactiva de share of shelf, quiebres de stock y presencia a la altura de los ojos en una góndola 3D simulada.
+permalink: /demostraciones/gondola/
+demo_id: gondola
+servicio: trade-marketing-y-retail-intelligence
+con_datos_reales: En un estudio real, cada góndola se releva con fotos y un formulario digital en una muestra representativa de puntos de venta. Los indicadores se calculan por canal, zona y período, y se comparan con los objetivos de la marca.
+---
+<section class="seccion demo">
+  <div class="contenedor demo__grilla" data-demo-gondola>
+    <div class="demo__escena">
+      <div class="gondola3d" aria-label="Góndola 3D simulada" role="img"></div>
+      <p class="demo__ayuda">Arrastre para girar la góndola. Pase el cursor sobre un producto para ver su detalle.</p>
+      <div class="gondola-tip" hidden></div>
+    </div>
+    <div class="demo__panel">
+      <form class="demo__controles" onsubmit="return false">
+        <div class="campo">
+          <label for="g-marca">Marca a destacar</label>
+          <select id="g-marca"></select>
+        </div>
+        <label class="campo--check"><input type="checkbox" id="g-quiebres" checked> Resaltar espacios vacíos (quiebres)</label>
+        <button class="boton boton--fantasma" type="button" id="g-nueva">Generar otra góndola</button>
+      </form>
+      <dl class="kpis">
+        <div><dt>Share of shelf de <span data-marca-nombre>la marca</span></dt><dd id="k-share">—</dd></div>
+        <div><dt>Frentes de la marca</dt><dd id="k-frentes">—</dd></div>
+        <div><dt>Presencia a la altura de los ojos</dt><dd id="k-ojos">—</dd></div>
+        <div><dt>Espacios vacíos en la góndola</dt><dd id="k-quiebres">—</dd></div>
+      </dl>
+      <div class="demo__grafico" id="g-grafico"></div>
+      <details class="demo__metodo">
+        <summary>Cómo se calcula</summary>
+        <ul>
+          <li><strong>Share of shelf</strong>: frentes de la marca ÷ frentes ocupados de la góndola.</li>
+          <li><strong>Altura de los ojos</strong>: participación de la marca en los estantes 2 y 3, contados desde arriba.</li>
+          <li><strong>Espacios vacíos</strong>: posiciones sin producto ÷ posiciones totales.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+<script type="module" src="/assets/js/demo-gondola.js"></script>

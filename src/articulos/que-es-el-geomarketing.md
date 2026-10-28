@@ -7,7 +7,7 @@ etiquetas: [Geomarketing, Localización, Métodos]
 imagen: /media/portadas/geomarketing-introduccion.webp
 imagen_alt: "Ilustración 3D de tres capas apiladas: relieve, puntos de interés y un área de influencia en turquesa."
 destacado: true
-servicios: [analisis-de-localizacion, areas-de-influencia-y-cobertura, mapeo-de-competencia]
+servicios: [geomarketing-y-expansion-comercial]
 ---
 
 Toda empresa que vende algo lo hace en algún lugar. Sus clientes viven y trabajan en barrios concretos, se desplazan por calles concretas y eligen entre comercios que tienen a mano. El **geomarketing** parte de esa evidencia simple: incorpora la dimensión territorial al análisis comercial para tomar decisiones que una planilla sin coordenadas no permite ver.

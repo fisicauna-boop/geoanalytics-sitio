@@ -1,0 +1,88 @@
+---
+layout: layouts/demo.njk
+title: Encuestas y muestreo
+bajada: Calcule cuántas encuestas necesita y con qué margen de error, y vea en una encuesta simulada cómo el tamaño de la muestra cambia la precisión de los resultados.
+description: Calculadora de tamaño de muestra y margen de error, con una encuesta de satisfacción simulada que muestra intervalos de confianza.
+permalink: /demostraciones/encuestas/
+demo_id: encuestas
+servicio: investigacion-de-mercados-y-encuestas
+con_datos_reales: En un estudio real, la muestra se estratifica por zona, canal o tipo de cliente, el cuestionario se prueba antes de salir a campo y cada resultado se informa con su margen de error y su tamaño de muestra.
+---
+<section class="seccion demo" data-demo-encuestas>
+  <div class="contenedor calculadoras">
+    <form class="calculadora" id="c-muestra" onsubmit="return false" aria-labelledby="cm-t">
+      <h2 id="cm-t" class="calculadora__titulo">¿Cuántas encuestas necesito?</h2>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="cm-conf">Nivel de confianza</label>
+          <select id="cm-conf"><option value="1.6449">90 %</option><option value="1.96" selected>95 %</option><option value="2.5758">99 %</option></select>
+        </div>
+        <div class="campo">
+          <label for="cm-error">Margen de error (± puntos %)</label>
+          <input type="number" id="cm-error" min="0.5" max="20" step="0.5" value="5" inputmode="decimal">
+        </div>
+      </div>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="cm-p">Proporción esperada (%)</label>
+          <input type="number" id="cm-p" min="1" max="99" step="1" value="50" inputmode="numeric">
+        </div>
+        <div class="campo">
+          <label for="cm-pob">Tamaño de la población <span class="opcional">(opcional)</span></label>
+          <input type="number" id="cm-pob" min="1" step="1" placeholder="Sin límite" inputmode="numeric">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="cm-resp">Tasa de respuesta esperada (%)</label>
+        <input type="number" id="cm-resp" min="5" max="100" step="5" value="100" inputmode="numeric">
+      </div>
+      <p class="calculadora__resultado"><span id="cm-n">—</span> <span class="calculadora__unidad">encuestas completas</span></p>
+      <p class="calculadora__nota" id="cm-nota"></p>
+    </form>
+
+    <form class="calculadora" id="c-error" onsubmit="return false" aria-labelledby="ce-t">
+      <h2 id="ce-t" class="calculadora__titulo">¿Qué margen de error tengo?</h2>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="ce-n">Encuestas completas</label>
+          <input type="number" id="ce-n" min="2" step="1" value="400" inputmode="numeric">
+        </div>
+        <div class="campo">
+          <label for="ce-conf">Nivel de confianza</label>
+          <select id="ce-conf"><option value="1.6449">90 %</option><option value="1.96" selected>95 %</option><option value="2.5758">99 %</option></select>
+        </div>
+      </div>
+      <div class="campo-par">
+        <div class="campo">
+          <label for="ce-p">Proporción observada (%)</label>
+          <input type="number" id="ce-p" min="1" max="99" step="1" value="50" inputmode="numeric">
+        </div>
+        <div class="campo">
+          <label for="ce-pob">Tamaño de la población <span class="opcional">(opcional)</span></label>
+          <input type="number" id="ce-pob" min="1" step="1" placeholder="Sin límite" inputmode="numeric">
+        </div>
+      </div>
+      <p class="calculadora__resultado">± <span id="ce-e">—</span> <span class="calculadora__unidad">puntos porcentuales</span></p>
+      <p class="calculadora__nota" id="ce-nota"></p>
+    </form>
+  </div>
+
+  <div class="contenedor encuesta-sim">
+    <div class="encuesta-sim__cabecera">
+      <div>
+        <h2 class="seccion__titulo">Encuesta de satisfacción simulada</h2>
+        <p class="seccion__bajada">Una población ficticia de clientes en tres zonas. Cada barra es la estimación de la muestra con su intervalo de confianza del 95 %; la marca vertical es el valor real de la población simulada.</p>
+      </div>
+      <form class="encuesta-sim__controles" onsubmit="return false">
+        <label for="es-n">Tamaño de la muestra: <strong id="es-n-v">300</strong></label>
+        <input type="range" id="es-n" min="60" max="3000" step="30" value="300">
+        <button class="boton boton--fantasma" type="button" id="es-nueva">Tomar otra muestra</button>
+      </form>
+    </div>
+    <div class="encuesta-sim__graficos">
+      <div id="es-intervalos" class="es-intervalos"></div>
+      <div id="es-distribucion" class="es-distribucion"></div>
+    </div>
+  </div>
+</section>
+<script type="module" src="/assets/js/demo-encuestas.js"></script>

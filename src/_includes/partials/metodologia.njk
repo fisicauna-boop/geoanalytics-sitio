@@ -1,0 +1,16 @@
+<section class="seccion seccion--suave" aria-labelledby="met-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="met-t" class="seccion__titulo">Metodología: cinco etapas en cada proyecto</h2>
+    </div>
+    <ol class="metodo">
+      {% for m in metodologia %}
+      <li class="metodo__paso">
+        <span class="metodo__num" aria-hidden="true">{{ loop.index }}</span>
+        <h3 class="metodo__titulo">{{ m.paso }}</h3>
+        <p>{{ m.texto }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>

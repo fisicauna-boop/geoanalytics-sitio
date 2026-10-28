@@ -1,0 +1,30 @@
+[
+  {
+    "desde": "/servicios/analisis-de-localizacion/",
+    "hacia": "/servicios/geomarketing-y-expansion-comercial/"
+  },
+  {
+    "desde": "/servicios/areas-de-influencia-y-cobertura/",
+    "hacia": "/servicios/geomarketing-y-expansion-comercial/"
+  },
+  {
+    "desde": "/servicios/mapeo-de-competencia/",
+    "hacia": "/servicios/geomarketing-y-expansion-comercial/"
+  },
+  {
+    "desde": "/servicios/estudios-de-mercado-y-potencial/",
+    "hacia": "/servicios/geomarketing-y-expansion-comercial/"
+  },
+  {
+    "desde": "/servicios/redes-de-distribucion-y-puntos-de-venta/",
+    "hacia": "/servicios/ruteo-y-optimizacion-operativa/"
+  },
+  {
+    "desde": "/servicios/mapas-tableros-e-indicadores/",
+    "hacia": "/servicios/estadistica-y-data-analytics/"
+  },
+  {
+    "desde": "/sobre/",
+    "hacia": "/nosotros/"
+  }
+]

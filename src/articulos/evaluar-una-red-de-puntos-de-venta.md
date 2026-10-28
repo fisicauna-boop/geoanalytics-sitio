@@ -6,7 +6,7 @@ categoria: inteligencia-comercial
 etiquetas: [Puntos de venta, Retail, Distribución, Indicadores]
 imagen: /media/portadas/red-puntos-de-venta.webp
 imagen_alt: Ilustración 3D de un centro de distribución conectado por arcos a puntos de venta sobre fondo azul marino.
-servicios: [redes-de-distribucion-y-puntos-de-venta, areas-de-influencia-y-cobertura]
+servicios: [trade-marketing-y-retail-intelligence, ruteo-y-optimizacion-operativa]
 ---
 
 Las redes comerciales crecen por acumulación: un local que se abrió porque apareció un buen alquiler, un distribuidor que se sumó por recomendación, una ruta que se extendió para atender a un cliente grande. Con el tiempo, nadie mira la red completa. Esta guía propone una secuencia para hacerlo.

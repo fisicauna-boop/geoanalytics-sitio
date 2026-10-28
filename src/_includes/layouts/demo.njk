@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+clase_body: pagina-demo
+---
+{%- set d = demos | buscarPor("id", demo_id) -%}
+{%- set serv = collections.servicios | buscarPor("slug", servicio) -%}
+<header class="cabecera-pagina cabecera-pagina--oscura cabecera-pagina--compacta">
+  <div class="contenedor">
+    <p class="miga"><a href="/demostraciones/">Demostraciones</a> <span aria-hidden="true">/</span> {{ d.subtitulo }}</p>
+    <h1 class="cabecera-pagina__titulo">{{ title }}</h1>
+    <p class="cabecera-pagina__bajada">{{ bajada }}</p>
+  </div>
+</header>
+<p class="aviso-demo contenedor" role="note"><strong>Datos simulados.</strong> Esta demostración genera datos ficticios en su navegador. No representa clientes, marcas ni resultados reales.</p>
+{{ content | safe }}
+<section class="seccion seccion--suave">
+  <div class="contenedor demo-pie">
+    <div>
+      <h2 class="seccion__titulo">Con los datos de su empresa</h2>
+      <p>{{ con_datos_reales }}</p>
+    </div>
+    <div class="demo-pie__acciones">
+      {% if serv %}<a class="boton boton--fantasma" href="{{ serv.url }}">Ver el servicio de {{ serv.data.title | lower }}</a>{% endif %}
+      <a class="boton" href="/contacto/?servicio={{ servicio }}">Solicitar propuesta</a>
+    </div>
+  </div>
+</section>

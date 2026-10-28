@@ -6,7 +6,7 @@ categoria: datos-y-mapas
 etiquetas: [Datos abiertos, Paraguay, Censo, OpenStreetMap]
 imagen: /media/portadas/fuentes-datos-publicos.webp
 imagen_alt: Ilustración 3D de un mapa de hexágonos con alturas y tonos de turquesa a azul marino.
-servicios: [mapas-tableros-e-indicadores, estudios-de-mercado-y-potencial]
+servicios: [estadistica-y-data-analytics, geomarketing-y-expansion-comercial]
 visualizaciones:
   - tipo: mapa
     titulo: Mapa base de OpenStreetMap centrado en Paraguay

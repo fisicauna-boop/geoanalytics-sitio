@@ -87,7 +87,7 @@ Para usar `www.geoanalytics.com.py` u otro dominio:
 3. Active **Enforce HTTPS**.
 4. Cambie `url` en `site.json` por la nueva dirección (por ejemplo `https://www.geoanalytics.com.py`).
 
-El sitio detecta el cambio solo: con dominio propio deja de usar el prefijo `/geoanalytics/` en las rutas.
+Además, en `eleventy.config.js` borre la línea `pathPrefix: "/geoanalytics-sitio/",`: con dominio propio el sitio ya no lleva ese prefijo en las rutas.
 
 ---
 
@@ -179,12 +179,16 @@ Cada gráfico y mapa debe indicar su **fuente** y su **fecha de referencia**. Si
 
 ---
 
-## 6. Servicios, secciones y textos institucionales
+## 6. Servicios, industrias, demostraciones y textos institucionales
 
-- **Servicios**: se editan en el panel (**Servicios**). Si crea uno nuevo, agréguelo también a la lista de *Servicios relacionados* en `.pages.yml` para poder vincularlo desde los artículos (sección `servicios`, dentro de `articulos`).
-- **Secciones**: textos de presentación, temas y servicios vinculados de Geomarketing, Inteligencia comercial y Datos y mapas se editan en **Secciones (categorías)**. No cambie el *identificador*.
-- **Sobre Geoanalytics**: el texto está en `src/paginas/sobre.md`. Revíselo y ajústelo a la realidad de la empresa (por ejemplo, si quiere presentar al equipo, su trayectoria verificable o el número de RUC).
-- **Portada**: el título y la presentación están en `src/index.njk`. La escena 3D de la portada se programa en `src/assets/js/hero3d.js`; usa el contorno de Paraguay de Natural Earth (dominio público) y el motor 3D Three.js, que se sirve desde el propio sitio. Si el navegador del visitante no puede mostrar 3D, se ve en su lugar una imagen fija de la misma escena (`src/media/portadas/hero-3d.webp`).
+- **Servicios**: los seis pilares (estadística y data analytics, trade marketing, ruteo, investigación de mercados, geomarketing y operaciones de campo) se editan en el panel (**Servicios**). Cada uno tiene área, ícono, entregables, preguntas y, si corresponde, una demostración relacionada. Si crea un servicio nuevo, agréguelo también a la lista de *Servicios relacionados* en `.pages.yml`.
+- **Direcciones antiguas**: las páginas de servicios anteriores y `/sobre/` redirigen solas a sus páginas nuevas. La lista está en `src/_data/redirecciones.json`.
+- **Industrias**: los textos, preguntas y servicios de cada industria están en `src/_data/industrias.json`.
+- **Metodología**: las cinco etapas (diseñar, relevar, validar, analizar, recomendar) están en `src/_data/metodologia.json` y aparecen en el inicio, en servicios y en cada servicio.
+- **Demostraciones**: góndola 3D, ruteo y encuestas, en `/demostraciones/`. Generan datos simulados en el navegador y lo indican en pantalla; no use nombres de marcas o clientes reales en ellas. Los textos de las tarjetas están en `src/_data/demos.json`.
+- **Secciones de artículos**: Geomarketing, Inteligencia comercial y Datos y mapas se editan en **Secciones (categorías)**. No cambie el *identificador*.
+- **Sobre Geoanalytics**: el texto está en `src/paginas/nosotros.md`. Ajústelo a la realidad de la empresa (equipo, trayectoria verificable, RUC).
+- **Portada**: el título y la presentación están en `src/index.njk`. La ciudad comercial 3D se programa en `src/assets/js/hero3d.js`; la escena de capas sobre el contorno de Paraguay (`paraguay3d.js`) se muestra en el servicio de geomarketing. Si el navegador no puede mostrar 3D, se ve una imagen fija de la misma escena.
 
 Para editar archivos que no están en el panel, ábralos en GitHub, presione el lápiz (**Edit**) y luego **Commit changes**.
 

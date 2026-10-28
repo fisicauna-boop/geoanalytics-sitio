@@ -2,6 +2,6 @@
   <div class="cta__caja">
     <p class="cta__titulo">{{ cta_titulo or "¿Necesita un análisis como este para su empresa?" }}</p>
     <p class="cta__texto">{{ cta_texto or "Cuéntenos qué decisión está evaluando. Le respondemos con una propuesta de alcance, datos necesarios y plazos." }}</p>
-    <a class="boton boton--secundario" href="/contacto/{% if categoria %}?tema={{ categoria }}{% endif %}">Solicitar una consulta</a>
+    <a class="boton boton--secundario" href="/contacto/{% if categoria %}?tema={{ categoria }}{% endif %}">{{ cta_boton or "Solicitar una consulta" }}</a>
   </div>
 </aside>

@@ -1,0 +1,5 @@
+[
+  { "id": "gondola", "titulo": "Góndola 3D", "subtitulo": "Trade marketing", "texto": "Explore una góndola simulada y vea cómo se calculan el share of shelf, los quiebres y la presencia a la altura de los ojos.", "url": "/demostraciones/gondola/", "imagen": "/media/demos/gondola.webp" },
+  { "id": "ruteo", "titulo": "Optimización de rutas", "subtitulo": "Field operations", "texto": "Reparta visitas entre vendedores y compare la distancia de una ruta sin ordenar con la ruta optimizada.", "url": "/demostraciones/ruteo/", "imagen": "/media/demos/ruteo.webp" },
+  { "id": "encuestas", "titulo": "Encuestas y muestreo", "subtitulo": "Market research", "texto": "Calcule el tamaño de muestra y el margen de error, y vea cómo cambian los resultados de una encuesta simulada.", "url": "/demostraciones/encuestas/", "imagen": "/media/demos/encuestas.webp" }
+]

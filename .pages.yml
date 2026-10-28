@@ -1,0 +1,457 @@
+# Configuración del panel de contenidos (Pages CMS — https://app.pagescms.org)
+# Define qué se puede editar desde el navegador sin tocar código.
+
+media:
+  input: src/media
+  output: /media
+
+content:
+  # ------------------------------------------------------------------
+  - name: articulos
+    label: Artículos
+    type: collection
+    path: src/articulos
+    filename: "{primary}.md"
+    exclude: [articulos.11tydata.js]
+    view:
+      fields: [title, categoria, date, borrador]
+      primary: title
+      sort: [date, title]
+      search: [title, description]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+        description: Claro y específico. Es lo que aparece en Google y al compartir.
+      - name: description
+        label: Resumen
+        type: text
+        required: true
+        description: Una o dos frases (idealmente menos de 160 caracteres). Se muestra en las tarjetas, en buscadores y en redes sociales.
+      - name: date
+        label: Fecha de publicación
+        type: date
+        required: true
+      - name: actualizado
+        label: Fecha de actualización
+        type: date
+        description: Opcional. Complétela solo si corrige o amplía el artículo después de publicado.
+      - name: categoria
+        label: Sección
+        type: select
+        required: true
+        options:
+          values:
+            - name: geomarketing
+              label: Geomarketing
+            - name: inteligencia-comercial
+              label: Inteligencia comercial
+            - name: datos-y-mapas
+              label: Datos y mapas
+            - name: opinion
+              label: Opinión técnica
+      - name: etiquetas
+        label: Etiquetas
+        type: string
+        list: true
+        description: "Temas del artículo, por ejemplo: Retail, Asunción, Censo. Use siempre la misma forma de escribir cada etiqueta."
+      - name: imagen
+        label: Imagen principal
+        type: image
+        description: Horizontal, idealmente 1200 × 675 px, JPG o PNG de menos de 400 KB.
+      - name: imagen_alt
+        label: Descripción de la imagen
+        type: string
+        description: Qué muestra la imagen, para personas con lectores de pantalla y para buscadores.
+      - name: imagen_credito
+        label: Crédito de la imagen
+        type: string
+        description: 'Opcional. Por ejemplo: Foto de Nombre, Fuente.'
+      - name: destacado
+        label: Destacar en la portada
+        type: boolean
+        description: El artículo destacado más reciente ocupa el lugar principal del inicio.
+      - name: borrador
+        label: Borrador (no publicar)
+        type: boolean
+        description: Mientras esté marcado, el artículo se guarda pero no aparece en el sitio.
+      - name: servicios
+        label: Servicios relacionados
+        type: select
+        options:
+          multiple: true
+          values:
+            - name: estadistica-y-data-analytics
+              label: Estadística y data analytics
+            - name: trade-marketing-y-retail-intelligence
+              label: Trade marketing y retail intelligence
+            - name: ruteo-y-optimizacion-operativa
+              label: Ruteo y optimización operativa
+            - name: investigacion-de-mercados-y-encuestas
+              label: Investigación de mercados y encuestas
+            - name: geomarketing-y-expansion-comercial
+              label: Geomarketing y expansión comercial
+            - name: operaciones-de-campo-y-censos
+              label: Operaciones de campo y censos comerciales
+        description: Se muestran junto al artículo. Si agrega un servicio nuevo, súmelo también a esta lista.
+      - name: visualizaciones
+        label: Gráficos y mapas
+        type: object
+        list: true
+        description: Se muestran al final del texto del artículo.
+        fields:
+          - name: tipo
+            label: Tipo
+            type: select
+            required: true
+            options:
+              values:
+                - name: barras
+                  label: Gráfico de barras
+                - name: barras-horizontales
+                  label: Gráfico de barras horizontales
+                - name: lineas
+                  label: Gráfico de líneas
+                - name: mapa
+                  label: Mapa interactivo
+                - name: embebido
+                  label: Gráfico o mapa externo (Datawrapper, Flourish, Google My Maps…)
+          - name: titulo
+            label: Título
+            type: string
+          - name: archivo
+            label: Archivo de datos
+            type: file
+            description: "Gráficos: CSV. Mapas: GeoJSON (opcional). Ver la guía de publicación."
+          - name: unidad
+            label: Unidad de los valores
+            type: string
+            description: Opcional, por ejemplo "%" o " km".
+          - name: lat
+            label: Latitud del centro (mapas)
+            type: number
+          - name: lng
+            label: Longitud del centro (mapas)
+            type: number
+          - name: zoom
+            label: Zoom inicial (mapas, de 5 a 16)
+            type: number
+          - name: embed_url
+            label: Dirección del contenido externo
+            type: string
+            description: Debe comenzar con https://
+          - name: nota
+            label: Nota
+            type: text
+          - name: fuente
+            label: Fuente
+            type: string
+      - name: enlaces
+        label: Fuentes y enlaces
+        type: object
+        list: true
+        fields:
+          - name: titulo
+            label: Texto del enlace
+            type: string
+          - name: url
+            label: Dirección (URL)
+            type: string
+          - name: nota
+            label: Nota
+            type: string
+      - name: body
+        label: Texto del artículo
+        type: rich-text
+        description: Use "Título 2" para los subtítulos principales y "Título 3" para los secundarios.
+
+  # ------------------------------------------------------------------
+  - name: servicios
+    label: Servicios
+    type: collection
+    path: src/servicios
+    filename: "{primary}.md"
+    exclude: [servicios.11tydata.js]
+    view:
+      fields: [title, orden]
+      primary: title
+      sort: [orden, title]
+      default:
+        sort: orden
+        order: asc
+    fields:
+      - name: title
+        label: Nombre del servicio
+        type: string
+        required: true
+      - name: description
+        label: Descripción breve
+        type: text
+        required: true
+      - name: orden
+        label: Orden en la lista
+        type: number
+      - name: area
+        label: Área (Data Analytics, Trade Intelligence, Field Operations, Market Research o Geo Intelligence)
+        type: string
+      - name: icono
+        label: Ícono (datos, gondola, ruta, encuesta, mapa o campo)
+        type: string
+      - name: demo
+        label: Demostración relacionada (gondola, ruteo o encuestas; opcional)
+        type: string
+      - name: entregables
+        label: Entregables habituales
+        type: string
+        list: true
+      - name: preguntas
+        label: Preguntas que ayuda a responder
+        type: string
+        list: true
+      - name: body
+        label: Descripción completa
+        type: rich-text
+
+  # ------------------------------------------------------------------
+  - name: secciones
+    label: Secciones (categorías)
+    type: file
+    path: src/_data/categorias.json
+    format: json
+    list: true
+    fields:
+      - name: slug
+        label: Identificador (no modificar)
+        type: string
+        readonly: true
+      - name: nombre
+        label: Nombre corto
+        type: string
+      - name: simbolo
+        label: Símbolo de leyenda
+        type: select
+        options:
+          values: [circulo, cuadrado, triangulo, rombo]
+      - name: titulo_pagina
+        label: Título de la página
+        type: string
+      - name: bajada
+        label: Texto de presentación
+        type: text
+      - name: temas
+        label: Temas de la sección
+        type: string
+        list: true
+      - name: servicios
+        label: Servicios vinculados (identificadores)
+        type: string
+        list: true
+      - name: oculta_en_menu
+        label: Ocultar en la portada y el pie
+        type: boolean
+
+  # ------------------------------------------------------------------
+  - name: configuracion
+    label: Configuración del sitio
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - name: nombre
+        label: Nombre del sitio
+        type: string
+      - name: razon_social
+        label: Razón social
+        type: string
+      - name: lema
+        label: Lema
+        type: string
+      - name: descripcion
+        label: Descripción para buscadores
+        type: text
+      - name: url
+        label: Dirección pública del sitio
+        type: string
+        description: "Sin barra final. Ejemplos: https://usuario.github.io/geoanalytics o https://www.geoanalytics.com.py"
+      - name: idioma
+        label: Idioma
+        type: string
+        readonly: true
+      - name: ubicacion
+        label: Ubicación
+        type: string
+      - name: imagen_social
+        label: Imagen por defecto para redes sociales
+        type: image
+      - name: contacto
+        label: Datos de contacto
+        type: object
+        description: Los campos vacíos no se muestran en el sitio.
+        fields:
+          - name: email
+            label: Correo electrónico
+            type: string
+          - name: telefono
+            label: Teléfono
+            type: string
+          - name: whatsapp
+            label: WhatsApp (con código de país, p. ej. 595981000000)
+            type: string
+          - name: linkedin
+            label: Página de LinkedIn (URL)
+            type: string
+          - name: direccion
+            label: Dirección
+            type: string
+      - name: formulario
+        label: Formulario de contacto
+        type: object
+        fields:
+          - name: access_key
+            label: Clave de acceso de Web3Forms
+            type: string
+          - name: asunto
+            label: Asunto de los correos recibidos
+            type: string
+      - name: analitica
+        label: Estadísticas de visitas
+        type: object
+        fields:
+          - name: goatcounter
+            label: Código de GoatCounter (opcional)
+            type: string
+            description: Solo el nombre elegido al registrarse, por ejemplo "geoanalytics".
+
+  # ------------------------------------------------------------------
+  - name: simulador
+    label: Simulador de costos
+    type: file
+    path: src/_data/simulador.json
+    format: json
+    fields:
+      - name: aviso_valores
+        label: Nota interna
+        type: text
+        description: Recordatorio para el equipo. No se muestra en el sitio.
+      - name: moneda
+        label: Moneda
+        type: string
+        description: 'Por ejemplo: US$ o Gs.'
+      - name: iva
+        label: IVA (0,10 = 10 %)
+        type: number
+      - name: rango_referencial
+        label: Amplitud del rango referencial (0,10 = ±10 %)
+        type: number
+      - name: redondeo
+        label: Redondear precios a múltiplos de
+        type: number
+      - name: margen_min
+        label: Margen mínimo permitido (0,50 = 50 %)
+        type: number
+      - name: margen_max
+        label: Margen máximo permitido (0,70 = 70 %)
+        type: number
+      - name: margen_gastos_viaje
+        label: Recargo sobre viáticos, hotel y transporte (0 = al costo)
+        type: number
+      - name: viaje
+        label: Gastos fuera de Asunción y Gran Asunción
+        type: object
+        fields:
+          - name: viatico_dia
+            label: Viático por persona y día
+            type: number
+          - name: hotel_noche
+            label: Hotel por persona y noche
+            type: number
+          - name: costo_km
+            label: Transporte por km recorrido
+            type: number
+          - name: dias_por_viaje
+            label: Días de campo por viaje (máximo)
+            type: number
+          - name: distancias
+            label: Distancias
+            type: object
+            list: true
+            fields:
+              - name: id
+                label: Identificador (no modificar)
+                type: string
+                readonly: true
+              - name: nombre
+                label: Texto que ve el usuario
+                type: string
+              - name: km
+                label: Km promedio desde Asunción (solo ida)
+                type: number
+              - name: pernocte
+                label: Requiere hotel
+                type: boolean
+      - name: tipos
+        label: Tipos de estudio
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: Identificador (sin espacios ni tildes)
+            type: string
+          - name: nombre
+            label: Nombre
+            type: string
+          - name: descripcion
+            label: Descripción breve
+            type: text
+          - name: unidad
+            label: Unidad en singular (p. ej. encuesta)
+            type: string
+          - name: unidades
+            label: Unidad en plural (p. ej. encuestas)
+            type: string
+          - name: margen
+            label: Margen de ganancia (entre 0,50 y 0,70)
+            type: number
+          - name: costo_diseno
+            label: Costo operativo de diseño y coordinación
+            type: number
+          - name: costo_analisis
+            label: Costo operativo de procesamiento, análisis e informe
+            type: number
+          - name: costo_unitario
+            label: Costo operativo de campo por unidad
+            type: number
+          - name: escala
+            label: Economía de escala (descuento sobre el costo de campo por tramos)
+            type: object
+            list: true
+            description: 'Ejemplo: desde 101 unidades, factor 0,90 = 10 % menos de costo por unidad en ese tramo.'
+            fields:
+              - name: desde
+                label: Desde la unidad número
+                type: number
+              - name: factor
+                label: Factor de costo (1 = sin descuento)
+                type: number
+          - name: productividad_dia
+            label: Unidades que completa una persona por día
+            type: number
+          - name: equipo
+            label: Personas en el equipo de campo
+            type: number
+          - name: cantidad_min
+            label: Cantidad mínima
+            type: number
+          - name: cantidad_max
+            label: Cantidad máxima
+            type: number
+          - name: cantidad_inicial
+            label: Cantidad al abrir el simulador
+            type: number
+          - name: paso
+            label: Paso del control deslizante
+            type: number

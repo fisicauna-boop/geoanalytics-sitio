@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+title: Demostraciones interactivas
+description: Pruebe con datos simulados cómo Geoanalytics analiza una góndola, optimiza rutas de visita y calcula muestras y márgenes de error.
+permalink: /demostraciones/
+---
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">Demostraciones interactivas</h1>
+    <p class="cabecera-pagina__bajada">Tres ejemplos de cómo convertimos datos en decisiones. Todos usan datos simulados que se generan en su navegador: no representan clientes, marcas ni resultados reales.</p>
+  </div>
+</header>
+<section class="seccion">
+  <div class="contenedor">
+    <div class="demos-grilla demos-grilla--claro">
+      {% for d in demos %}
+      <a class="demo-tarjeta" href="{{ d.url }}">
+        <img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy">
+        <span class="demo-tarjeta__sub">{{ d.subtitulo }}</span>
+        <span class="demo-tarjeta__titulo">{{ d.titulo }}</span>
+        <span class="demo-tarjeta__texto">{{ d.texto }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% set cta_titulo = "¿Quiere ver esto con los datos de su empresa?" %}
+{% set cta_boton = "Solicitar propuesta" %}
+{% include "partials/cta.njk" %}

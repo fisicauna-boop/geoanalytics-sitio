@@ -1,0 +1,43 @@
+---
+layout: layouts/base.njk
+title: Industrias
+description: Cómo aplicamos estadística, trade marketing, ruteo, investigación de mercados y geomarketing en consumo masivo, farmacias, retail, distribución y servicios.
+permalink: /industrias/
+---
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">Soluciones por industria</h1>
+    <p class="cabecera-pagina__bajada">Cada sector tiene sus propias preguntas comerciales. Estas son las más frecuentes en las industrias con las que trabajamos y los servicios que las responden.</p>
+    <ul class="chips chips--oscuro" aria-label="Ir a una industria">
+      {% for i in industrias %}<li><a href="#{{ i.id }}">{{ i.nombre }}</a></li>{% endfor %}
+    </ul>
+  </div>
+</header>
+
+<section class="seccion">
+  <div class="contenedor industrias">
+    {% for i in industrias %}
+    <article class="industria" id="{{ i.id }}">
+      <div class="industria__intro">
+        <h2 class="industria__titulo">{{ i.nombre }}</h2>
+        <p>{{ i.texto }}</p>
+      </div>
+      <div class="industria__preguntas">
+        <p class="lateral__titulo">Preguntas frecuentes</p>
+        <ul class="lista-preguntas">{% for p in i.preguntas %}<li>{{ p }}</li>{% endfor %}</ul>
+      </div>
+      <div class="industria__servicios">
+        <p class="lateral__titulo">Servicios que las responden</p>
+        <ul class="lista-simple">
+          {% for sl in i.servicios %}{% set s = collections.servicios | buscarPor("slug", sl) %}<li><a href="{{ s.url }}">{{ s.data.title }}</a></li>{% endfor %}
+        </ul>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% set cta_titulo = "¿Su industria no está en la lista?" %}
+{% set cta_texto = "Cuéntenos qué necesita medir o decidir. Los métodos se adaptan a cualquier sector con puntos de venta, clientes o equipos en el territorio." %}
+{% set cta_boton = "Solicitar propuesta" %}
+{% include "partials/cta.njk" %}

@@ -2,13 +2,33 @@
 layout: layouts/base.njk
 ---
 {% from "partials/macros.njk" import grilla %}
-<header class="cabecera-pagina">
-  <div class="contenedor">
-    <p class="miga"><a href="/servicios/">Servicios</a></p>
+{% from "partials/iconos.njk" import icono as dibujarIcono %}
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor cabecera-servicio">
+    <span class="cabecera-servicio__icono">{{ dibujarIcono(icono) }}</span>
+    <p class="miga"><a href="/servicios/">Servicios</a> <span aria-hidden="true">/</span> {{ area }}</p>
     <h1 class="cabecera-pagina__titulo">{{ title }}</h1>
     <p class="cabecera-pagina__bajada">{{ description }}</p>
   </div>
 </header>
+
+{% if slug == "geomarketing-y-expansion-comercial" %}
+<section class="banda-escena" data-escena-zona>
+  <div class="contenedor banda-escena__grilla">
+    <div>
+      <h2 class="banda-escena__titulo">Capas de un análisis territorial</h2>
+      <p>Un análisis de geomarketing superpone el territorio, la accesibilidad y el área de influencia de cada punto para decidir dónde crecer.</p>
+    </div>
+    <figure class="portada__escena">
+      <div class="hero3d" data-paraguay3d>
+        <img class="hero3d__fijo" src="/media/portadas/paraguay-3d.webp" alt="Ilustración en 3D de tres capas de análisis apiladas sobre el contorno de Paraguay: territorio, accesibilidad y área de influencia alrededor de Asunción." width="1258" height="840" loading="lazy">
+      </div>
+      <figcaption>Contorno de Paraguay: Natural Earth. Alturas y bandas ilustrativas.</figcaption>
+    </figure>
+  </div>
+</section>
+<script type="module" src="/assets/js/paraguay3d.js"></script>
+{% endif %}
 
 <div class="contenedor servicio">
   <div class="prosa servicio__cuerpo">
@@ -23,9 +43,23 @@ layout: layouts/base.njk
       </ul>
     </div>
     {% endif %}
-    <a class="boton" href="/contacto/?servicio={{ slug }}">Consultar por este servicio</a>
+    {% if entregables %}
+    <div class="lateral-caja">
+      <p class="lateral__titulo">Entregables habituales</p>
+      <ul class="lista-preguntas">{% for e in entregables %}<li>{{ e }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    {% if demo %}{% set d = demos | buscarPor("id", demo) %}
+    <a class="demo-mini" href="{{ d.url }}">
+      <img src="{{ d.imagen }}" alt="" width="600" height="338" loading="lazy">
+      <span><strong>Demostración: {{ d.titulo }}</strong> Pruébela con datos simulados</span>
+    </a>
+    {% endif %}
+    <a class="boton" href="/contacto/?servicio={{ slug }}">Solicitar propuesta</a>
   </aside>
 </div>
+
+{% include "partials/metodologia.njk" %}
 
 {%- set arts = collections.articulos | conServicio(slug) | limitar(3) -%}
 {% if arts.length %}

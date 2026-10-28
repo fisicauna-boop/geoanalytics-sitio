@@ -6,7 +6,7 @@ categoria: geomarketing
 etiquetas: [Áreas de influencia, Modelo de Huff, Isócronas, Métodos]
 imagen: /media/portadas/areas-de-influencia.webp
 imagen_alt: Ilustración 3D de dos locales sobre una trama de calles, cada uno con áreas de influencia escalonadas.
-servicios: [areas-de-influencia-y-cobertura, analisis-de-localizacion]
+servicios: [geomarketing-y-expansion-comercial]
 visualizaciones:
   - tipo: barras
     titulo: "Ejemplo hipotético: probabilidad de elegir cada local según el parámetro de fricción de la distancia (β)"

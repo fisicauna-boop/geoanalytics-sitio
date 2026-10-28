@@ -1,37 +1,35 @@
 ---
-layout: layouts/pagina.njk
+layout: layouts/base.njk
 title: Servicios
-bajada: Análisis a medida para empresas que necesitan decidir con base territorial y comercial. Cada trabajo parte de una pregunta concreta de negocio y termina en entregables que el equipo puede usar.
-description: Servicios de geomarketing, inteligencia comercial, mapas e indicadores para empresas en Paraguay.
+description: Estadística y data analytics, trade marketing, ruteo, investigación de mercados, geomarketing y operaciones de campo para empresas en Paraguay.
 permalink: /servicios/
 ---
+{% from "partials/iconos.njk" import icono as dibujarIcono %}
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor">
+    <h1 class="cabecera-pagina__titulo">Servicios</h1>
+    <p class="cabecera-pagina__bajada">Seis frentes de trabajo que se combinan según la decisión que su empresa necesita tomar: medir, investigar, ordenar la operación o decidir dónde crecer.</p>
+  </div>
+</header>
+
 <section class="seccion">
   <div class="contenedor">
-    <ol class="servicios-lista">
+    <div class="servicios-tarjetas">
       {% for s in collections.servicios %}
-      <li class="servicio-item">
-        <h2 class="servicio-item__titulo"><a href="{{ s.url }}">{{ s.data.title }}</a></h2>
-        <p>{{ s.data.description }}</p>
-        {% if s.data.entregables %}
-        <p class="servicio-item__entregables"><span>Entregables habituales:</span> {{ s.data.entregables | join(", ") }}.</p>
-        {% endif %}
-      </li>
+      <article class="servicio-tarjeta">
+        <span class="servicio-tarjeta__icono">{{ dibujarIcono(s.data.icono) }}</span>
+        <p class="servicio-tarjeta__area">{{ s.data.area }}</p>
+        <h2 class="servicio-tarjeta__titulo"><a href="{{ s.url }}">{{ s.data.title }}</a></h2>
+        <p class="servicio-tarjeta__desc">{{ s.data.description }}</p>
+        {% if s.data.entregables %}<p class="servicio-tarjeta__entregables"><span>Entregables habituales:</span> {{ s.data.entregables | join(", ") }}.</p>{% endif %}
+        <p class="servicio-tarjeta__enlaces"><a href="{{ s.url }}">Ver el servicio</a>{% if s.data.demo %}{% set d = demos | buscarPor("id", s.data.demo) %}<a href="{{ d.url }}">Probar la demostración</a>{% endif %}</p>
+      </article>
       {% endfor %}
-    </ol>
+    </div>
   </div>
 </section>
 
-<section class="seccion seccion--suave" aria-labelledby="como-t">
-  <div class="contenedor contenedor--lectura">
-    <h2 id="como-t" class="seccion__titulo">Cómo se organiza un trabajo</h2>
-    <ol class="pasos">
-      <li><strong>Conversación inicial.</strong> Definimos la decisión que se quiere tomar, el área geográfica y la información que la empresa ya tiene.</li>
-      <li><strong>Propuesta de alcance.</strong> Detallamos preguntas a responder, fuentes de datos, método, entregables, plazo y costo.</li>
-      <li><strong>Análisis.</strong> Preparamos y validamos los datos, construimos los indicadores y mapas, y revisamos resultados intermedios con su equipo.</li>
-      <li><strong>Entrega y lectura conjunta.</strong> Presentamos hallazgos, limitaciones y recomendaciones, con los archivos necesarios para seguir usándolos.</li>
-    </ol>
-  </div>
-</section>
+{% include "partials/metodologia.njk" %}
 
 <section class="seccion" aria-labelledby="sim-t">
   <div class="contenedor contenedor--lectura aviso-simulador">
@@ -41,5 +39,6 @@ permalink: /servicios/
   </div>
 </section>
 
-{% set cta_titulo = "¿Tiene una pregunta territorial o comercial pendiente?" %}
+{% set cta_titulo = "¿Qué decisión necesita tomar su empresa?" %}
+{% set cta_boton = "Solicitar propuesta" %}
 {% include "partials/cta.njk" %}
