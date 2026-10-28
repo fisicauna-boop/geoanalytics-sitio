@@ -74,6 +74,20 @@ Sin barra al final. Esta dirección se usa para Google, para las vistas previas 
 
 Mientras no haya clave, el formulario avisa que todavía no está activado y no envía nada.
 
+#### ¿Adónde van las consultas y las cotizaciones del simulador?
+
+El sitio no tiene base de datos (GitHub Pages solo publica páginas). No hace falta una:
+
+1. **Su correo (siempre).** Cada consulta y cada pedido de cotización del simulador llega como correo a la casilla que registró en Web3Forms. Los del simulador traen un número (por ejemplo `COT-20261028-4821`), el tipo de estudio, la cantidad, el presupuesto indicado, el precio referencial y los datos del cliente. En el panel de Web3Forms puede ver el historial de los últimos 30 días y **exportarlo a CSV** (plan gratuito: 250 envíos por mes).
+2. **Una planilla de Google (opcional, gratis, recomendado).** Queda un registro permanente, fila por fila, que puede filtrar y compartir con el equipo:
+   1. Cree una planilla nueva en Google Sheets, por ejemplo «Consultas web».
+   2. Menú **Extensiones → Apps Script**. Borre el contenido y pegue el archivo `scripts/google-sheets-cotizaciones.gs` de este repositorio. Guarde.
+   3. **Implementar → Nueva implementación → Tipo: Aplicación web**. «Ejecutar como»: usted. «Quién tiene acceso»: **Cualquier usuario**. Autorice los permisos.
+   4. Copie la URL que termina en `/exec` y péguela en `site.json` → `formulario.google_sheets_url` (o en el panel: **Configuración del sitio → Formulario de contacto**).
+   5. Envíe una prueba. Aparece una hoja «Consultas» con una fila por envío; las columnas se crean solas.
+
+La URL `/exec` solo permite **agregar** filas; no permite leer la planilla, así que puede estar en el repositorio público sin exponer datos. No guarde claves ni datos de clientes en el repositorio.
+
 ### 2.5 Completar los datos de contacto
 
 En **Configuración del sitio → Datos de contacto** complete correo, teléfono, WhatsApp, LinkedIn y dirección. **Los campos vacíos no se muestran**, por eso el sitio funciona aunque falten.
@@ -196,7 +210,12 @@ Para editar archivos que no están en el panel, ábralos en GitHub, presione el 
 
 ## 6 bis. Simulador de costos de estudios
 
-La página **Simulador** (`/simulador/`) da a los visitantes un precio referencial y un botón para pedir la cotización formal, con el detalle de la simulación ya escrito en el formulario de contacto.
+La página **Simulador** (`/simulador/`) responde dos preguntas:
+
+- **¿Cuánto me alcanza?** (la opción inicial): el visitante elige el estudio, escribe su presupuesto con IVA y dónde se hace el campo, y el simulador busca la mayor cantidad de encuestas, visitas, grupos o puntos de venta que entra en ese monto. En encuestas y relevamientos con muestra aleatoria muestra también el margen de error (proporción de 50 %, 95 % de confianza). Si el presupuesto no alcanza el estudio mínimo, lo dice y muestra cuánto cuesta ese mínimo.
+- **¿Cuánto cuesta?**: elige la cantidad y obtiene el precio referencial.
+
+Debajo del resultado, **Recibir esta cotización** abre un formulario corto (nombre, empresa, correo, teléfono). Al enviarlo, la simulación completa le llega por correo con un número de cotización y, si la configuró, se registra en la planilla de Google (sección 2.4). **Copiar el resumen** copia el texto de la simulación.
 
 **Cómo calcula el precio**
 

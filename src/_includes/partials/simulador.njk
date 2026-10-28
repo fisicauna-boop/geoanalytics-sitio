@@ -3,7 +3,7 @@
 <div class="simulador contenedor" data-simulador data-modo="{{ modo }}">
   <form class="simulador__form" onsubmit="return false" aria-label="Datos del estudio">
     <fieldset class="sim-bloque">
-      <legend>Tipo de estudio</legend>
+      <legend><span class="sim-paso">1</span> ¿Qué estudio necesita?</legend>
       <div class="sim-tipos">
         {% for t in simulador.tipos %}
         <label class="sim-tipo">
@@ -16,17 +16,27 @@
     </fieldset>
 
     <fieldset class="sim-bloque">
-      <legend>Tamaño del estudio</legend>
-      <label class="sim-etiqueta" for="s-cantidad-num">Cantidad de <span data-unidades>unidades</span></label>
-      <div class="sim-cantidad">
-        <input type="range" id="s-cantidad" aria-label="Cantidad (control deslizante)">
-        <input type="number" id="s-cantidad-num" inputmode="numeric">
+      <legend><span class="sim-paso">2</span> ¿Qué quiere saber?</legend>
+      <div class="sim-modos" role="radiogroup" aria-label="Tipo de cálculo">
+        <label class="sim-modo"><input type="radio" name="calculo" value="presupuesto" checked> <span><strong>¿Cuánto me alcanza?</strong> Tengo un presupuesto</span></label>
+        <label class="sim-modo"><input type="radio" name="calculo" value="cantidad"> <span><strong>¿Cuánto cuesta?</strong> Sé qué cantidad necesito</span></label>
+      </div>
+      <div class="sim-entrada" data-entrada="presupuesto">
+        <label class="sim-etiqueta" for="s-presupuesto">Presupuesto disponible ({{ simulador.moneda }}, IVA incluido)</label>
+        <input type="number" id="s-presupuesto" min="100" step="100" value="{{ simulador.presupuesto_inicial }}" inputmode="numeric">
+      </div>
+      <div class="sim-entrada" data-entrada="cantidad" hidden>
+        <label class="sim-etiqueta" for="s-cantidad-num">Cantidad de <span data-unidades>unidades</span></label>
+        <div class="sim-cantidad">
+          <input type="range" id="s-cantidad" aria-label="Cantidad (control deslizante)">
+          <input type="number" id="s-cantidad-num" inputmode="numeric">
+        </div>
       </div>
     </fieldset>
 
     <fieldset class="sim-bloque">
-      <legend>Trabajo de campo fuera de Asunción y Gran Asunción</legend>
-      <label class="sim-etiqueta" for="s-fuera">Proporción del campo en el interior del país: <strong id="s-fuera-valor">0 %</strong></label>
+      <legend><span class="sim-paso">3</span> ¿Dónde se hace el trabajo de campo?</legend>
+      <label class="sim-etiqueta" for="s-fuera">Proporción fuera de Asunción y Gran Asunción: <strong id="s-fuera-valor">0 %</strong></label>
       <input type="range" id="s-fuera" min="0" max="100" step="5" value="0">
       <div class="campo" id="s-distancia-campo" hidden>
         <label for="s-distancia">Distancia promedio desde Asunción</label>
@@ -34,15 +44,17 @@
           {% for d in simulador.viaje.distancias %}<option value="{{ d.id }}">{{ d.nombre }}</option>{% endfor %}
         </select>
       </div>
-      <p class="sim-ayuda">Se suman viáticos, hotel y transporte del equipo de campo, al costo.</p>
+      <p class="sim-ayuda">Fuera de Asunción y Gran Asunción se suman viáticos, hotel y transporte del equipo de campo.</p>
     </fieldset>
   </form>
 
   <section class="simulador__resultado" aria-labelledby="r-titulo" aria-live="polite">
-    <h2 id="r-titulo" class="sim-res__titulo">Precio referencial</h2>
+    <h2 id="r-titulo" class="sim-res__titulo">Le alcanza para aproximadamente</h2>
     <p class="sim-res__total" id="r-total">—</p>
     <p class="sim-res__rango" id="r-rango"></p>
+    <p class="sim-res__precision" id="r-precision" hidden></p>
 
+    <p class="sim-desglose__titulo" id="r-desglose-titulo">Costo estimado</p>
     <dl class="sim-desglose">
       <div><dt>Diseño y coordinación</dt><dd id="r-diseno"></dd></div>
       <div><dt>Trabajo de campo</dt><dd id="r-campo"></dd></div>
@@ -53,11 +65,11 @@
       <div class="sim-desglose__total"><dt>Total con IVA</dt><dd id="r-con-iva"></dd></div>
     </dl>
 
-    <div class="sim-escala">
-      <p class="sim-escala__titulo">Economía de escala: precio por <span id="r-unidad-nombre">unidad</span> <strong id="r-unidad"></strong></p>
+    <details class="sim-escala">
+      <summary class="sim-escala__titulo">Economía de escala: precio por <span id="r-unidad-nombre">unidad</span> <strong id="r-unidad"></strong></summary>
       <p class="sim-escala__nota" id="r-escala"></p>
       <div class="sim-grafico" id="r-grafico"></div>
-    </div>
+    </details>
 
     {% if modo == "interno" %}
     <div class="sim-interno" aria-label="Detalle interno">
@@ -75,11 +87,27 @@
     </div>
     {% endif %}
 
-    <a class="boton boton--secundario sim-res__cta" id="r-cotizar" href="/contacto/">Solicitar cotización formal</a>
+    <button type="button" class="boton sim-res__cta" id="r-pedir" aria-expanded="false" aria-controls="sim-envio">Recibir esta cotización</button>
+    <form class="sim-envio" id="sim-envio" hidden
+      data-web3forms="{{ site.formulario.access_key }}" data-sheets="{{ site.formulario.google_sheets_url }}" data-asunto="Cotización desde el simulador">
+      <p class="sim-envio__intro">Deje sus datos y le enviamos la cotización formal. El detalle de esta simulación se adjunta automáticamente.</p>
+      <div class="campo"><label for="e-nombre">Nombre y apellido</label><input type="text" id="e-nombre" name="nombre" autocomplete="name" required></div>
+      <div class="campo"><label for="e-empresa">Empresa</label><input type="text" id="e-empresa" name="empresa" autocomplete="organization" required></div>
+      <div class="campo"><label for="e-email">Correo electrónico</label><input id="e-email" name="email" type="email" autocomplete="email" required></div>
+      <div class="campo"><label for="e-tel">Teléfono o WhatsApp <span class="opcional">(opcional)</span></label><input id="e-tel" name="telefono" type="tel" autocomplete="tel"></div>
+      <div class="campo"><label for="e-com">Comentario <span class="opcional">(opcional)</span></label><textarea id="e-com" name="comentario" rows="2"></textarea></div>
+      <input type="checkbox" name="botcheck" class="trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="boton" type="submit">Enviar solicitud</button>
+      <p class="formulario__estado" id="e-estado" role="status" aria-live="polite"></p>
+    </form>
+    <div class="sim-res__acciones">
+      <button type="button" class="enlace-btn" id="r-copiar">Copiar el resumen</button>
+      <a id="r-cotizar" href="/contacto/">Usar el formulario completo</a>
+    </div>
     <p class="sim-res__aviso">Estimación orientativa, sin valor contractual. La cotización final depende del alcance, el cuestionario, la muestra y los plazos.</p>
   </section>
   <div class="sim-barra" hidden>
-    <span>Precio referencial <strong id="r-barra-total"></strong></span>
+    <span id="r-barra-etiqueta">Le alcanza para</span> <strong id="r-barra-total"></strong>
     <button type="button" class="boton boton--claro">Ver detalle</button>
   </div>
 </div>

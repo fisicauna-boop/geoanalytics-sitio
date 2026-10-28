@@ -36,6 +36,12 @@
         body: JSON.stringify(datos),
       });
       const j = await r.json();
+      if (r.ok && j.success && form.dataset.sheets) {
+        // Registro opcional en Google Sheets (no bloquea si falla)
+        const fila = { formulario: "Contacto", ...datos };
+        delete fila.access_key; delete fila.botcheck; delete fila.subject; delete fila.from_name;
+        fetch(form.dataset.sheets, { method: "POST", mode: "no-cors", body: new URLSearchParams(fila) }).catch(() => {});
+      }
       if (r.ok && j.success) {
         form.reset();
         estado.className = "formulario__estado ok";

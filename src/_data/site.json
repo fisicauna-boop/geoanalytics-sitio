@@ -16,7 +16,8 @@
   },
   "formulario": {
     "access_key": "",
-    "asunto": "Nueva consulta desde el sitio de Geoanalytics"
+    "asunto": "Nueva consulta desde el sitio de Geoanalytics",
+    "google_sheets_url": ""
   },
   "analitica": {
     "goatcounter": ""

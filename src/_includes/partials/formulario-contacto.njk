@@ -1,4 +1,4 @@
-<form class="formulario" id="form-contacto" action="https://api.web3forms.com/submit" method="POST" data-configurado="{{ 'si' if site.formulario.access_key else 'no' }}">
+<form class="formulario" id="form-contacto" action="https://api.web3forms.com/submit" method="POST" data-configurado="{{ 'si' if site.formulario.access_key else 'no' }}" data-sheets="{{ site.formulario.google_sheets_url }}">
   <input type="hidden" name="access_key" value="{{ site.formulario.access_key }}">
   <input type="hidden" name="subject" value="{{ site.formulario.asunto }}">
   <input type="hidden" name="from_name" value="Sitio web {{ site.nombre }}">

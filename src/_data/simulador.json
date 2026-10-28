@@ -13,9 +13,24 @@
     "costo_km": 0.45,
     "dias_por_viaje": 5,
     "distancias": [
-      { "id": "cerca", "nombre": "Hasta 100 km de Asunción (sin pernocte)", "km": 80, "pernocte": false },
-      { "id": "media", "nombre": "Entre 100 y 300 km", "km": 200, "pernocte": true },
-      { "id": "lejos", "nombre": "Más de 300 km", "km": 420, "pernocte": true }
+      {
+        "id": "cerca",
+        "nombre": "Hasta 100 km de Asunción (sin pernocte)",
+        "km": 80,
+        "pernocte": false
+      },
+      {
+        "id": "media",
+        "nombre": "Entre 100 y 300 km",
+        "km": 200,
+        "pernocte": true
+      },
+      {
+        "id": "lejos",
+        "nombre": "Más de 300 km",
+        "km": 420,
+        "pernocte": true
+      }
     ]
   },
   "tipos": [
@@ -36,11 +51,24 @@
       "productividad_dia": 12,
       "equipo": 4,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 101, "factor": 0.9 },
-        { "desde": 301, "factor": 0.8 },
-        { "desde": 801, "factor": 0.72 }
-      ]
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 101,
+          "factor": 0.9
+        },
+        {
+          "desde": 301,
+          "factor": 0.8
+        },
+        {
+          "desde": 801,
+          "factor": 0.72
+        }
+      ],
+      "muestreo": true
     },
     {
       "id": "customer",
@@ -59,11 +87,24 @@
       "productividad_dia": 10,
       "equipo": 5,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 101, "factor": 0.9 },
-        { "desde": 401, "factor": 0.8 },
-        { "desde": 1001, "factor": 0.7 }
-      ]
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 101,
+          "factor": 0.9
+        },
+        {
+          "desde": 401,
+          "factor": 0.8
+        },
+        {
+          "desde": 1001,
+          "factor": 0.7
+        }
+      ],
+      "muestreo": true
     },
     {
       "id": "mystery",
@@ -82,9 +123,18 @@
       "productividad_dia": 5,
       "equipo": 3,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 31, "factor": 0.92 },
-        { "desde": 81, "factor": 0.85 }
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 31,
+          "factor": 0.92
+        },
+        {
+          "desde": 81,
+          "factor": 0.85
+        }
       ]
     },
     {
@@ -104,9 +154,18 @@
       "productividad_dia": 2,
       "equipo": 2,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 5, "factor": 0.92 },
-        { "desde": 9, "factor": 0.85 }
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 5,
+          "factor": 0.92
+        },
+        {
+          "desde": 9,
+          "factor": 0.85
+        }
       ]
     },
     {
@@ -126,9 +185,18 @@
       "productividad_dia": 4,
       "equipo": 1,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 11, "factor": 0.92 },
-        { "desde": 26, "factor": 0.85 }
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 11,
+          "factor": 0.92
+        },
+        {
+          "desde": 26,
+          "factor": 0.85
+        }
       ]
     },
     {
@@ -148,10 +216,21 @@
       "productividad_dia": 4,
       "equipo": 2,
       "escala": [
-        { "desde": 1, "factor": 1 },
-        { "desde": 6, "factor": 0.85 },
-        { "desde": 16, "factor": 0.75 }
+        {
+          "desde": 1,
+          "factor": 1
+        },
+        {
+          "desde": 6,
+          "factor": 0.85
+        },
+        {
+          "desde": 16,
+          "factor": 0.75
+        }
       ]
     }
-  ]
+  ],
+  "presupuesto_inicial": 5000,
+  "confianza_z": 1.96
 }

@@ -863,3 +863,24 @@ a:hover { color: #fff; }
 .pagina-inicio .portada__titulo { max-width: 20ch; font-size: clamp(2.2rem, 3.9vw, 3.2rem); }
 .contacto-inicio .contacto { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
 @media (max-width: 860px) { .contacto-inicio .contacto { grid-template-columns: 1fr; } }
+
+/* ---------- Simulador: modos de cálculo, precisión y envío de cotización ---------- */
+.sim-modos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: .6rem; }
+.sim-modo { display: flex; gap: .65rem; align-items: flex-start; padding: .85rem 1rem; border: 1.5px solid var(--linea); border-radius: var(--radio); cursor: pointer; background: var(--blanco); font-size: .9rem; color: var(--texto-suave); line-height: 1.4; }
+.sim-modo strong { display: block; color: var(--azul); font-size: .98rem; }
+.sim-modo input { margin: .2rem 0 0; accent-color: var(--turquesa-osc); flex: none; }
+.sim-modo:has(input:checked) { border-color: var(--turquesa-osc); background: var(--turquesa-claro); }
+.sim-modo:has(input:focus-visible) { outline: 3px solid var(--turquesa); outline-offset: 2px; }
+.sim-entrada { display: grid; gap: .45rem; margin-top: .4rem; }
+.sim-entrada[hidden] { display: none; }
+#s-presupuesto { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; max-width: 14rem; }
+.sim-res__precision { font-size: .88rem; color: #DCE6EF; background: rgba(19,168,158,.14); border-left: 3px solid var(--turquesa); padding: .55rem .75rem; margin: -.5rem 0 1.25rem; border-radius: 0 3px 3px 0; }
+.sim-desglose__titulo { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #9FB2C6; margin: 0 0 .3rem; }
+.sim-escala summary { cursor: pointer; }
+.sim-envio { display: grid; gap: .7rem; margin-top: 1rem; padding: 1rem; border: 1px solid rgba(255,255,255,.14); border-radius: 3px; background: rgba(255,255,255,.04); }
+.sim-envio[hidden] { display: none; }
+.sim-envio__intro { margin: 0; font-size: .86rem; color: #C9D6E2; }
+.sim-envio label { color: #DCE6EF; font-size: .86rem; }
+.sim-envio .formulario__estado { margin: 0; font-size: .86rem; }
+.sim-res__acciones { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; margin-top: .9rem; font-size: .88rem; }
+.simulador__resultado .enlace-btn, .simulador__resultado .sim-res__acciones a { color: var(--turquesa-medio); }

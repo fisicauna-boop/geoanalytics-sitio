@@ -317,6 +317,10 @@ content:
           - name: asunto
             label: Asunto de los correos recibidos
             type: string
+          - name: google_sheets_url
+            label: Planilla de Google para registrar consultas y cotizaciones (opcional)
+            type: string
+            description: URL de la aplicación web de Apps Script (termina en /exec). Ver GUIA.md, sección 2.4.
       - name: analitica
         label: Estadísticas de visitas
         type: object
@@ -349,6 +353,12 @@ content:
         type: number
       - name: redondeo
         label: Redondear precios a múltiplos de
+        type: number
+      - name: presupuesto_inicial
+        label: Presupuesto que aparece al abrir el simulador
+        type: number
+      - name: confianza_z
+        label: Valor z para el margen de error (1,96 = 95 % de confianza)
         type: number
       - name: margen_min
         label: Margen mínimo permitido (0,50 = 50 %)
@@ -452,6 +462,9 @@ content:
           - name: cantidad_inicial
             label: Cantidad al abrir el simulador
             type: number
+          - name: muestreo
+            label: Mostrar margen de error (solo encuestas con muestra aleatoria)
+            type: boolean
           - name: paso
             label: Paso del control deslizante
             type: number
