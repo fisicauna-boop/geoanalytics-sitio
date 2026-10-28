@@ -1,7 +1,6 @@
 [
-  { "paso": "Diseñar", "texto": "Definimos la decisión que se quiere tomar, las preguntas, la muestra, los indicadores y el cronograma." },
-  { "paso": "Relevar", "texto": "Reunimos datos de la empresa, fuentes públicas y trabajo de campo con formularios digitales, fotos y ubicación." },
-  { "paso": "Validar", "texto": "Controlamos calidad, duplicados e inconsistencias antes de analizar. Lo que no cierra, se documenta." },
-  { "paso": "Analizar", "texto": "Aplicamos estadística, modelos de rutas y análisis territorial según la pregunta, con márgenes de error explícitos." },
-  { "paso": "Recomendar", "texto": "Entregamos hallazgos, tableros y recomendaciones accionables, y las revisamos con su equipo." }
+  { "paso": "Entender", "texto": "Definimos la decisión que se quiere tomar, las preguntas críticas y los indicadores de éxito." },
+  { "paso": "Diseñar", "texto": "Establecemos metodología, muestra, fuentes, cobertura y plan operativo." },
+  { "paso": "Medir y validar", "texto": "Relevamos con formularios digitales, fotos y ubicación, y controlamos la calidad antes de analizar." },
+  { "paso": "Activar decisiones", "texto": "Traducimos los resultados en prioridades, tableros y acciones concretas, con márgenes de error explícitos." }
 ]

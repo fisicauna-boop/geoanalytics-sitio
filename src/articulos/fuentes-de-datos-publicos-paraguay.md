@@ -5,7 +5,7 @@ date: 2026-10-20
 categoria: datos-y-mapas
 etiquetas: [Datos abiertos, Paraguay, Censo, OpenStreetMap]
 imagen: /media/portadas/fuentes-datos-publicos.webp
-imagen_alt: Ilustración 3D de un mapa de hexágonos con alturas y tonos de turquesa a azul marino.
+imagen_alt: Ilustración 3D de un mapa de hexágonos con alturas en tonos de turquesa sobre fondo azul marino.
 servicios: [estadistica-y-data-analytics, geomarketing-y-expansion-comercial]
 visualizaciones:
   - tipo: mapa

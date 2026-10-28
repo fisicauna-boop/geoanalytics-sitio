@@ -184,7 +184,7 @@ Cada gráfico y mapa debe indicar su **fuente** y su **fecha de referencia**. Si
 - **Servicios**: los seis pilares (estadística y data analytics, trade marketing, ruteo, investigación de mercados, geomarketing y operaciones de campo) se editan en el panel (**Servicios**). Cada uno tiene área, ícono, entregables, preguntas y, si corresponde, una demostración relacionada. Si crea un servicio nuevo, agréguelo también a la lista de *Servicios relacionados* en `.pages.yml`.
 - **Direcciones antiguas**: las páginas de servicios anteriores y `/sobre/` redirigen solas a sus páginas nuevas. La lista está en `src/_data/redirecciones.json`.
 - **Industrias**: los textos, preguntas y servicios de cada industria están en `src/_data/industrias.json`.
-- **Metodología**: las cinco etapas (diseñar, relevar, validar, analizar, recomendar) están en `src/_data/metodologia.json` y aparecen en el inicio, en servicios y en cada servicio.
+- **Metodología**: las cuatro etapas (entender, diseñar, medir y validar, activar decisiones) están en `src/_data/metodologia.json` y aparecen en el inicio, en servicios y en cada servicio.
 - **Demostraciones**: góndola 3D, ruteo y encuestas, en `/demostraciones/`. Generan datos simulados en el navegador y lo indican en pantalla; no use nombres de marcas o clientes reales en ellas. Los textos de las tarjetas están en `src/_data/demos.json`.
 - **Secciones de artículos**: Geomarketing, Inteligencia comercial y Datos y mapas se editan en **Secciones (categorías)**. No cambie el *identificador*.
 - **Sobre Geoanalytics**: el texto está en `src/paginas/nosotros.md`. Ajústelo a la realidad de la empresa (equipo, trayectoria verificable, RUC).

@@ -1,5 +1,47 @@
 [
-  { "id": "gondola", "titulo": "Góndola 3D", "subtitulo": "Trade marketing", "texto": "Explore una góndola simulada y vea cómo se calculan el share of shelf, los quiebres y la presencia a la altura de los ojos.", "url": "/demostraciones/gondola/", "imagen": "/media/demos/gondola.webp" },
-  { "id": "ruteo", "titulo": "Optimización de rutas", "subtitulo": "Field operations", "texto": "Reparta visitas entre vendedores y compare la distancia de una ruta sin ordenar con la ruta optimizada.", "url": "/demostraciones/ruteo/", "imagen": "/media/demos/ruteo.webp" },
-  { "id": "encuestas", "titulo": "Encuestas y muestreo", "subtitulo": "Market research", "texto": "Calcule el tamaño de muestra y el margen de error, y vea cómo cambian los resultados de una encuesta simulada.", "url": "/demostraciones/encuestas/", "imagen": "/media/demos/encuestas.webp" }
+  {
+    "id": "gondola",
+    "titulo": "Góndola 3D",
+    "subtitulo": "Trade marketing",
+    "texto": "Explore una góndola simulada y vea cómo se calculan el share of shelf, los quiebres y la presencia a la altura de los ojos.",
+    "url": "/demostraciones/gondola/",
+    "imagen": "/media/demos/gondola.webp",
+    "pestana": "Trade performance",
+    "pestana_sub": "Ejecución en el punto de venta",
+    "calcula": [
+      "Share of shelf por marca, calculado desde los frentes de la góndola",
+      "Espacios vacíos (quiebres) sobre el total de posiciones",
+      "Presencia de la marca a la altura de los ojos"
+    ]
+  },
+  {
+    "id": "ruteo",
+    "titulo": "Optimización de rutas",
+    "subtitulo": "Field operations",
+    "texto": "Reparta visitas entre vendedores y compare la distancia de una ruta sin ordenar con la ruta optimizada.",
+    "url": "/demostraciones/ruteo/",
+    "imagen": "/media/demos/ruteo.webp",
+    "pestana": "Route efficiency",
+    "pestana_sub": "Rutas y productividad del equipo",
+    "calcula": [
+      "Reparto de la cartera en zonas con igual cantidad de visitas",
+      "Orden de visita optimizado con vecino más cercano y 2-opt",
+      "Kilómetros y horas por vendedor, antes y después"
+    ]
+  },
+  {
+    "id": "encuestas",
+    "titulo": "Encuestas y muestreo",
+    "subtitulo": "Market research",
+    "texto": "Calcule el tamaño de muestra y el margen de error, y vea cómo cambian los resultados de una encuesta simulada.",
+    "url": "/demostraciones/encuestas/",
+    "imagen": "/media/demos/encuestas.webp",
+    "pestana": "Consumer pulse",
+    "pestana_sub": "Encuestas y precisión estadística",
+    "calcula": [
+      "Tamaño de muestra según confianza, margen de error y población",
+      "Margen de error para una muestra dada",
+      "Intervalos de confianza por zona en una encuesta simulada"
+    ]
+  }
 ]

@@ -4,20 +4,17 @@ clase_body: pagina-inicio
 ---
 {% from "partials/macros.njk" import tarjeta %}
 {% from "partials/iconos.njk" import icono as dibujarIcono %}
-{%- set todos = collections.articulos -%}
-{%- set dest = todos | destacados -%}
-{%- set principal = dest[0] if dest.length else todos[0] -%}
-{%- set recientes = todos | excepto(principal.url if principal else "") | limitar(3) -%}
 
+{# 1. Portada #}
 <section class="portada">
   <div class="contenedor portada__grilla">
     <div class="portada__texto">
       <p class="portada__antetitulo">Estadística · Inteligencia comercial · Analítica geoespacial</p>
-      <h1 class="portada__titulo">Convertimos datos en decisiones que generan resultados</h1>
-      <p class="portada__bajada">Investigación de mercados, trade marketing, analítica estadística, ruteo y geomarketing en una sola propuesta para empresas en Paraguay.</p>
+      <h1 class="portada__titulo">La ventaja no está en tener datos. <span>Está en saber qué hacer con ellos.</span></h1>
+      <p class="portada__bajada">Integramos estadística, investigación de mercados, trade marketing, ruteo y geomarketing para convertir información dispersa en decisiones que se pueden ejecutar y medir.</p>
       <div class="portada__acciones">
-        <a class="boton boton--claro" href="/servicios/">Nuestros servicios</a>
-        <a class="boton boton--contorno" href="/contacto/">Solicitar propuesta</a>
+        <a class="boton boton--claro" href="/demostraciones/">Explorar las demostraciones</a>
+        <a class="boton boton--contorno" href="#contacto">Solicitar propuesta</a>
       </div>
     </div>
     <figure class="portada__escena">
@@ -38,13 +35,13 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/hero3d.js"></script>
 
+{# 2. Servicios #}
 <section class="seccion" aria-labelledby="serv-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
-      <h2 id="serv-t" class="seccion__titulo">Servicios</h2>
+      <h2 id="serv-t" class="seccion__titulo">Una mirada integral, respuestas accionables</h2>
       <a class="seccion__mas" href="/servicios/">Ver todos los servicios</a>
     </div>
-    <p class="seccion__bajada">Seis frentes de trabajo que se combinan según la decisión que su empresa necesita tomar.</p>
     <ul class="servicios-inicio">
       {% for s in collections.servicios %}
       <li>
@@ -59,62 +56,97 @@ clase_body: pagina-inicio
   </div>
 </section>
 
+{# 3. Vitrina de demostraciones #}
 <section class="seccion seccion--oscura" aria-labelledby="demo-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
-      <h2 id="demo-t" class="seccion__titulo">Demostraciones interactivas</h2>
+      <h2 id="demo-t" class="seccion__titulo">Menos promesas, más demostración</h2>
       <a class="seccion__mas" href="/demostraciones/">Ver las demostraciones</a>
     </div>
-    <p class="seccion__bajada">Pruebe cómo trabajamos con datos simulados: nada de lo que se muestra corresponde a clientes reales.</p>
-    <div class="demos-grilla">
+    <div class="vitrina" data-vitrina>
+      <div class="vitrina__pestanas" role="tablist" aria-label="Demostraciones">
+        {% for d in demos %}
+        <button class="vitrina__pestana" role="tab" id="tab-{{ d.id }}" aria-controls="panel-{{ d.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">
+          <span class="vitrina__pestana-titulo">{{ d.pestana }}</span>
+          <span class="vitrina__pestana-sub">{{ d.pestana_sub }}</span>
+        </button>
+        {% endfor %}
+        <p class="vitrina__nota">Datos simulados que se generan en su navegador. No representan resultados de clientes.</p>
+      </div>
       {% for d in demos %}
-      <a class="demo-tarjeta" href="{{ d.url }}">
-        <img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy">
-        <span class="demo-tarjeta__sub">{{ d.subtitulo }}</span>
-        <span class="demo-tarjeta__titulo">{{ d.titulo }}</span>
-        <span class="demo-tarjeta__texto">{{ d.texto }}</span>
-      </a>
+      <div class="vitrina__panel" role="tabpanel" id="panel-{{ d.id }}" aria-labelledby="tab-{{ d.id }}"{% if not loop.first %} hidden{% endif %}>
+        <a class="vitrina__imagen" href="{{ d.url }}" tabindex="-1" aria-hidden="true"><img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy"></a>
+        <div class="vitrina__texto">
+          <p class="vitrina__sub">{{ d.subtitulo }}</p>
+          <h3 class="vitrina__titulo">{{ d.titulo }}</h3>
+          <p>{{ d.texto }}</p>
+          <p class="vitrina__calcula-t">Qué calcula</p>
+          <ul class="vitrina__calcula">{% for c in d.calcula %}<li>{{ c }}</li>{% endfor %}</ul>
+          <a class="boton" href="{{ d.url }}">Abrir la demostración</a>
+        </div>
+      </div>
       {% endfor %}
     </div>
   </div>
 </section>
 
+{# 4. Industrias y metodología #}
 <section class="seccion" aria-labelledby="ind-t">
-  <div class="contenedor">
-    <div class="seccion__cabecera">
-      <h2 id="ind-t" class="seccion__titulo">Soluciones por industria</h2>
-      <a class="seccion__mas" href="/industrias/">Ver por industria</a>
+  <div class="contenedor dos-columnas">
+    <div>
+      <h2 id="ind-t" class="seccion__titulo">Soluciones que hablan el idioma de su negocio</h2>
+      <ul class="industrias-lista">
+        {% for i in industrias %}
+        <li><a href="/industrias/#{{ i.id }}"><span class="industrias-lista__nombre">{{ i.nombre }}</span><span class="industrias-lista__pregunta">{{ i.preguntas[0] }}</span></a></li>
+        {% endfor %}
+      </ul>
     </div>
-    <ul class="industrias-inicio">
-      {% for i in industrias %}
-      <li><a href="/industrias/#{{ i.id }}"><span class="industrias-inicio__nombre">{{ i.nombre }}</span><span class="industrias-inicio__pregunta">{{ i.preguntas[0] }}</span></a></li>
-      {% endfor %}
-    </ul>
+    <div>
+      <h2 class="seccion__titulo">Del problema a una decisión defendible</h2>
+      <ol class="metodo metodo--vertical">
+        {% for m in metodologia %}
+        <li class="metodo__paso">
+          <span class="metodo__num" aria-hidden="true">{{ loop.index }}</span>
+          <h3 class="metodo__titulo">{{ m.paso }}</h3>
+          <p>{{ m.texto }}</p>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
   </div>
 </section>
 
-{% include "partials/metodologia.njk" %}
-
-{% if principal %}
-<section class="seccion" aria-labelledby="ult-t">
+{# 5. Artículos y contacto #}
+{%- set arts = collections.articulos | limitar(3) -%}
+{% if arts.length %}
+<section class="seccion seccion--suave" aria-labelledby="art-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
-      <h2 id="ult-t" class="seccion__titulo">Artículos y análisis</h2>
+      <h2 id="art-t" class="seccion__titulo">Ideas que abren mejores preguntas</h2>
       <a class="seccion__mas" href="/articulos/">Ver todas las publicaciones</a>
     </div>
-    <div class="destacado">
-      {{ tarjeta(principal, categorias, "grande", 3) }}
-      {% if recientes.length %}
-      <div class="destacado__lista">
-        {% for a in recientes %}{{ tarjeta(a, categorias, "lista", 3) }}{% endfor %}
-      </div>
-      {% endif %}
+    <div class="grilla grilla--tres">
+      {% for a in arts %}{{ tarjeta(a, categorias, "normal", 3) }}{% endfor %}
     </div>
   </div>
 </section>
 {% endif %}
 
-{% set cta_titulo = "¿Qué decisión necesita tomar su empresa?" %}
-{% set cta_texto = "Cuéntenos qué quiere medir, investigar u ordenar. Le respondemos con una propuesta de alcance, datos necesarios, plazos y costos." %}
-{% set cta_boton = "Solicitar propuesta" %}
-{% include "partials/cta.njk" %}
+<section class="seccion contacto-inicio" id="contacto" aria-labelledby="con-t">
+  <div class="contenedor contacto">
+    <div>
+      <h2 id="con-t" class="seccion__titulo contacto-inicio__titulo">¿Qué decisión necesita resolver?</h2>
+      <p class="seccion__bajada">Cuéntenos el desafío. Le respondemos con el enfoque analítico, los datos necesarios, el alcance, los plazos y los costos. También puede <a href="/simulador/">simular el costo de un estudio</a>.</p>
+      <ul class="puntos-contacto">
+        <li><strong>Enfoque a medida</strong><span>Una propuesta alineada al problema real de su empresa.</span></li>
+        <li><strong>Rigor metodológico</strong><span>Supuestos, fuentes, muestras y márgenes de error explícitos.</span></li>
+        <li><strong>Orientación a la acción</strong><span>Resultados pensados para decidir y ejecutar.</span></li>
+      </ul>
+    </div>
+    <div class="contacto-inicio__form">
+      {% include "partials/formulario-contacto.njk" %}
+    </div>
+  </div>
+</section>
+<script src="/assets/js/contacto.js" defer></script>
+<script src="/assets/js/vitrina.js" defer></script>

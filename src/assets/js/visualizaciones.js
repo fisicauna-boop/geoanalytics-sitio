@@ -16,7 +16,7 @@
     leafletJs: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
     leafletCss: "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css",
   };
-  const COLORES = ["#13A89E", "#0E2A47", "#6CCFC6", "#4F6F92", "#0A7A73", "#8FA6BF"];
+  const COLORES = ["#13A89E", "#3FD0E8", "#6CCFC6", "#8FA6BF", "#2E8FB8", "#C5D3E0"];
   const cargados = {};
   const script = (src) => (cargados[src] ||= new Promise((ok, mal) => {
     const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = mal; document.head.appendChild(s);
@@ -59,7 +59,7 @@
     lienzo.style.height = tipo === "barras-horizontales" ? Math.max(260, etiquetas.length * 46) + "px" : "340px";
     const Chart = window.Chart;
     Chart.defaults.font.family = '"Public Sans", system-ui, sans-serif';
-    Chart.defaults.color = "#556678";
+    Chart.defaults.color = "#8FA3B8";
     new Chart(canvas, {
       type: tipo === "lineas" ? "line" : "bar",
       data: {
@@ -78,8 +78,8 @@
           tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.formattedValue}${unidad}` } },
         },
         scales: {
-          x: { grid: { display: tipo === "barras-horizontales", color: "#E6ECF1" }, ticks: tipo === "barras-horizontales" ? { callback: (v) => v + unidad } : {} },
-          y: { grid: { display: tipo !== "barras-horizontales", color: "#E6ECF1" }, beginAtZero: true, ticks: tipo !== "barras-horizontales" ? { callback: (v) => v + unidad } : {} },
+          x: { grid: { display: tipo === "barras-horizontales", color: "rgba(255,255,255,.08)" }, ticks: tipo === "barras-horizontales" ? { callback: (v) => v + unidad } : {} },
+          y: { grid: { display: tipo !== "barras-horizontales", color: "rgba(255,255,255,.08)" }, beginAtZero: true, ticks: tipo !== "barras-horizontales" ? { callback: (v) => v + unidad } : {} },
         },
       },
     });

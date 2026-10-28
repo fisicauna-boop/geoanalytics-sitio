@@ -16,13 +16,12 @@ Trabajamos en seis frentes que se complementan: estadística y data analytics, t
 
 ## Metodología
 
-Cada proyecto sigue cinco etapas:
+Cada proyecto sigue cuatro etapas:
 
-1. **Diseñar.** Definimos la decisión que se quiere tomar, las preguntas, la muestra, los indicadores y el cronograma.
-2. **Relevar.** Reunimos datos de la empresa, fuentes públicas y trabajo de campo con formularios digitales, fotos y ubicación.
-3. **Validar.** Controlamos calidad, duplicados e inconsistencias antes de analizar. Lo que no cierra, se documenta.
-4. **Analizar.** Aplicamos estadística, modelos de rutas y análisis territorial según la pregunta, con márgenes de error explícitos.
-5. **Recomendar.** Entregamos hallazgos, tableros y recomendaciones accionables, y las revisamos con su equipo.
+1. **Entender.** Definimos la decisión que se quiere tomar, las preguntas críticas y los indicadores de éxito.
+2. **Diseñar.** Establecemos metodología, muestra, fuentes, cobertura y plan operativo.
+3. **Medir y validar.** Relevamos con formularios digitales, fotos y ubicación, y controlamos la calidad antes de analizar. Lo que no cierra, se documenta.
+4. **Activar decisiones.** Traducimos los resultados en prioridades, tableros y acciones concretas, con márgenes de error explícitos.
 
 ## Enfoque profesional
 
