@@ -1,0 +1,106 @@
+---
+layout: layouts/base.njk
+title: Quiénes somos
+description: Geoanalytics E.I.R.L. es una firma paraguaya de analítica aplicada que integra datos, mercado y territorio. Propósito, misión, visión, valores y método de trabajo.
+permalink: /nosotros/
+---
+<header class="cabecera-pagina cabecera-pagina--oscura">
+  <div class="contenedor nos-cabecera">
+    <div>
+      <p class="seccion__ante">Quiénes somos</p>
+      <h1 class="cabecera-pagina__titulo">Datos, mercado y territorio para decidir mejor</h1>
+      <p class="cabecera-pagina__bajada">{{ marca.posicionamiento }}</p>
+    </div>
+    <img class="nos-cabecera__logo" src="/media/marca/logo-geoanalytics.webp" alt="Logotipo de Geoanalytics E.I.R.L.: datos, mercado, territorio" width="814" height="211">
+  </div>
+</header>
+
+<section class="seccion" aria-labelledby="esencia-t">
+  <div class="contenedor">
+    <h2 id="esencia-t" class="seccion__titulo">Nuestra esencia</h2>
+    <p class="seccion__bajada nos-lead">{{ marca.esencia.texto }}</p>
+    <ul class="nos-pilares">
+      {% for p in marca.esencia.pilares %}<li><strong>{{ p.nombre }}</strong><span>{{ p.texto }}</span></li>{% endfor %}
+    </ul>
+    <p class="nos-promesa"><span>Nuestra promesa</span>{{ marca.promesa }}</p>
+  </div>
+</section>
+
+<section class="seccion seccion--suave" aria-labelledby="pmv-t">
+  <div class="contenedor">
+    <h2 id="pmv-t" class="visualmente-oculto">Propósito, misión y visión</h2>
+    <div class="nos-pmv">
+      <article><p class="nos-etiqueta">Propósito</p><p>{{ marca.proposito }}</p></article>
+      <article><p class="nos-etiqueta">Misión</p><p>{{ marca.mision }}</p></article>
+      <article><p class="nos-etiqueta">Visión 2030</p><p>{{ marca.vision }}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="nombre-t">
+  <div class="contenedor nos-nombre">
+    <div>
+      <h2 id="nombre-t" class="seccion__titulo">Qué significa nuestro nombre</h2>
+      <dl class="nos-nombre__lista">
+        {% for n in marca.nombre %}<div><dt>{{ n.parte }}</dt><dd>{{ n.texto }}</dd></div>{% endfor %}
+      </dl>
+    </div>
+    <figure class="nos-nombre__logo">
+      <img src="/media/marca/isotipo-geoanalytics.png" alt="" width="215" height="223" loading="lazy">
+      <figcaption>{{ marca.logotipo }}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="seccion seccion--suave" aria-labelledby="valores-t">
+  <div class="contenedor">
+    <h2 id="valores-t" class="seccion__titulo">Valores que se ven en el trabajo</h2>
+    <p class="seccion__bajada">Los valores solo existen si se convierten en prácticas.</p>
+    <ul class="nos-valores">
+      {% for v in marca.valores %}<li><span class="nos-valores__num">{{ "0" if loop.index < 10 }}{{ loop.index }}</span><strong>{{ v.nombre }}</strong><span>{{ v.texto }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="caracter-t">
+  <div class="contenedor nos-caracter">
+    <div>
+      <h2 id="caracter-t" class="seccion__titulo">Cómo somos</h2>
+      <p class="seccion__bajada">Analíticos sin ser fríos; tecnológicos sin ser complicados.</p>
+      <ul class="nos-personalidad">
+        {% for p in marca.personalidad %}<li><strong>{{ p.nombre }}</strong><span>{{ p.texto }}</span></li>{% endfor %}
+      </ul>
+    </div>
+    <div class="nos-no">
+      <p class="nos-etiqueta">Lo que no somos</p>
+      <ul>{% for n in marca.no_somos %}<li>{{ n }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+{% include "partials/metodologia.njk" %}
+<p class="contenedor nos-entregables"><strong>Entregables habituales:</strong> {{ marca.entregables }}</p>
+
+<section class="seccion" aria-labelledby="seg-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2 id="seg-t" class="seccion__titulo">Dónde aportamos</h2>
+      <a class="seccion__mas" href="/soluciones/">Ver soluciones para retail y distribución</a>
+    </div>
+    <ul class="nos-segmentos">
+      {% for s in marca.segmentos %}<li><a href="{{ s.url }}"><strong>{{ s.nombre }}</strong><span>{{ s.texto }}</span></a></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="seccion seccion--suave">
+  <div class="contenedor contenedor--lectura prosa">
+    <h2>Datos de la empresa</h2>
+    <p>Geoanalytics opera como <strong>{{ site.razon_social }}</strong>, empresa constituida en Paraguay. Los datos que una empresa comparte con nosotros se usan solo para su proyecto y no se publican.</p>
+  </div>
+</section>
+
+{% set cta_titulo = marca.frase %}
+{% set cta_texto = "Cuéntenos qué decisión necesita tomar. Le respondemos con el enfoque, los datos necesarios, el alcance, los plazos y los costos." %}
+{% set cta_boton = "Solicitar propuesta" %}
+{% include "partials/cta.njk" %}

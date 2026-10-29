@@ -1,37 +1,77 @@
 [
   {
     "id": "consumo-masivo",
-    "nombre": "Consumo masivo",
+    "nombre": "Marcas y consumo masivo",
     "texto": "Fabricantes e importadores que necesitan saber cómo se ejecuta su marca en miles de puntos de venta y cómo compra el consumidor.",
-    "preguntas": ["¿En qué canales y zonas tenemos quiebres de stock?", "¿Qué share of shelf logramos frente a la competencia?", "¿Qué valora el consumidor al elegir en la categoría?"],
-    "servicios": ["trade-marketing-y-retail-intelligence", "investigacion-de-mercados-y-encuestas", "operaciones-de-campo-y-censos"]
+    "preguntas": [
+      "¿En qué canales y zonas tenemos quiebres de stock?",
+      "¿Qué share of shelf logramos frente a la competencia?",
+      "¿Qué valora el consumidor al elegir en la categoría?"
+    ],
+    "servicios": [
+      "trade-marketing-y-retail-intelligence",
+      "investigacion-de-mercados-y-encuestas",
+      "operaciones-de-campo-y-censos"
+    ]
   },
   {
     "id": "farmacias",
     "nombre": "Farmacias y salud",
     "texto": "Laboratorios, droguerías y cadenas que trabajan con redes extensas de farmacias y visitadores.",
-    "preguntas": ["¿Qué farmacias concentran el potencial de cada zona?", "¿Cómo organizamos las visitas de los representantes?", "¿Se cumplen la exhibición y los precios acordados?"],
-    "servicios": ["ruteo-y-optimizacion-operativa", "trade-marketing-y-retail-intelligence", "geomarketing-y-expansion-comercial"]
+    "preguntas": [
+      "¿Qué farmacias concentran el potencial de cada zona?",
+      "¿Cómo organizamos las visitas de los representantes?",
+      "¿Se cumplen la exhibición y los precios acordados?"
+    ],
+    "servicios": [
+      "ruteo-y-optimizacion-operativa",
+      "trade-marketing-y-retail-intelligence",
+      "geomarketing-y-expansion-comercial"
+    ]
   },
   {
     "id": "retail",
     "nombre": "Retail y cadenas",
     "texto": "Supermercados, tiendas y franquicias que evalúan dónde abrir, cómo rinde cada local y qué opinan sus clientes.",
-    "preguntas": ["¿Dónde abrir la próxima sucursal?", "¿Qué locales rinden por debajo de su potencial?", "¿Cómo evoluciona la satisfacción de los clientes?"],
-    "servicios": ["geomarketing-y-expansion-comercial", "investigacion-de-mercados-y-encuestas", "estadistica-y-data-analytics"]
+    "preguntas": [
+      "¿Dónde abrir la próxima sucursal?",
+      "¿Qué locales rinden por debajo de su potencial?",
+      "¿Cómo evoluciona la satisfacción de los clientes?"
+    ],
+    "servicios": [
+      "geomarketing-y-expansion-comercial",
+      "investigacion-de-mercados-y-encuestas",
+      "estadistica-y-data-analytics"
+    ]
   },
   {
     "id": "distribucion",
     "nombre": "Distribución y logística comercial",
     "texto": "Distribuidoras y mayoristas que atienden carteras grandes con vendedores, preventistas y vehículos.",
-    "preguntas": ["¿Cómo repartimos la cartera entre vendedores?", "¿Cuántos kilómetros podemos ahorrar por día?", "¿Qué clientes visitar con más o menos frecuencia?"],
-    "servicios": ["ruteo-y-optimizacion-operativa", "operaciones-de-campo-y-censos", "estadistica-y-data-analytics"]
+    "preguntas": [
+      "¿Cómo repartimos la cartera entre vendedores?",
+      "¿Cuántos kilómetros podemos ahorrar por día?",
+      "¿Qué clientes visitar con más o menos frecuencia?"
+    ],
+    "servicios": [
+      "ruteo-y-optimizacion-operativa",
+      "operaciones-de-campo-y-censos",
+      "estadistica-y-data-analytics"
+    ]
   },
   {
     "id": "servicios",
     "nombre": "Servicios y finanzas",
     "texto": "Bancos, financieras, telecomunicaciones y empresas de servicios con redes de sucursales, agentes o puntos de atención.",
-    "preguntas": ["¿Nuestra red de atención cubre a los clientes objetivo?", "¿Cómo perciben los clientes la atención en cada sucursal?", "¿Qué indicadores seguir cada mes y con qué metas?"],
-    "servicios": ["geomarketing-y-expansion-comercial", "investigacion-de-mercados-y-encuestas", "estadistica-y-data-analytics"]
+    "preguntas": [
+      "¿Nuestra red de atención cubre a los clientes objetivo?",
+      "¿Cómo perciben los clientes la atención en cada sucursal?",
+      "¿Qué indicadores seguir cada mes y con qué metas?"
+    ],
+    "servicios": [
+      "geomarketing-y-expansion-comercial",
+      "investigacion-de-mercados-y-encuestas",
+      "estadistica-y-data-analytics"
+    ]
   }
 ]

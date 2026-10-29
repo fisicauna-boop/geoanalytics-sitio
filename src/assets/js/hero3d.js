@@ -17,8 +17,9 @@ function rng(semilla) { let s = (semilla * 2654435761) >>> 0 || 1; return () => 
 function iniciar() {
   const r = rng(17);
   const C = {
-    suelo: 0x0f2c4b, calle: 0x16395f, vereda: 0x1d4068, edif: new THREE.Color("#2B5683"), edif2: new THREE.Color("#3A6A99"),
-    tienda: new THREE.Color("#13A89E"), comp: new THREE.Color("#9DB4CC"), cian: 0x3fd0e8, turC: 0xbfede8, blanco: 0xffffff,
+    // Paleta del manual de marca sobre fondo claro
+    suelo: 0xc9def0, calle: 0xf4f9ff, vereda: 0xaecbe3, edif: new THREE.Color("#4F82B5"), edif2: new THREE.Color("#86AED6"),
+    tienda: new THREE.Color("#00C2C7"), comp: new THREE.Color("#0B2D4A"), cian: 0x007bff, turC: 0xbff0f1, blanco: 0xffffff,
   };
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -29,7 +30,7 @@ function iniciar() {
   canvas.setAttribute("aria-hidden", "true");
   const escena = new THREE.Scene();
   const camara = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200);
-  escena.add(new THREE.HemisphereLight(0xdff6f3, 0x0a1d33, 1.2));
+  escena.add(new THREE.HemisphereLight(0xffffff, 0x9fb9d2, 1.45));
   const sol = new THREE.DirectionalLight(0xffffff, 1.7); sol.position.set(-5, 12, 7); escena.add(sol);
 
   // ---------- Trazado urbano ----------
@@ -107,7 +108,7 @@ function iniciar() {
   const halo = new THREE.Mesh(new THREE.TubeGeometry(camino, SEG, 0.13, 8, false), new THREE.MeshBasicMaterial({ color: C.cian, transparent: true, opacity: 0.16, depthWrite: false }));
   escena.add(tubo, halo);
   const totalTubo = tubo.geometry.index.count, totalHalo = halo.geometry.index.count;
-  const pulso = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  const pulso = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), new THREE.MeshBasicMaterial({ color: 0x39d98a }));
   escena.add(pulso);
 
   // ---------- Paneles de análisis (texturas dibujadas en canvas) ----------
@@ -115,24 +116,24 @@ function iniciar() {
     const W = 640, H = 400, c = document.createElement("canvas"); c.width = W; c.height = H;
     const g = c.getContext("2d");
     const redondo = (x, y, w, h, rr) => { g.beginPath(); g.moveTo(x + rr, y); g.arcTo(x + w, y, x + w, y + h, rr); g.arcTo(x + w, y + h, x, y + h, rr); g.arcTo(x, y + h, x, y, rr); g.arcTo(x, y, x + w, y, rr); g.closePath(); };
-    redondo(6, 6, W - 12, H - 12, 22); g.fillStyle = "rgba(10,32,56,0.88)"; g.fill(); g.lineWidth = 3; g.strokeStyle = "rgba(63,208,232,0.75)"; g.stroke();
-    g.fillStyle = "#FFFFFF"; g.font = "700 50px 'Public Sans', Arial, sans-serif"; g.fillText(titulo, 36, 74);
-    g.fillStyle = "#8FD9D2"; g.font = "34px 'Public Sans', Arial, sans-serif"; g.fillText(sub, 36, 120);
+    redondo(6, 6, W - 12, H - 12, 22); g.fillStyle = "rgba(11,45,74,0.9)"; g.fill(); g.lineWidth = 3; g.strokeStyle = "rgba(0,194,199,0.8)"; g.stroke();
+    g.fillStyle = "#FFFFFF"; g.font = "700 50px 'Inter', Arial, sans-serif"; g.fillText(titulo, 36, 74);
+    g.fillStyle = "#7FE3E6"; g.font = "34px 'Inter', Arial, sans-serif"; g.fillText(sub, 36, 120);
     const rr = rng(titulo.length * 13);
     g.strokeStyle = "rgba(255,255,255,0.12)"; g.lineWidth = 2;
     for (let k = 0; k < 4; k++) { g.beginPath(); g.moveTo(36, 170 + k * 52); g.lineTo(W - 36, 170 + k * 52); g.stroke(); }
     if (tipo === "barras") {
-      for (let k = 0; k < 7; k++) { const h = 40 + rr() * 150; g.fillStyle = k === 5 ? "#3FD0E8" : "#13A89E"; g.fillRect(48 + k * 76, 342 - h, 46, h); }
+      for (let k = 0; k < 7; k++) { const h = 40 + rr() * 150; g.fillStyle = k === 5 ? "#39D98A" : "#00C2C7"; g.fillRect(48 + k * 76, 342 - h, 46, h); }
     } else if (tipo === "dona") {
-      const cx = 180, cy = 255, rad = 92, partes = [0.38, 0.27, 0.2, 0.15], colores = ["#13A89E", "#3FD0E8", "#5B7FA6", "#9DB4CC"];
+      const cx = 180, cy = 255, rad = 92, partes = [0.38, 0.27, 0.2, 0.15], colores = ["#00C2C7", "#007BFF", "#39D98A", "#9DB6CC"];
       let a0 = -Math.PI / 2; partes.forEach((p, k) => { g.beginPath(); g.lineWidth = 38; g.strokeStyle = colores.at(k); g.arc(cx, cy, rad, a0, a0 + p * Math.PI * 2 - 0.04); g.stroke(); a0 += p * Math.PI * 2; });
       for (let k = 0; k < 4; k++) { g.fillStyle = colores.at(k); g.fillRect(330, 190 + k * 40, 26, 26); g.fillStyle = "rgba(255,255,255,0.55)"; g.fillRect(370, 198 + k * 40, 120 + rr() * 90, 10); }
     } else if (tipo === "linea") {
-      g.beginPath(); g.lineWidth = 6; g.strokeStyle = "#3FD0E8"; let y = 300;
+      g.beginPath(); g.lineWidth = 6; g.strokeStyle = "#39D98A"; let y = 300;
       for (let k = 0; k <= 10; k++) { y = Math.max(170, Math.min(330, y - 18 + (rr() - 0.35) * 40)); const x = 48 + k * 54; if (k) g.lineTo(x, y); else g.moveTo(x, y); }
       g.stroke(); g.fillStyle = "#FFFFFF"; g.beginPath(); g.arc(588, y, 10, 0, Math.PI * 2); g.fill();
     } else {
-      for (let k = 0; k < 4; k++) { const w = 140 + rr() * 380; g.fillStyle = "rgba(255,255,255,0.14)"; g.fillRect(48, 168 + k * 46, W - 96, 28); g.fillStyle = k === 0 ? "#3FD0E8" : "#13A89E"; g.fillRect(48, 168 + k * 46, w, 28); }
+      for (let k = 0; k < 4; k++) { const w = 140 + rr() * 380; g.fillStyle = "rgba(255,255,255,0.14)"; g.fillRect(48, 168 + k * 46, W - 96, 28); g.fillStyle = k === 0 ? "#39D98A" : "#00C2C7"; g.fillRect(48, 168 + k * 46, w, 28); }
     }
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
   }

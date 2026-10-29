@@ -1,6 +1,8 @@
 [
-  { "paso": "Entender", "texto": "Definimos la decisión que se quiere tomar, las preguntas críticas y los indicadores de éxito." },
-  { "paso": "Diseñar", "texto": "Establecemos metodología, muestra, fuentes, cobertura y plan operativo." },
-  { "paso": "Medir y validar", "texto": "Relevamos con formularios digitales, fotos y ubicación, y controlamos la calidad antes de analizar." },
-  { "paso": "Activar decisiones", "texto": "Traducimos los resultados en prioridades, tableros y acciones concretas, con márgenes de error explícitos." }
+  { "paso": "Entender", "texto": "Definimos la decisión que hay que tomar, el problema de negocio y el alcance del trabajo." },
+  { "paso": "Diagnosticar", "texto": "Revisamos las fuentes disponibles, la calidad de los datos y sus limitaciones." },
+  { "paso": "Diseñar", "texto": "Establecemos metodología, muestra, indicadores y cronograma." },
+  { "paso": "Analizar", "texto": "Procesamos, validamos y detectamos patrones. Lo que no cierra, se documenta." },
+  { "paso": "Recomendar", "texto": "Traducimos los hallazgos en prioridades y próximos pasos concretos, con márgenes de error explícitos." },
+  { "paso": "Medir", "texto": "Damos seguimiento a las decisiones tomadas y evaluamos su efecto." }
 ]

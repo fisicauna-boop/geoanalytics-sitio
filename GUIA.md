@@ -208,6 +208,17 @@ Para editar archivos que no están en el panel, ábralos en GitHub, presione el 
 
 ---
 
+## 6 quater. Identidad de marca
+
+El sitio aplica el **Manual Estratégico de Marca** (versión 1.0, octubre 2026):
+
+- **Logotipo**: `src/media/marca/logo-geoanalytics.webp` (fondo transparente) e `isotipo-geoanalytics.png` (favicon y redes). Sobre fondos oscuros va siempre sobre placa blanca, como indica el manual. Si tiene el logo maestro en alta resolución o en SVG, reemplace esos archivos con el mismo nombre.
+- **Colores**: azul profundo `#0B2D4A`, azul tecnológico `#007BFF`, turquesa `#00C2C7`, verde `#39D98A`, blanco azulado `#F2F8FF`, gris azulado `#DCEAF5`. Están al inicio de `src/assets/css/estilos.css`.
+- **Tipografías**: Montserrat (títulos) e Inter (texto), desde Google Fonts.
+- **Quiénes somos** (`/nosotros/`) toma esencia, propósito, misión, visión, valores, personalidad y segmentos de `src/_data/marca.json` (en el panel: **Marca**). El manual marca la misión y la visión como pendientes de confirmación: ajústelas ahí cuando estén aprobadas.
+- El método de trabajo de seis pasos está en `src/_data/metodologia.json`.
+- No se publicaron las partes internas del manual (desafíos, objetivos, indicadores, hoja de ruta y decisiones pendientes).
+
 ## 6 ter. Soluciones para Retail y Distribución y Laboratorio
 
 - **Soluciones** (`/soluciones/`) tiene dos accesos: **supermercados** (`/soluciones/supermercados/`) y **distribuidoras** (`/soluciones/distribuidoras/`). Aparecen también en la portada, en el menú y en el formulario de contacto (tema preseleccionado desde cada página).

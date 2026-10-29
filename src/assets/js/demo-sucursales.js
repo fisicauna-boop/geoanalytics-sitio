@@ -64,8 +64,8 @@ if (raiz) {
   let semilla = 7, datos = generar(semilla), foco = 0, orden = "total";
   const f1 = (x) => x.toFixed(1).replace(".", ",");
   const ind = () => INDICADORES.find((x) => x.id === $("#sc-ind").value);
-  // Escala secuencial de un solo tono (turquesa), de oscuro a claro sobre fondo oscuro
-  const BAJO = [16, 40, 62], ALTO = [94, 222, 206];
+  // Escala secuencial de un solo tono (azul turquesa): claro = valor bajo, oscuro = valor alto
+  const BAJO = [232, 245, 248], ALTO = [0, 92, 128];
   const color = (t) => { t = Math.min(1, Math.max(0, t)); return BAJO.map((b, k) => Math.round(b + (ALTO[k] - b) * t)); };
   const rgb = (c) => `rgb(${c.join(",")})`;
   const tinta = (c) => (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2] > 140 ? "#06131F" : "#EAF2F8");

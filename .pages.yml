@@ -331,6 +331,56 @@ content:
             description: Solo el nombre elegido al registrarse, por ejemplo "geoanalytics".
 
   # ------------------------------------------------------------------
+  - name: marca
+    label: Marca (página Quiénes somos)
+    type: file
+    path: src/_data/marca.json
+    format: json
+    fields:
+      - { name: posicionamiento, label: Posicionamiento, type: text }
+      - { name: promesa, label: Promesa, type: text }
+      - { name: frase, label: Frase comercial, type: string }
+      - name: esencia
+        label: Esencia
+        type: object
+        fields:
+          - { name: texto, label: Texto, type: text }
+          - name: pilares
+            label: Pilares
+            type: object
+            list: true
+            fields:
+              - { name: nombre, label: Nombre, type: string }
+              - { name: texto, label: Texto, type: text }
+      - { name: proposito, label: Propósito, type: text }
+      - { name: mision, label: Misión, type: text }
+      - { name: vision, label: Visión 2030, type: text }
+      - name: valores
+        label: Valores
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: Nombre, type: string }
+          - { name: texto, label: Texto, type: text }
+      - name: personalidad
+        label: Personalidad
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: Nombre, type: string }
+          - { name: texto, label: Texto, type: text }
+      - { name: no_somos, label: Lo que no somos, type: string, list: true }
+      - { name: entregables, label: Entregables habituales, type: text }
+      - name: segmentos
+        label: Dónde aportamos
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: Segmento, type: string }
+          - { name: texto, label: Problemas que analizamos, type: text }
+          - { name: url, label: Enlace, type: string }
+
+  # ------------------------------------------------------------------
   - name: soluciones
     label: Soluciones para Retail y Distribución
     type: file

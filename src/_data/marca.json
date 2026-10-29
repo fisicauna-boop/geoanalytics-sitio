@@ -1,0 +1,49 @@
+{
+  "aviso": "Contenido tomado del Manual Estratégico de Marca, versión 1.0, octubre 2026. Misión y visión figuran en el manual como pendientes de confirmación.",
+  "posicionamiento": "Integramos estadística, investigación, inteligencia comercial y análisis territorial para convertir información dispersa en decisiones prácticas y medibles.",
+  "promesa": "Análisis comprensibles, trazables y orientados a decisiones concretas.",
+  "frase": "Convertimos datos en decisiones que generan resultados.",
+  "esencia": {
+    "texto": "Geoanalytics conecta lo que ocurre en el mercado, dónde ocurre y qué decisión conviene tomar.",
+    "pilares": [
+      { "nombre": "Datos", "texto": "Rigor estadístico, calidad, indicadores y análisis." },
+      { "nombre": "Mercado", "texto": "Comprensión comercial, retail, clientes y ejecución." },
+      { "nombre": "Territorio", "texto": "Ubicación, cobertura, rutas y oportunidades geográficas." }
+    ]
+  },
+  "nombre": [
+    { "parte": "Geo", "texto": "Territorio, ubicación, contexto espacial y patrones locales." },
+    { "parte": "Analytics", "texto": "Análisis sistemático para medir, explicar y orientar decisiones." }
+  ],
+  "logotipo": "La G geométrica, el pin de ubicación y las barras de datos representan territorio, localización y análisis.",
+  "proposito": "Ayudar a las organizaciones a tomar mejores decisiones a partir de datos confiables, evidencia de campo y comprensión del territorio.",
+  "mision": "Transformar datos comerciales, estadísticos, operativos y geográficos en información clara y accionable, con análisis riguroso y soluciones adaptadas a cada decisión.",
+  "vision": "Ser una firma reconocida en Paraguay, y progresivamente en América Latina, por integrar analítica, inteligencia comercial y conocimiento territorial.",
+  "valores": [
+    { "nombre": "Rigor", "texto": "Métodos consistentes y controles de calidad." },
+    { "nombre": "Objetividad", "texto": "Separamos hechos, supuestos e interpretación." },
+    { "nombre": "Utilidad", "texto": "Cada análisis responde una pregunta real de negocio." },
+    { "nombre": "Transparencia", "texto": "Explicamos fuentes, límites y cobertura." },
+    { "nombre": "Confidencialidad", "texto": "Protegemos los datos y la información de cada cliente." },
+    { "nombre": "Mejora continua", "texto": "Aprendemos, medimos nuestros errores y perfeccionamos el trabajo." }
+  ],
+  "personalidad": [
+    { "nombre": "Analítica", "texto": "Explica con evidencia y claridad." },
+    { "nombre": "Resolutiva", "texto": "Conecta el diagnóstico con la acción." },
+    { "nombre": "Cercana", "texto": "Habla en lenguaje de negocio." }
+  ],
+  "no_somos": [
+    "Mapas sin conclusión de negocio.",
+    "Promesas sin evidencia.",
+    "Tecnología usada solo para impresionar."
+  ],
+  "entregables": "Resumen ejecutivo · informe técnico · tablero o mapa · matriz de prioridades · plan de acción.",
+  "segmentos": [
+    { "nombre": "Supermercados y retail", "texto": "Disponibilidad y posición de SKU, precios, promociones, ejecución y competencia.", "url": "/soluciones/supermercados/" },
+    { "nombre": "Distribuidoras", "texto": "Cobertura de puntos de venta, rutas, productividad, transporte y cumplimiento de KPI.", "url": "/soluciones/distribuidoras/" },
+    { "nombre": "Farmacias y cadenas", "texto": "Localización, competencia, cobertura, potencial por zona, surtido y expansión.", "url": "/industrias/#farmacias" },
+    { "nombre": "Marcas y fabricantes", "texto": "Trade marketing, visibilidad, share of shelf, precios y promociones.", "url": "/industrias/#consumo-masivo" },
+    { "nombre": "Investigación de mercados", "texto": "Diseño muestral, cuestionarios, control de campo y análisis estadístico.", "url": "/servicios/investigacion-de-mercados-y-encuestas/" },
+    { "nombre": "Operaciones territoriales", "texto": "Segmentación geográfica, accesibilidad y asignación de recursos.", "url": "/servicios/ruteo-y-optimizacion-operativa/" }
+  ]
+}
