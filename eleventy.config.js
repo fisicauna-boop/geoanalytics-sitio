@@ -27,7 +27,7 @@ export default function (eleventyConfig) {
   // Archivos que se copian tal cual
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/media": "media" });
-  eleventyConfig.addPassthroughCopy({ "src/favicon-48.png": "favicon-48.png", "src/apple-touch-icon.png": "apple-touch-icon.png" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon-48.png": "favicon-48.png", "src/apple-touch-icon.png": "apple-touch-icon.png", "src/CNAME": "CNAME" });
   // Three.js (motor 3D de la portada), servido desde el propio sitio
   eleventyConfig.addPassthroughCopy({ "node_modules/three/build/three.module.min.js": "assets/vendor/three.module.min.js" });
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
@@ -166,7 +166,7 @@ export default function (eleventyConfig) {
 
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },
-    pathPrefix: "/geoanalytics-sitio/",
+    pathPrefix: "/",
     // Los artículos no se procesan con Nunjucks: así un "{{" escrito en el editor nunca rompe la compilación
     markdownTemplateEngine: false,
     htmlTemplateEngine: "njk",

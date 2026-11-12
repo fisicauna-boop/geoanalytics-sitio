@@ -92,16 +92,18 @@ La URL `/exec` solo permite **agregar** filas; no permite leer la planilla, así
 
 En **Configuración del sitio → Datos de contacto** complete correo, teléfono, WhatsApp, LinkedIn y dirección. **Los campos vacíos no se muestran**, por eso el sitio funciona aunque falten.
 
-### 2.6 Dominio propio (opcional, con costo)
+### 2.6 Dominio propio: geoanalytics.com.py (configurado)
 
-Para usar `www.geoanalytics.com.py` u otro dominio:
+El sitio responde en **https://geoanalytics.com.py**. La dirección anterior (`fisicauna-boop.github.io/geoanalytics-sitio`) redirige sola al dominio.
 
-1. Registre el dominio (los `.com.py` se gestionan a través de NIC Paraguay; los `.com` en cualquier registrador). Es el único componente con costo anual.
-2. En **Settings → Pages → Custom domain**, escriba el dominio y siga las instrucciones de DNS que muestra GitHub.
-3. Active **Enforce HTTPS**.
-4. Cambie `url` en `site.json` por la nueva dirección (por ejemplo `https://www.geoanalytics.com.py`).
+Cómo quedó armado, por si hay que revisarlo:
 
-Además, en `eleventy.config.js` borre la línea `pathPrefix: "/geoanalytics-sitio/",`: con dominio propio el sitio ya no lleva ese prefijo en las rutas.
+1. **NIC Paraguay** (registro del dominio, G. 150.000 por año): los servidores DNS son `adrian.ns.cloudflare.com` y `boyd.ns.cloudflare.com`. Renovar cada año en nic.py.
+2. **Cloudflare** (gratis): administra los registros DNS. Hay cuatro registros **A** para `@` (185.199.108.153, .109, .110 y .111) y un **CNAME** `www` → `fisicauna-boop.github.io`, todos en **Solo DNS** (nube gris). No active la nube naranja: GitHub dejaría de renovar el certificado https.
+3. **GitHub → Settings → Pages**: *Custom domain* = `geoanalytics.com.py` y **Enforce HTTPS** activado. El archivo `src/CNAME` guarda el mismo dominio.
+4. En `site.json`, `url` = `https://geoanalytics.com.py`, y en `eleventy.config.js`, `pathPrefix: "/"`.
+
+Para el correo con el dominio (por ejemplo `contacto@geoanalytics.com.py`), los registros MX se cargan en Cloudflare → DNS, siguiendo las instrucciones del proveedor elegido (Zoho Mail tiene plan gratuito).
 
 ---
 
