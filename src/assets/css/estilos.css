@@ -1259,6 +1259,3 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .rv.inclina:not(.rv-on) { transform: translateY(28px) scale(.985); }
 .metodo.metodo--vertical { grid-template-columns: 1fr; row-gap: 0; }
 
-.pagina-inicio .portada__titulo, .portada__titulo { max-width: 20ch; font-size: clamp(2rem, 3.4vw, 2.95rem); }
-.portada__bajada--2 { margin-top: -.4rem; font-size: .98em; color: var(--texto-suave); }
-.portada__bajada--2 { animation-delay: .36s; }
