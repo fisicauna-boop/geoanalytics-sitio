@@ -24,10 +24,10 @@ clase_body: pagina-inicio
       </div>
     </div>
     <figure class="portada__escena">
-      <div class="hero3d" data-hero3d>
-        <img class="hero3d__fijo" src="/media/portadas/ciudad-3d.webp" alt="Ilustración 3D de una ciudad comercial con tiendas, una ruta de visitas iluminada y paneles de análisis flotando sobre las manzanas." width="1258" height="900" fetchpriority="high">
+      <div class="hero4d" data-hero4d>
+        <img class="hero4d__fijo" src="/media/portadas/ciudad-4d.webp" alt="Ilustración 3D de una ciudad comercial sobre una plataforma de datos, con flujos de luz y paneles holográficos con gráficos." width="1200" height="1000" fetchpriority="high">
       </div>
-      <figcaption>Concepto visual. Los indicadores y gráficos de muestra no representan resultados reales de clientes.</figcaption>
+      <figcaption>Concepto visual. Los gráficos y valores de muestra no representan resultados reales de clientes.</figcaption>
     </figure>
   </div>
   <div class="contenedor">
@@ -42,7 +42,8 @@ clase_body: pagina-inicio
     </div>
   </div>
 </section>
-<script type="module" src="/assets/js/hero3d.js"></script>
+<script type="importmap">{ "imports": { "three": "/assets/vendor/three.module.min.js", "three/addons/": "/assets/vendor/jsm/" } }</script>
+<script type="module" src="/assets/js/hero4d.js"></script>
 
 {# 2. Recorrido 4D: del dato a la decisión #}
 <section class="recorrido" data-recorrido aria-labelledby="rec-t">
