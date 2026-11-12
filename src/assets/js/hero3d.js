@@ -111,47 +111,69 @@ function iniciar() {
   const pulso = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), new THREE.MeshBasicMaterial({ color: 0x39d98a }));
   escena.add(pulso);
 
-  // ---------- Paneles de análisis (texturas dibujadas en canvas) ----------
-  function textura(titulo, sub, tipo) {
-    const W = 640, H = 400, c = document.createElement("canvas"); c.width = W; c.height = H;
-    const g = c.getContext("2d");
+  // ---------- Paneles de análisis: gráficos que se redibujan solos (decorativos) ----------
+  const PW = 768, PH = 480;
+  function dibujarPanel(p, tiempo) {
+    const g = p.ctx, W = PW, H = PH;
+    g.clearRect(0, 0, W, H);
     const redondo = (x, y, w, h, rr) => { g.beginPath(); g.moveTo(x + rr, y); g.arcTo(x + w, y, x + w, y + h, rr); g.arcTo(x + w, y + h, x, y + h, rr); g.arcTo(x, y + h, x, y, rr); g.arcTo(x, y, x + w, y, rr); g.closePath(); };
-    redondo(6, 6, W - 12, H - 12, 22); g.fillStyle = "rgba(11,45,74,0.9)"; g.fill(); g.lineWidth = 3; g.strokeStyle = "rgba(0,194,199,0.8)"; g.stroke();
-    g.fillStyle = "#FFFFFF"; g.font = "700 50px 'Inter', Arial, sans-serif"; g.fillText(titulo, 36, 74);
-    g.fillStyle = "#7FE3E6"; g.font = "34px 'Inter', Arial, sans-serif"; g.fillText(sub, 36, 120);
-    const rr = rng(titulo.length * 13);
-    g.strokeStyle = "rgba(255,255,255,0.12)"; g.lineWidth = 2;
-    for (let k = 0; k < 4; k++) { g.beginPath(); g.moveTo(36, 170 + k * 52); g.lineTo(W - 36, 170 + k * 52); g.stroke(); }
-    if (tipo === "barras") {
-      for (let k = 0; k < 7; k++) { const h = 40 + rr() * 150; g.fillStyle = k === 5 ? "#39D98A" : "#00C2C7"; g.fillRect(48 + k * 76, 342 - h, 46, h); }
-    } else if (tipo === "dona") {
-      const cx = 180, cy = 255, rad = 92, partes = [0.38, 0.27, 0.2, 0.15], colores = ["#00C2C7", "#007BFF", "#39D98A", "#9DB6CC"];
-      let a0 = -Math.PI / 2; partes.forEach((p, k) => { g.beginPath(); g.lineWidth = 38; g.strokeStyle = colores.at(k); g.arc(cx, cy, rad, a0, a0 + p * Math.PI * 2 - 0.04); g.stroke(); a0 += p * Math.PI * 2; });
-      for (let k = 0; k < 4; k++) { g.fillStyle = colores.at(k); g.fillRect(330, 190 + k * 40, 26, 26); g.fillStyle = "rgba(255,255,255,0.55)"; g.fillRect(370, 198 + k * 40, 120 + rr() * 90, 10); }
-    } else if (tipo === "linea") {
-      g.beginPath(); g.lineWidth = 6; g.strokeStyle = "#39D98A"; let y = 300;
-      for (let k = 0; k <= 10; k++) { y = Math.max(170, Math.min(330, y - 18 + (rr() - 0.35) * 40)); const x = 48 + k * 54; if (k) g.lineTo(x, y); else g.moveTo(x, y); }
-      g.stroke(); g.fillStyle = "#FFFFFF"; g.beginPath(); g.arc(588, y, 10, 0, Math.PI * 2); g.fill();
+    redondo(6, 6, W - 12, H - 12, 26);
+    const fondo = g.createLinearGradient(0, 0, 0, H); fondo.addColorStop(0, "rgba(13,52,86,0.97)"); fondo.addColorStop(1, "rgba(9,36,62,0.97)");
+    g.fillStyle = fondo; g.fill(); g.lineWidth = 4; g.strokeStyle = "rgba(0,194,199,0.95)"; g.stroke();
+    // título y subtítulo grandes y con buen contraste
+    g.fillStyle = "#FFFFFF"; g.font = "800 62px 'Inter', 'Segoe UI', Arial, sans-serif"; g.fillText(p.t, 40, 88);
+    g.fillStyle = "#9FF3F2"; g.font = "600 40px 'Inter', 'Segoe UI', Arial, sans-serif"; g.fillText(p.s, 40, 142);
+    g.strokeStyle = "rgba(255,255,255,0.14)"; g.lineWidth = 2;
+    for (let k = 0; k < 4; k++) { g.beginPath(); g.moveTo(40, 200 + k * 62); g.lineTo(W - 40, 200 + k * 62); g.stroke(); }
+    const ola = (k, v = 1) => 0.5 + 0.5 * Math.sin(tiempo * 1.3 * v + k * 0.9 + p.fase);
+    if (p.tipo === "barras") {
+      for (let k = 0; k < 7; k++) { const h = 60 + (0.35 + 0.65 * ola(k)) * 170; g.fillStyle = k === 5 ? "#39D98A" : "#00C2C7"; g.fillRect(58 + k * 94, 420 - h, 58, h); }
+    } else if (p.tipo === "dona") {
+      const cx = 200, cy = 305, rad = 104, colores = ["#00C2C7", "#007BFF", "#39D98A", "#9DB6CC"];
+      const partes = [0.38, 0.27, 0.2, 0.15].map((v, k) => v * (0.85 + 0.3 * ola(k, 0.7)));
+      const tot = partes.reduce((a, v) => a + v, 0);
+      let a0 = -Math.PI / 2 + tiempo * 0.35;
+      partes.forEach((v, k) => { const a1 = a0 + (v / tot) * Math.PI * 2; g.beginPath(); g.lineWidth = 44; g.strokeStyle = colores[k]; g.arc(cx, cy, rad, a0 + 0.03, a1 - 0.03); g.stroke(); a0 = a1; });
+      partes.forEach((v, k) => { g.fillStyle = colores[k]; g.fillRect(390, 222 + k * 50, 32, 32); g.fillStyle = "rgba(255,255,255,0.7)"; g.fillRect(440, 232 + k * 50, 260 * (v / tot) * 1.8, 12); });
+    } else if (p.tipo === "linea") {
+      const n = 12, avance = (tiempo * 0.9) % 1, base = Math.floor(tiempo * 0.9), pts = [];
+      for (let k = 0; k <= n + 1; k++) {
+        const x = 58 + ((k - avance) * (W - 116)) / n;
+        const y = 330 - 70 * (0.5 + 0.5 * Math.sin((k + base) * 0.75 + p.fase)) - (k + base) % 6 * 8;
+        pts.push([x, y]);
+      }
+      g.save(); g.beginPath(); g.rect(58, 170, W - 116, 280); g.clip();
+      const area = g.createLinearGradient(0, 200, 0, 440); area.addColorStop(0, "rgba(57,217,138,0.35)"); area.addColorStop(1, "rgba(57,217,138,0)");
+      g.fillStyle = area; g.beginPath(); g.moveTo(pts[0][0], 440); pts.forEach(([x, y]) => g.lineTo(x, y)); g.lineTo(pts.at(-1)[0], 440); g.closePath(); g.fill();
+      g.beginPath(); g.lineWidth = 7; g.strokeStyle = "#39D98A"; pts.forEach(([x, y], k) => (k ? g.lineTo(x, y) : g.moveTo(x, y))); g.stroke();
+      g.restore();
+      const fin = pts.find(([x]) => x >= W - 58 - (W - 116) / n) || pts.at(-1);
+      g.fillStyle = "#FFFFFF"; g.beginPath(); g.arc(Math.min(fin[0], W - 58), fin[1], 12, 0, Math.PI * 2); g.fill();
     } else {
-      for (let k = 0; k < 4; k++) { const w = 140 + rr() * 380; g.fillStyle = "rgba(255,255,255,0.14)"; g.fillRect(48, 168 + k * 46, W - 96, 28); g.fillStyle = k === 0 ? "#39D98A" : "#00C2C7"; g.fillRect(48, 168 + k * 46, w, 28); }
+      for (let k = 0; k < 4; k++) { const w = (0.3 + 0.65 * ola(k, 0.8)) * (W - 116); g.fillStyle = "rgba(255,255,255,0.14)"; g.fillRect(58, 196 + k * 58, W - 116, 34); g.fillStyle = k === 0 ? "#39D98A" : "#00C2C7"; g.fillRect(58, 196 + k * 58, w, 34); }
     }
-    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
+    p.tex.needsUpdate = true;
   }
   const paneles = [
     { t: "Market Research", s: "Satisfacción por zona", tipo: "horizontal", pos: [-7.0, 3.4, 2.4], ancla: tiendas.at(3) },
-    { t: "Data Analytics", s: "Indicadores y tendencias", tipo: "barras", pos: [-5.4, 4.7, -2.4], ancla: lotes.at(idx.at(20)) },
-    { t: "Trade Intelligence", s: "Share of shelf por marca", tipo: "dona", pos: [-2.4, 4.7, -5.4], ancla: competencia.at(0) },
+    { t: "Data Analytics", s: "Indicadores y tendencias", tipo: "barras", pos: [-5.4, 4.9, -2.4], ancla: lotes.at(idx.at(20)) },
+    { t: "Trade Intelligence", s: "Share of shelf por marca", tipo: "dona", pos: [-2.4, 4.9, -5.4], ancla: competencia.at(0) },
     { t: "Field Operations", s: "Visitas completadas", tipo: "linea", pos: [2.4, 3.4, -7.0], ancla: tiendas.at(0) },
-  ].map((p) => {
-    const mat = new THREE.MeshBasicMaterial({ map: textura(p.t, p.s, p.tipo), transparent: true, depthWrite: false, opacity: 0 });
-    const plano = new THREE.Mesh(new THREE.PlaneGeometry(3.3, 2.06), mat);
+  ].map((p, k) => {
+    const c = document.createElement("canvas"); c.width = PW; c.height = PH;
+    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+    const panel = { ...p, ctx: c.getContext("2d"), tex, fase: k * 1.7 };
+    dibujarPanel(panel, 0);
+    const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 0, toneMapped: false });
+    const plano = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 2.375), mat);
     plano.position.set(...p.pos);
-    const linea = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(p.pos[0], p.pos[1] - 1.03, p.pos[2]), new THREE.Vector3(p.ancla.x, p.ancla.alto + 0.02, p.ancla.z)]),
-      new THREE.LineDashedMaterial({ color: C.cian, dashSize: 0.12, gapSize: 0.08, transparent: true, opacity: 0 }));
+    const geoLinea = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...p.pos), new THREE.Vector3(p.ancla.x, p.ancla.alto + 0.02, p.ancla.z)]);
+    const linea = new THREE.Line(geoLinea, new THREE.LineDashedMaterial({ color: C.cian, dashSize: 0.12, gapSize: 0.08, transparent: true, opacity: 0 }));
     linea.computeLineDistances();
     escena.add(plano, linea);
-    return { plano, linea, mat };
+    return Object.assign(panel, { plano, linea, mat, base: new THREE.Vector3(...p.pos) });
   });
+  let turnoPanel = 0;
 
   contenedor.appendChild(canvas);
 
@@ -174,7 +196,16 @@ function iniciar() {
     tubo.geometry.setDrawRange(0, Math.floor((totalTubo * dib) / 3) * 3);
     halo.geometry.setDrawRange(0, Math.floor((totalHalo * dib) / 3) * 3);
     const op = reducido ? 1 : e3((tiempo - 1.9) / 0.8);
-    paneles.forEach((p, i) => { p.mat.opacity = op; p.linea.material.opacity = op * 0.8; p.plano.position.y = p.plano.position.y; });
+    paneles.forEach((p, i) => {
+      const opi = reducido ? 1 : e3((tiempo - 1.9 - i * 0.18) / 0.8);
+      p.mat.opacity = opi; p.linea.material.opacity = opi * 0.8;
+      // flotación en tres ejes y un leve acercamiento: los paneles "respiran" en el espacio
+      const w = reducido ? 0 : tiempo;
+      p.plano.position.set(p.base.x + Math.sin(w * 0.7 + i) * 0.22, p.base.y + Math.sin(w * 1.1 + i * 1.3) * 0.28 + (1 - opi) * -0.8, p.base.z + Math.cos(w * 0.6 + i) * 0.22);
+      p.plano.scale.setScalar(0.85 + 0.15 * opi);
+      const pos = p.linea.geometry.attributes.position; pos.setXYZ(0, p.plano.position.x, p.plano.position.y - 1.1, p.plano.position.z); pos.needsUpdate = true; p.linea.computeLineDistances();
+    });
+    if (!reducido) { const p = paneles[turnoPanel]; dibujarPanel(p, tiempo); turnoPanel = (turnoPanel + 1) % paneles.length; }
     const u = reducido ? 0.32 : dib < 1 ? dib : ((tiempo - 3) / 14) % 1;
     pulso.position.copy(camino.getPointAt(Math.max(0, Math.min(1, u))));
     pulso.visible = dib > 0.02;
@@ -184,7 +215,12 @@ function iniciar() {
     const a = Math.PI / 4 + az, e = 0.6 + el;
     camara.position.set(Math.sin(a) * Math.cos(e) * 40, Math.sin(e) * 40, Math.cos(a) * Math.cos(e) * 40);
     camara.lookAt(0, 1.0, 0); camara.updateMatrixWorld();
-    paneles.forEach((p) => p.plano.quaternion.copy(camara.quaternion));
+    const tt = reducido ? 0 : (performance.now() - t0) / 1000;
+    paneles.forEach((p, i) => {
+      p.plano.quaternion.copy(camara.quaternion);
+      p.plano.rotateY(Math.sin(tt * 0.8 + i * 1.1) * 0.22);
+      p.plano.rotateX(Math.cos(tt * 0.65 + i) * 0.1);
+    });
   }
   let centro = new THREE.Vector2(), media = 1;
   function encuadre() {
@@ -194,9 +230,9 @@ function iniciar() {
     const incl = (x, y, z) => { v.set(x, y, z).applyMatrix4(inv); x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x); y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y); };
     const h = LADO / 2;
     [[-h, -h], [h, -h], [h, h], [-h, h]].forEach(([x, z]) => { incl(x, -0.4, z); incl(x, 1.2, z); });
-    paneles.forEach((p) => { const q = p.plano.position; const ox = 1.17, oz = 1.17; incl(q.x - ox, q.y + 1.05, q.z + oz); incl(q.x + ox, q.y + 1.05, q.z - oz); incl(q.x - ox, q.y - 1.05, q.z + oz); incl(q.x + ox, q.y - 1.05, q.z - oz); });
+    paneles.forEach((p) => { const q = p.plano.position; const ox = 1.4, oz = 1.4; incl(q.x - ox, q.y + 1.75, q.z + oz); incl(q.x + ox, q.y + 1.75, q.z - oz); incl(q.x - ox, q.y - 1.3, q.z + oz); incl(q.x + ox, q.y - 1.3, q.z - oz); });
     const asp = ancho / alto;
-    media = Math.max(((y1 - y0) / 2) * 1.04, ((x1 - x0) / 2 / asp) * 1.04);
+    media = Math.max(((y1 - y0) / 2) * 1.12, ((x1 - x0) / 2 / asp) * 1.12);
     centro.set((x0 + x1) / 2, (y0 + y1) / 2);
   }
   function ajustar() {
@@ -209,7 +245,9 @@ function iniciar() {
   function cuadro(ahora) {
     const t = (ahora - t0) / 1000;
     azim += (azimObj - azim) * 0.06; elev += (elevObj - elev) * 0.06;
-    poner(t); orientar(azim, elev); renderer.render(escena, camara);
+    const giro = reducido ? 0 : Math.sin(t * 0.16) * 0.5 + Math.sin(t * 0.07) * 0.18;
+    const desdeScroll = reducido ? 0 : Math.min(1, window.scrollY / Math.max(1, alto)) * 0.6;
+    poner(t); orientar(azim + giro + desdeScroll, elev + Math.sin(t * 0.21) * (reducido ? 0 : 0.05)); renderer.render(escena, camara);
     const quieto = Math.abs(azimObj - azim) < 1e-4 && Math.abs(elevObj - elev) < 1e-4;
     corriendo = visible && !(reducido && quieto);
     if (corriendo) requestAnimationFrame(cuadro);

@@ -30,12 +30,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/favicon-48.png": "favicon-48.png", "src/apple-touch-icon.png": "apple-touch-icon.png", "src/CNAME": "CNAME" });
   // Three.js (motor 3D de la portada), servido desde el propio sitio
   eleventyConfig.addPassthroughCopy({ "node_modules/three/build/three.module.min.js": "assets/vendor/three.module.min.js" });
-  // Complementos de three.js para el resplandor de la portada (misma versión que la biblioteca)
-  for (const f of ["postprocessing/EffectComposer.js", "postprocessing/RenderPass.js", "postprocessing/UnrealBloomPass.js", "postprocessing/OutputPass.js",
-    "postprocessing/ShaderPass.js", "postprocessing/Pass.js", "postprocessing/MaskPass.js",
-    "shaders/CopyShader.js", "shaders/LuminosityHighPassShader.js", "shaders/OutputShader.js"]) {
-    eleventyConfig.addPassthroughCopy({ [`node_modules/three/examples/jsm/${f}`]: `assets/vendor/jsm/${f}` });
-  }
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
 
   // ---------- Colecciones ----------
