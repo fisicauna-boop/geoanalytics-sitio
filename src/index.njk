@@ -44,7 +44,58 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/hero3d.js"></script>
 
-{# 2. Soluciones para Retail y Distribución #}
+{# 2. Recorrido 4D: del dato a la decisión #}
+<section class="recorrido" data-recorrido aria-labelledby="rec-t">
+  <h2 id="rec-t" class="visualmente-oculto">Del dato a la decisión</h2>
+  <div class="recorrido__escena">
+    <div class="recorrido__etiquetas" aria-hidden="true"></div>
+    <ol class="recorrido__puntos" aria-label="Etapas del recorrido"><li><button type="button" data-ir-capitulo="0" aria-label="1. Datos"><span>Datos</span></button></li><li><button type="button" data-ir-capitulo="1" aria-label="2. Estadística"><span>Estadística</span></button></li><li><button type="button" data-ir-capitulo="2" aria-label="3. Mercado"><span>Mercado</span></button></li><li><button type="button" data-ir-capitulo="3" aria-label="4. Territorio"><span>Territorio</span></button></li><li><button type="button" data-ir-capitulo="4" aria-label="5. Decisión"><span>Decisión</span></button></li></ol>
+    <p class="recorrido__pista" aria-hidden="true"><span class="recorrido__raton"></span>Deslice para recorrer</p>
+    <p class="recorrido__giro" aria-hidden="true">Arrastre para girar el mapa</p>
+    <p class="recorrido__nota">Ilustración conceptual: las alturas, productos y rutas no son datos reales.</p>
+  </div>
+  <div class="recorrido__capitulos">
+      <article class="recorrido__capitulo" data-capitulo id="recorrido-1">
+        <div class="recorrido__tarjeta">
+          <p class="recorrido__num"><span>01</span> Datos</p>
+          <h3 class="recorrido__titulo">Todo empieza con datos dispersos</h3>
+          <p>Ventas, encuestas, auditorías, coordenadas y planillas que viven en lugares distintos. Los reunimos, los limpiamos y medimos su calidad antes de usarlos.</p>
+        </div>
+      </article>
+      <article class="recorrido__capitulo" data-capitulo id="recorrido-2">
+        <div class="recorrido__tarjeta">
+          <p class="recorrido__num"><span>02</span> Estadística</p>
+          <h3 class="recorrido__titulo">Los convertimos en evidencia</h3>
+          <p>Muestras bien diseñadas, indicadores comparables y márgenes de error explícitos. Lo que no cierra, se documenta.</p>
+        </div>
+      </article>
+      <article class="recorrido__capitulo" data-capitulo id="recorrido-3">
+        <div class="recorrido__tarjeta">
+          <p class="recorrido__num"><span>03</span> Mercado</p>
+          <h3 class="recorrido__titulo">Leemos el punto de venta</h3>
+          <p>Disponibilidad de SKU, quiebres, precios, exhibición y ejecución de cada marca, relevados en campo con fotos y ubicación.</p>
+        </div>
+      </article>
+      <article class="recorrido__capitulo" data-capitulo id="recorrido-4">
+        <div class="recorrido__tarjeta">
+          <p class="recorrido__num"><span>04</span> Territorio</p>
+          <h3 class="recorrido__titulo">Lo ubicamos en el mapa</h3>
+          <p>Cobertura, áreas de influencia, competencia y potencial por zona: el mismo dato cambia de sentido según dónde ocurre.</p>
+        </div>
+      </article>
+      <article class="recorrido__capitulo" data-capitulo id="recorrido-5">
+        <div class="recorrido__tarjeta">
+          <p class="recorrido__num"><span>05</span> Decisión</p>
+          <h3 class="recorrido__titulo">Y lo convertimos en decisiones</h3>
+          <p>Rutas, prioridades y un plan de acción concreto, con un tablero para medir si la decisión funcionó.</p>
+          <div class="recorrido__acciones"><a class="boton" href="/soluciones/">Ver soluciones</a><a class="boton boton--contorno" href="/demostraciones/">Entrar al laboratorio</a></div>
+        </div>
+      </article>
+  </div>
+</section>
+<script type="module" src="/assets/js/recorrido4d.js"></script>
+
+{# 3. Soluciones para Retail y Distribución #}
 <section class="seccion" aria-labelledby="sol-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -55,7 +106,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 3. Servicios #}
+{# 4. Servicios #}
 <section class="seccion seccion--suave" aria-labelledby="serv-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -76,7 +127,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 4. Laboratorio de inteligencia comercial #}
+{# 5. Laboratorio de inteligencia comercial #}
 <section class="seccion seccion--oscura" aria-labelledby="demo-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -113,7 +164,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 5. Industrias y metodología #}
+{# 6. Industrias y metodología #}
 <section class="seccion" aria-labelledby="ind-t">
   <div class="contenedor dos-columnas">
     <div>
@@ -139,7 +190,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 6. Artículos y contacto #}
+{# 7. Artículos y contacto #}
 {%- set arts = collections.articulos | limitar(3) -%}
 {% if arts.length %}
 <section class="seccion seccion--suave" aria-labelledby="art-t">

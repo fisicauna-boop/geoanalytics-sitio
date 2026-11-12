@@ -36,8 +36,8 @@ async function iniciar() {
 
   // ---------- Colores (iguales a la hoja de estilos) ----------
   const C = {
-    azul: new THREE.Color("#0E2A47"), azul7: new THREE.Color("#1D4068"), azul5: new THREE.Color("#2E5A86"),
-    tur: new THREE.Color("#13A89E"), turM: new THREE.Color("#6CCFC6"), turC: new THREE.Color("#BFEDE8"),
+    azul: new THREE.Color("#0B2D4A"), azul7: new THREE.Color("#134672"), azul5: new THREE.Color("#2F6BA8"),
+    tur: new THREE.Color("#00C2C7"), turM: new THREE.Color("#5FDDE0"), turC: new THREE.Color("#C9F3EF"),
     blanco: new THREE.Color("#FFFFFF"),
   };
 
