@@ -53,6 +53,27 @@
     visibles.observe(el);
   });
 
+
+  // ---------- Cuatro inteligencias: entrada ligada al scroll y profundidad con el puntero ----------
+  const intel = [...document.querySelectorAll("[data-intel]")];
+  if (intel.length) {
+    const entrada = () => intel.forEach((t) => {
+      const r = t.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.55)));
+      t.style.setProperty("--entrada", (1 - Math.pow(1 - p, 3)).toFixed(3));
+    });
+    addEventListener("scroll", () => requestAnimationFrame(entrada), { passive: true });
+    entrada();
+    if (finoPuntero) intel.forEach((t) => {
+      t.addEventListener("pointermove", (e) => {
+        const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        t.style.setProperty("--px", x.toFixed(3)); t.style.setProperty("--py", y.toFixed(3));
+        t.style.setProperty("--rx", (-y * 12).toFixed(2) + "deg"); t.style.setProperty("--ry", (x * 16).toFixed(2) + "deg");
+      });
+      t.addEventListener("pointerleave", () => { ["--px", "--py"].forEach((v) => t.style.setProperty(v, "0")); ["--rx", "--ry"].forEach((v) => t.style.setProperty(v, "0deg")); });
+    });
+  }
+
   // ---------- Inclinación 3D y brillo en tarjetas ----------
   if (finoPuntero) {
     const TARJETAS = ".servicios-inicio a, .areas-esp__item, .solucion-tarjeta, .demo-tarjeta, .tarjeta, .nos-segmentos a, .nos-valores > li, .nos-pilares > li, .industrias-lista a, .solucion-item__demo, .vitrina__imagen";

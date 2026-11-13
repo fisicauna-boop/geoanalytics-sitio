@@ -69,7 +69,40 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 3. Recorrido 4D: del dato a la decisión #}
+{# 3. Cuatro inteligencias (imágenes con profundidad 4D) #}
+<section class="seccion" aria-labelledby="intel-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <div>
+        <p class="seccion__ante">Cómo lo vemos</p>
+        <h2 id="intel-t" class="seccion__titulo">Cuatro inteligencias, una decisión</h2>
+      </div>
+    </div>
+    <div class="intel">
+      {% for i in inteligencias %}
+      <a class="intel__tarjeta" href="{{ i.url }}" data-intel>
+        <span class="intel__escena">
+          <span class="intel__foto"><img src="{{ i.imagen }}" alt="{{ i.alt }}" width="908" height="492" loading="lazy"></span>
+          <span class="intel__barrido" aria-hidden="true"></span>
+          {% for c in i.chips %}
+          <span class="intel__chip intel__chip--{{ loop.index }}" aria-hidden="true">
+            <span class="intel__chip-t">{{ c[0] }}</span>
+            <span class="intel__mini intel__mini--{{ c[1] }}"><i></i><i></i><i></i><i></i><i></i></span>
+          </span>
+          {% endfor %}
+        </span>
+        <span class="intel__texto">
+          <span class="intel__titulo">{{ i.titulo }}</span>
+          <span class="intel__sub">{{ i.sub }}</span>
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="intel__nota">Imágenes ilustrativas: los indicadores que se ven en ellas no corresponden a clientes reales.</p>
+  </div>
+</section>
+
+{# 4. Recorrido 4D: del dato a la decisión #}
 <section class="recorrido" data-recorrido aria-labelledby="rec-t">
   <h2 id="rec-t" class="visualmente-oculto">Del dato a la decisión</h2>
   <div class="recorrido__escena">
@@ -120,7 +153,7 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/recorrido4d.js"></script>
 
-{# 4. Soluciones para Retail y Distribución #}
+{# 5. Soluciones para Retail y Distribución #}
 <section class="seccion" aria-labelledby="sol-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -131,7 +164,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 5. Laboratorio de inteligencia comercial #}
+{# 6. Laboratorio de inteligencia comercial #}
 <section class="seccion seccion--oscura" aria-labelledby="demo-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -168,7 +201,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 6. Industrias y metodología #}
+{# 7. Industrias y metodología #}
 <section class="seccion" aria-labelledby="ind-t">
   <div class="contenedor dos-columnas">
     <div>
@@ -194,7 +227,7 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 7. Artículos y contacto #}
+{# 8. Artículos y contacto #}
 {%- set arts = collections.articulos | limitar(3) -%}
 {% if arts.length %}
 <section class="seccion seccion--suave" aria-labelledby="art-t">
