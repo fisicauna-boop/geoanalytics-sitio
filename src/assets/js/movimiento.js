@@ -33,7 +33,7 @@
   // ---------- Aparición al entrar en pantalla ----------
   const SELECTORES = [
     ".seccion__cabecera", ".seccion__titulo:not(.seccion__cabecera *)", ".seccion__bajada",
-    ".servicios-inicio > li", ".solucion-tarjeta", ".solucion-item", ".demo-tarjeta", ".tarjeta", ".servicio-tarjeta",
+    ".servicios-inicio > li", ".areas-esp > li", ".solucion-tarjeta", ".solucion-item", ".demo-tarjeta", ".tarjeta", ".servicio-tarjeta",
     ".metodo__paso", ".industrias-lista > li", ".puntos-contacto > li", ".esencia", ".vitrina", ".cta__caja",
     ".nos-pilares > li", ".nos-pmv > article", ".nos-valores > li", ".nos-personalidad > li", ".nos-segmentos > li", ".nos-no", ".nos-promesa",
     ".lista-preguntas > li", ".contacto-inicio__form", ".simulador__resultado", ".sim-bloque", ".calculadora", ".prosa > *",
@@ -55,7 +55,7 @@
 
   // ---------- Inclinación 3D y brillo en tarjetas ----------
   if (finoPuntero) {
-    const TARJETAS = ".servicios-inicio a, .solucion-tarjeta, .demo-tarjeta, .tarjeta, .nos-segmentos a, .nos-valores > li, .nos-pilares > li, .industrias-lista a, .solucion-item__demo, .vitrina__imagen";
+    const TARJETAS = ".servicios-inicio a, .areas-esp__item, .solucion-tarjeta, .demo-tarjeta, .tarjeta, .nos-segmentos a, .nos-valores > li, .nos-pilares > li, .industrias-lista a, .solucion-item__demo, .vitrina__imagen";
     document.querySelectorAll(TARJETAS).forEach((t) => {
       t.classList.add("inclina");
       let raf = 0;

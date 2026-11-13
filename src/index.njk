@@ -107,24 +107,27 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 4. Servicios #}
+{# 4. Áreas de especialización #}
 <section class="seccion seccion--suave" aria-labelledby="serv-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
-      <h2 id="serv-t" class="seccion__titulo">Una mirada integral, respuestas accionables</h2>
+      <div>
+        <p class="seccion__ante">Lo que hacemos</p>
+        <h2 id="serv-t" class="seccion__titulo">Áreas de especialización</h2>
+      </div>
       <a class="seccion__mas" href="/servicios/">Ver todos los servicios</a>
     </div>
-    <ul class="servicios-inicio">
-      {% for s in collections.servicios %}
-      <li>
-        <a href="{{ s.url }}">
-          <span class="servicios-inicio__icono">{{ dibujarIcono(s.data.icono) }}</span>
-          <span class="servicios-inicio__nombre">{{ s.data.title }}</span>
-          <span class="servicios-inicio__desc">{{ s.data.description }}</span>
-        </a>
+    <ol class="areas-esp">
+      {% for a in areas %}
+      <li class="areas-esp__item">
+        <span class="areas-esp__num" aria-hidden="true">0{{ loop.index }}</span>
+        <span class="areas-esp__icono">{{ dibujarIcono(a.icono) }}</span>
+        <h3 class="areas-esp__nombre"><a href="{{ a.enlaces[0][1] }}">{{ a.nombre }}</a></h3>
+        <p class="areas-esp__texto">{{ a.texto }}</p>
+        {% if a.enlaces.length > 1 %}<p class="areas-esp__extra">{% for e in a.enlaces %}<a href="{{ e[1] }}">{{ e[0] }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
       </li>
       {% endfor %}
-    </ul>
+    </ol>
   </div>
 </section>
 

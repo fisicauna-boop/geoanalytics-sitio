@@ -1,0 +1,7 @@
+[
+  { "nombre": "Investigación de mercados y estudios estadísticos", "texto": "Encuestas, diseño muestral y análisis estadístico, con márgenes de error explícitos.", "icono": "encuesta", "enlaces": [["Investigación de mercados", "/servicios/investigacion-de-mercados-y-encuestas/"]] },
+  { "nombre": "Inteligencia comercial y Trade Marketing", "texto": "Góndola, precios, share of shelf y ejecución de marcas en el punto de venta.", "icono": "gondola", "enlaces": [["Trade marketing", "/servicios/trade-marketing-y-retail-intelligence/"]] },
+  { "nombre": "Geomarketing y análisis territorial", "texto": "Áreas de influencia, cobertura, competencia y potencial por zona.", "icono": "mapa", "enlaces": [["Geomarketing", "/servicios/geomarketing-y-expansion-comercial/"]] },
+  { "nombre": "Analítica de datos y Business Intelligence", "texto": "Indicadores, tableros y modelos que ordenan la información para decidir.", "icono": "datos", "enlaces": [["Analítica de datos", "/servicios/estadistica-y-data-analytics/"]] },
+  { "nombre": "Optimización de operaciones y trabajo de campo", "texto": "Rutas, territorios, censos y equipos de campo más productivos.", "icono": "ruta", "enlaces": [["Rutas", "/servicios/ruteo-y-optimizacion-operativa/"], ["Campo", "/servicios/operaciones-de-campo-y-censos/"]] }
+]
