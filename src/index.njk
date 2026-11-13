@@ -45,7 +45,31 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/hero3d.js"></script>
 
-{# 2. Recorrido 4D: del dato a la decisión #}
+{# 2. Áreas de especialización #}
+<section class="seccion seccion--suave" aria-labelledby="serv-t">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <div>
+        <p class="seccion__ante">Lo que hacemos</p>
+        <h2 id="serv-t" class="seccion__titulo">Áreas de especialización</h2>
+      </div>
+      <a class="seccion__mas" href="/servicios/">Ver todos los servicios</a>
+    </div>
+    <ol class="areas-esp">
+      {% for a in areas %}
+      <li class="areas-esp__item">
+        <span class="areas-esp__num" aria-hidden="true">0{{ loop.index }}</span>
+        <span class="areas-esp__icono">{{ dibujarIcono(a.icono) }}</span>
+        <h3 class="areas-esp__nombre"><a href="{{ a.enlaces[0][1] }}">{{ a.nombre }}</a></h3>
+        <p class="areas-esp__texto">{{ a.texto }}</p>
+        {% if a.enlaces.length > 1 %}<p class="areas-esp__extra">{% for e in a.enlaces %}<a href="{{ e[1] }}">{{ e[0] }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# 3. Recorrido 4D: del dato a la decisión #}
 <section class="recorrido" data-recorrido aria-labelledby="rec-t">
   <h2 id="rec-t" class="visualmente-oculto">Del dato a la decisión</h2>
   <div class="recorrido__escena">
@@ -96,7 +120,7 @@ clase_body: pagina-inicio
 </section>
 <script type="module" src="/assets/js/recorrido4d.js"></script>
 
-{# 3. Soluciones para Retail y Distribución #}
+{# 4. Soluciones para Retail y Distribución #}
 <section class="seccion" aria-labelledby="sol-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
@@ -104,30 +128,6 @@ clase_body: pagina-inicio
       <a class="seccion__mas" href="/soluciones/">Ver las soluciones</a>
     </div>
     {% include "partials/soluciones-tarjetas.njk" %}
-  </div>
-</section>
-
-{# 4. Áreas de especialización #}
-<section class="seccion seccion--suave" aria-labelledby="serv-t">
-  <div class="contenedor">
-    <div class="seccion__cabecera">
-      <div>
-        <p class="seccion__ante">Lo que hacemos</p>
-        <h2 id="serv-t" class="seccion__titulo">Áreas de especialización</h2>
-      </div>
-      <a class="seccion__mas" href="/servicios/">Ver todos los servicios</a>
-    </div>
-    <ol class="areas-esp">
-      {% for a in areas %}
-      <li class="areas-esp__item">
-        <span class="areas-esp__num" aria-hidden="true">0{{ loop.index }}</span>
-        <span class="areas-esp__icono">{{ dibujarIcono(a.icono) }}</span>
-        <h3 class="areas-esp__nombre"><a href="{{ a.enlaces[0][1] }}">{{ a.nombre }}</a></h3>
-        <p class="areas-esp__texto">{{ a.texto }}</p>
-        {% if a.enlaces.length > 1 %}<p class="areas-esp__extra">{% for e in a.enlaces %}<a href="{{ e[1] }}">{{ e[0] }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
-      </li>
-      {% endfor %}
-    </ol>
   </div>
 </section>
 
