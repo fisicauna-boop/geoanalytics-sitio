@@ -1354,3 +1354,28 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .sol4d__chip--2 { bottom: 10%; left: 5%; top: auto; right: auto; transform: translate(calc(var(--px, 0) * 32px), calc(var(--py, 0) * 24px)); }
 .solucion-tarjeta:nth-child(2) .intel__barrido::before { animation-delay: 3s; }
 @media (prefers-reduced-motion: reduce) { .sol4d__foto img { animation: none; } }
+
+/* ---------- Miniaturas del laboratorio en las páginas de soluciones (4D) ---------- */
+.solucion-item__demo.inclina { border-radius: 10px; }
+.demo4d { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #0B2D4A;
+  border: 1px solid var(--linea); box-shadow: 0 10px 24px rgba(11,45,74,.12); transition: box-shadow .3s, border-color .3s; }
+.solucion-item__demo:hover .demo4d { border-color: var(--azul-tec); box-shadow: 0 18px 40px rgba(11,45,74,.22), 0 0 0 1px rgba(0,123,255,.35); }
+.demo4d__foto { position: absolute; inset: 0; }
+.demo4d__foto img { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; border-radius: 0; aspect-ratio: auto;
+  transform: scale(1.12) translate(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -12px)); transition: transform .5s cubic-bezier(.2,.7,.2,1), filter .3s; animation: respira 14s ease-in-out infinite alternate; }
+.solucion-item__demo:hover .demo4d__foto img { transition: transform .12s linear, filter .3s; filter: brightness(.82) saturate(1.1); }
+.demo4d .intel__barrido { border-radius: 0; }
+.demo4d .intel__barrido::after { box-shadow: none; }
+.solucion-item:nth-child(2n) .demo4d .intel__barrido::before { animation-delay: 2s; }
+.solucion-item:nth-child(3n) .demo4d .intel__barrido::before { animation-delay: 4s; }
+.demo4d__vivo { position: absolute; top: .5rem; left: .5rem; display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .55rem; border-radius: 999px;
+  background: rgba(8,30,52,.78); color: #fff; font: 700 .68rem/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; backdrop-filter: blur(6px);
+  transform: translate(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 10px)); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.demo4d__vivo i { width: 7px; height: 7px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 0 0 rgba(57,217,138,.7); animation: latido 1.8s ease-out infinite; }
+@keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(57,217,138,.7); } 100% { box-shadow: 0 0 0 9px rgba(57,217,138,0); } }
+.demo4d__abrir { position: absolute; left: 50%; top: 50%; padding: .55rem .9rem; border-radius: 999px; background: var(--turquesa); color: var(--azul); font: 700 .82rem/1 var(--sans); white-space: nowrap;
+  opacity: 0; transform: translate(-50%, -30%) scale(.9); transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1); box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+.solucion-item__demo:hover .demo4d__abrir, .solucion-item__demo:focus-visible .demo4d__abrir { opacity: 1; transform: translate(calc(-50% + var(--px, 0) * 24px), calc(-50% + var(--py, 0) * 18px)) scale(1); }
+.solucion-item__num { transition: transform .4s cubic-bezier(.2,.7,.2,1); display: inline-block; }
+.solucion-item:hover .solucion-item__num { transform: translateY(-3px) scale(1.12); color: var(--azul-tec); }
+@media (prefers-reduced-motion: reduce) { .demo4d__foto img, .demo4d__vivo i { animation: none; } }

@@ -58,7 +58,12 @@ eleventyComputed:
         </div>
         {% if d %}
         <a class="solucion-item__demo" href="{{ d.url }}">
-          <img src="{{ d.imagen }}" alt="" width="600" height="338" loading="lazy">
+          <span class="demo4d">
+            <span class="demo4d__foto"><img src="{{ d.imagen }}" alt="" width="600" height="338" loading="lazy"></span>
+            <span class="intel__barrido" aria-hidden="true"></span>
+            <span class="demo4d__vivo" aria-hidden="true"><i></i>En vivo</span>
+            <span class="demo4d__abrir" aria-hidden="true">Abrir demostración →</span>
+          </span>
           <span><strong>Laboratorio: {{ d.titulo }}</strong>Explórelo con datos simulados</span>
         </a>
         {% endif %}
