@@ -60,6 +60,24 @@ clase_body: pagina-articulo
     <figcaption>Ilustración conceptual: los datos con ubicación se analizan y se convierten en una decisión. Ciudad y valores ficticios.</figcaption>
   </figure>
   <script type="module" src="/assets/js/capas3d.js"></script>
+  {% elif escena_3d == "areas" %}
+  <figure class="articulo__portada articulo__portada--3d contenedor contenedor--ancho">
+    <div class="art3d">
+      <div class="hero3d" data-areas3d>
+        <img class="hero3d__fijo" src="{{ imagen }}" alt="{{ imagen_alt }}" width="1600" height="800" fetchpriority="high">
+      </div>
+      <div class="areas3d__ui">
+        <div class="areas3d__metodos" role="group" aria-label="Método de delimitación" data-areas3d-metodos>
+          <button type="button" aria-pressed="true"><b>01</b> Radios<small>Distancia geométrica</small></button>
+          <button type="button" aria-pressed="false"><b>02</b> Isócronas<small>Tiempo de desplazamiento</small></button>
+          <button type="button" aria-pressed="false"><b>03</b> Modelo de Huff<small>Probabilidad de atracción</small></button>
+        </div>
+        <p class="areas3d__explica" aria-live="polite" data-areas3d-explica></p>
+      </div>
+    </div>
+    <figcaption>Ilustración conceptual: un mismo local en una ciudad ficticia, medido con tres métodos. No muestra datos reales.</figcaption>
+  </figure>
+  <script type="module" src="/assets/js/areas3d.js"></script>
   {% elif imagen %}
   <figure class="articulo__portada contenedor contenedor--ancho">
     <img src="{{ imagen }}" alt="{{ imagen_alt }}" width="1200" height="675" fetchpriority="high">
@@ -82,6 +100,17 @@ clase_body: pagina-articulo
         {% if v.fuente or v.nota %}<figcaption>{% if v.nota %}<span>{{ v.nota }}</span> {% endif %}{% if v.fuente %}<span>Fuente: {{ v.fuente }}</span>{% endif %}</figcaption>{% endif %}
       </figure>
       {% endfor %}
+
+      {% if serie %}
+      <nav class="serie" aria-label="Serie {{ serie_titulo }}">
+        <p class="serie__ante">Serie · {{ serie_titulo }}</p>
+        <ol>
+        {%- for n in [1, 2, 3, 4, 5, 6] -%}{%- for a in collections.articulos -%}{%- if a.data.serie == serie and a.data.serie_orden == n -%}
+          <li{% if a.url == page.url %} aria-current="page"{% endif %}><span>{{ n }}</span>{% if a.url == page.url %}<strong>{{ a.data.title }}</strong><em>Está leyendo este artículo</em>{% else %}<a href="{{ a.url }}">{{ a.data.title }}</a>{% endif %}</li>
+        {%- endif -%}{%- endfor -%}{%- endfor %}
+        </ol>
+      </nav>
+      {% endif %}
 
       {% if enlaces and enlaces.length %}
       <section class="fuentes" aria-labelledby="fuentes-t">

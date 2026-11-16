@@ -12,6 +12,9 @@ imagen: /media/portadas/geomarketing-capas-3d.webp
 imagen_alt: "Ilustración 3D de tres placas apiladas sobre una ciudad conceptual: datos con ubicación, análisis espacial y una decisión destacada."
 indice: true
 mapas_geo: true
+serie: geomarketing
+serie_titulo: Geomarketing aplicado
+serie_orden: 1
 servicios: [geomarketing-y-expansion-comercial, investigacion-de-mercados-y-encuestas]
 ---
 

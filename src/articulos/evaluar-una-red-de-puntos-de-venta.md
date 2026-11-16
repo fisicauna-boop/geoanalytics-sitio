@@ -11,6 +11,9 @@ imagen: /media/portadas/red-comercial-3d.webp
 imagen_alt: "Ilustración 3D de una ciudad conceptual con puntos de venta propios, competidores, áreas de influencia, una zona de superposición y una zona sin cobertura."
 indice: true
 mapas_red: true
+serie: geomarketing
+serie_titulo: Geomarketing aplicado
+serie_orden: 3
 servicios: [geomarketing-y-expansion-comercial, trade-marketing-y-retail-intelligence, ruteo-y-optimizacion-operativa]
 ---
 

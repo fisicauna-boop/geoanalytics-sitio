@@ -11,7 +11,7 @@
     const w = 0.15 + 0.85 * Math.exp(-((x - 150) ** 2 + (y - 210) ** 2) / 9000) + 0.7 * Math.exp(-((x - 470) ** 2 + (y - 290) ** 2) / 7000) + 0.4 * Math.exp(-((x - 330) ** 2 + (y - 110) ** 2) / 6000) + azar() * 0.12;
     demanda.push({ x, y, w: Math.min(1, w) });
   }
-  function base(svg, avenidaX, puenteY, rotY = 22) {
+  function base(svg, avenidaX, puenteY, rotY = 22, nombre = "Avenida de difícil cruce", rio = false) {
     el("rect", { width: W, height: H, rx: 12, class: "mg-suelo" }, svg);
     const g = el("g", { class: "mg-calles" }, svg);
     for (let x = 40; x < W; x += 40) el("line", { x1: x, y1: 0, x2: x, y2: H }, g);
@@ -19,23 +19,25 @@
     const cel = el("g", {}, svg);
     demanda.forEach((d) => el("rect", { x: d.x - 8, y: d.y - 8, width: 16, height: 16, rx: 3, class: "mg-celda", style: `--w:${d.w.toFixed(2)}` }, cel));
     if (avenidaX) {
-      el("rect", { x: avenidaX - 7, y: 0, width: 14, height: H, class: "mg-avenida" }, svg);
+      el("rect", { x: avenidaX - 7, y: 0, width: 14, height: H, class: rio ? "mg-avenida mg-rio" : "mg-avenida" }, svg);
       el("rect", { x: avenidaX - 12, y: puenteY - 9, width: 24, height: 18, rx: 3, class: "mg-puente" }, svg);
-      const t = el("text", { x: avenidaX + 12, y: rotY, class: "mg-txt mg-txt--av" }, svg); t.textContent = "Avenida de difícil cruce";
+      const t = el("text", { x: avenidaX + 12, y: rotY, class: "mg-txt mg-txt--av" }, svg); t.textContent = nombre;
     }
     return cel;
   }
   // Isócrona aproximada: forma de rombo (se viaja por la grilla) recortada por la avenida salvo en el cruce
-  function isocrona(cx, cy, r, avX, puenteY) {
+  function isocrona(cx, cy, r, avX, puenteY) { return isoPts(cx, cy, r, avX, puenteY).map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" "); }
+  function dentro([x, y], pol) { let ok = false; for (let i = 0, j = pol.length - 1; i < pol.length; j = i++) { const [xi, yi] = pol[i], [xj, yj] = pol[j]; if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) ok = !ok; } return ok; }
+  function isoPts(cx, cy, r, avX, puenteY) {
     const pts = [];
     for (let a = 0; a < 120; a++) {
       const t = (a / 120) * Math.PI * 2, c = Math.cos(t), sn = Math.sin(t);
       const rr = r * (0.5 * 1.2 / (Math.abs(c) + Math.abs(sn)) + 0.42) * (1 + 0.04 * Math.sin(7 * t));
       let x = cx + c * rr, y = cy + sn * rr;
       if (avX && (x - avX) * (cx - avX) < 0) x = Math.abs(y - puenteY) < 18 ? avX + Math.sign(x - avX) * Math.min(Math.abs(x - avX), 45) : avX - Math.sign(avX - cx) * 4;
-      pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      pts.push([x, y]);
     }
-    return pts.join(" ");
+    return pts;
   }
   function punto(svg, x, y, clase, texto) {
     const g = el("g", { class: "mg-punto " + clase, transform: `translate(${x} ${y})` }, svg);
@@ -116,12 +118,92 @@
     return ctl;
   }
 
-  const tipos = { metodos, caso };
+
+  // ---------- 3. Radio frente a isócrona, con comparación ----------
+  function radioiso(fig, svg) {
+    const AV = 380, PU = 130, sitio = [305, 200], R = 135;
+    const celdas = base(svg, AV, PU, 22, "Río: se cruza por el puente", true);
+    const pol = isoPts(sitio[0], sitio[1], R, AV, PU);
+    const gRadio = el("circle", { cx: sitio[0], cy: sitio[1], r: R, class: "mg-capa mg-radio" }, svg);
+    const gIso = el("polygon", { points: pol.map((q) => q.join(",")).join(" "), class: "mg-capa mg-iso" }, svg);
+    punto(svg, sitio[0], sitio[1], "mg-propio", "Local");
+    const estado = demanda.map((d) => { const enR = Math.hypot(d.x - sitio[0], d.y - sitio[1]) < R, enI = dentro([d.x, d.y], pol); return enR && !enI ? "perdida" : !enR && enI ? "ganada" : ""; });
+    const textos = [
+      "<strong>Radio.</strong> El círculo incluye todo lo que está a la misma distancia en línea recta, también del otro lado del río.",
+      "<strong>Isócrona.</strong> Con el mismo tiempo de viaje por las calles, el área se estira por las avenidas y se corta en el río, salvo por el puente.",
+      "<strong>Comparación.</strong> En coral, la demanda que el radio cuenta pero que con el mismo tiempo de viaje no llega al local: sobre todo la del otro lado del río.",
+    ];
+    const txt = fig.querySelector(".mg-explica");
+    return pestanas(fig, ["Radio", "Isócrona", "Comparar"], (k) => {
+      gRadio.classList.toggle("es-activa", k !== 1); gIso.classList.toggle("es-activa", k >= 1);
+      gRadio.classList.toggle("mg-radio--tenue", k === 2);
+      [...celdas.children].forEach((c, i) => { c.classList.toggle("mg-celda--perdida", k === 2 && estado[i] === "perdida"); c.classList.toggle("mg-celda--ganada", k === 2 && estado[i] === "ganada"); });
+      txt.innerHTML = textos[k];
+    });
+  }
+
+  // ---------- 4. Simulador del modelo de Huff ----------
+  function huffSim(fig) {
+    const locales = [{ n: "A", sup: 1200, d: 2, ang: -2.5 }, { n: "B", sup: 600, d: 1, ang: -0.35 }, { n: "C", sup: 300, d: 0.5, ang: 1.75 }];
+    const caja = fig.querySelector(".mg-huff");
+    const fmt = (x) => (x * 100).toLocaleString("es-PY", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " %";
+    caja.innerHTML = `
+      <div class="mg-huff__mapa"></div>
+      <div class="mg-huff__panel">
+        <label class="mg-huff__control">Sensibilidad a la distancia <b>β = <output>2,0</output></b>
+          <input type="range" min="0" max="3" step="0.1" value="2" aria-label="Valor de beta">
+        </label>
+        <div class="mg-huff__atajos"><button type="button" data-b="0">β = 0</button><button type="button" data-b="1">β = 1</button><button type="button" data-b="2">β = 2</button><button type="button" data-b="3">β = 3</button></div>
+        <table class="mg-huff__tabla"><thead><tr><th>Local</th><th>Superficie</th><th>Distancia</th><th>Probabilidad</th></tr></thead><tbody>
+        ${locales.map((l) => `<tr><td><span class="mg-huff__chip mg-huff__chip--${l.n}">${l.n}</span></td><td>${l.sup.toLocaleString("es-PY")} m²</td><td>${l.d.toLocaleString("es-PY")} km</td><td><b></b><i><s></s></i></td></tr>`).join("")}
+        </tbody></table>
+      </div>`;
+    const svg = el("svg", { viewBox: "0 0 420 340", role: "img", "aria-label": "Consumidor y tres locales ficticios; el grosor de cada línea es la probabilidad de elegir ese local." });
+    caja.querySelector(".mg-huff__mapa").appendChild(svg);
+    el("rect", { width: 420, height: 340, rx: 12, class: "mg-suelo" }, svg);
+    const g0 = el("g", { class: "mg-calles" }, svg);
+    for (let x = 35; x < 420; x += 35) el("line", { x1: x, y1: 0, x2: x, y2: 340 }, g0);
+    for (let y = 34; y < 340; y += 34) el("line", { x1: 0, y1: y, x2: 420, y2: y }, g0);
+    const O = [215, 175], K = 88;
+    [1, 2].forEach((km) => { el("circle", { cx: O[0], cy: O[1], r: km * K, class: "mg-huff__km" }, svg); const t = el("text", { x: O[0] + km * K * 0.72 + 4, y: O[1] - km * K * 0.69, class: "mg-txt mg-txt--km" }, svg); t.textContent = km + " km"; });
+    const lineas = locales.map((l) => el("line", { x1: O[0], y1: O[1], x2: O[0] + Math.cos(l.ang) * l.d * K, y2: O[1] + Math.sin(l.ang) * l.d * K, class: "mg-huff__linea mg-huff__linea--" + l.n }, svg));
+    const etiquetasP = locales.map((l) => {
+      const x = O[0] + Math.cos(l.ang) * l.d * K, y = O[1] + Math.sin(l.ang) * l.d * K, r = 6 + Math.sqrt(l.sup) * 0.45;
+      el("circle", { cx: x, cy: y, r, class: "mg-huff__local mg-huff__local--" + l.n }, svg);
+      const t = el("text", { x, y: y + 5, class: "mg-huff__letra" }, svg); t.textContent = l.n;
+      const p = el("text", { x, y: y + r + 17, class: "mg-txt" }, svg); return p;
+    });
+    el("circle", { cx: O[0], cy: O[1], r: 9, class: "mg-huff__cons" }, svg);
+    const tc = el("text", { x: O[0] + 14, y: O[1] + 24, class: "mg-txt mg-txt--izq" }, svg); tc.textContent = "Consumidor";
+
+    const rango = caja.querySelector("input"), salida = caja.querySelector("output");
+    const filas = [...caja.querySelectorAll("tbody tr")], txt = fig.querySelector(".mg-explica");
+    function calcular(b) {
+      const u = locales.map((l) => l.sup / l.d ** b), tot = u.reduce((a, c) => a + c, 0), P = u.map((x) => x / tot);
+      salida.textContent = b.toLocaleString("es-PY", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      const max = Math.max(...P);
+      P.forEach((p, i) => {
+        filas[i].querySelector("b").textContent = fmt(p); filas[i].querySelector("s").style.width = p * 100 + "%";
+        filas[i].classList.toggle("es-mejor", p === max && P.filter((q) => Math.abs(q - max) < 1e-9).length === 1);
+        lineas[i].style.strokeWidth = (1.5 + p * 22).toFixed(1); etiquetasP[i].textContent = fmt(p);
+      });
+      txt.innerHTML = b < 0.95 ? "Con β bajo, la distancia casi no importa: gana el local más grande, A." :
+        b < 1.05 ? "Con <strong>β = 1</strong>, superficie dividida por distancia da 600 en los tres locales: cada uno recibe un tercio." :
+        b < 2.5 ? "Al subir β, la distancia pesa más y el local más cercano, C, concentra la elección aunque sea el más chico." :
+        "Con β alto, casi solo cuenta la cercanía: el local C se queda con la mayor parte.";
+    }
+    rango.addEventListener("input", () => calcular(+rango.value));
+    caja.querySelectorAll("[data-b]").forEach((b) => b.addEventListener("click", () => { rango.value = b.dataset.b; calcular(+b.dataset.b); }));
+    calcular(2);
+    return { autoplay() {} };
+  }
+
+  const tipos = { metodos, caso, radioiso, huff: huffSim };
   document.querySelectorAll("[data-geo]").forEach((fig) => {
     const f = tipos[fig.dataset.geo], lienzo = fig.querySelector(".mg-lienzo");
-    if (!f || !lienzo) return;
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": fig.dataset.etiqueta || "" });
-    lienzo.appendChild(svg);
+    if (!f) return;
+    let svg = null;
+    if (lienzo) { svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": fig.dataset.etiqueta || "" }); lienzo.appendChild(svg); }
     const ctl = f(fig, svg);
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { fig.classList.add("es-visible"); ctl.autoplay(5200); io.disconnect(); } }, { threshold: 0.35 });
     io.observe(fig);
