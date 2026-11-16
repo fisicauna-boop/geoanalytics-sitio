@@ -1398,3 +1398,30 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .demo4d--galeria .demo4d__abrir { z-index: 6; left: 47%; top: 53%; }
 .solucion-item__demo:hover .demo4d__capa { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .demo4d__capa { animation: none; } .demo4d__capa:not(:first-child) { display: none; } }
+
+/* ---------- Vitrina del laboratorio en 4D ---------- */
+.vitrina__panel { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 2rem; padding: 1.75rem; perspective: 1200px; }
+.vitrina__panel:not([hidden]) .vitrina__imagen { animation: vitrina-entra .7s cubic-bezier(.16,.84,.24,1) both; }
+.vitrina__panel:not([hidden]) .vitrina__texto > * { animation: entra .6s cubic-bezier(.16,.84,.24,1) both; }
+.vitrina__panel:not([hidden]) .vitrina__texto > *:nth-child(2) { animation-delay: .06s; } .vitrina__panel:not([hidden]) .vitrina__texto > *:nth-child(3) { animation-delay: .12s; }
+.vitrina__panel:not([hidden]) .vitrina__texto > *:nth-child(n+4) { animation-delay: .18s; }
+@keyframes vitrina-entra { from { opacity: 0; transform: rotateY(-14deg) translateX(-30px) scale(.96); filter: blur(3px); } }
+.vitrina__imagen { display: block; border-radius: 12px; }
+.demo4d--vitrina { aspect-ratio: 16 / 10; border-radius: 12px; border: 1px solid rgba(95,227,255,.3); box-shadow: 0 24px 50px rgba(0,0,0,.35), 0 0 40px rgba(0,194,199,.12); }
+.vitrina__imagen:hover .demo4d--vitrina { border-color: rgba(95,227,255,.7); box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 50px rgba(0,194,199,.25); }
+.vitrina__imagen:hover .demo4d__foto img { transition: transform .12s linear, filter .3s; filter: brightness(.8) saturate(1.1); }
+.vitrina__imagen:hover .demo4d__abrir { opacity: 1; transform: translate(calc(-50% + var(--px, 0) * 24px), calc(-50% + var(--py, 0) * 18px)) scale(1); }
+.demo4d--vitrina .demo4d__vivo { top: .8rem; left: .8rem; font-size: .7rem; }
+.vitrina__imagen img { border: 0; border-radius: 0; }
+/* barra de progreso del avance automático */
+.vitrina__pestana { position: relative; overflow: hidden; }
+.vitrina__progreso { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--turquesa), var(--verde)); }
+.vitrina--auto .vitrina__pestana[aria-selected="true"] .vitrina__progreso { animation: progreso 7s linear both; }
+.vitrina--pausa .vitrina__pestana[aria-selected="true"] .vitrina__progreso { animation-play-state: paused; }
+@keyframes progreso { to { transform: scaleX(1); } }
+@media (max-width: 760px) { .vitrina__panel { grid-template-columns: 1fr; padding: 1.1rem; } }
+@media (prefers-reduced-motion: reduce) { .vitrina__panel:not([hidden]) .vitrina__imagen, .vitrina__panel:not([hidden]) .vitrina__texto > * { animation: none; } }
+.vitrina__panel { grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 1.6rem; padding: 1.5rem 1.6rem; }
+.demo4d--vitrina { aspect-ratio: 16 / 11; }
+.vitrina__titulo { font-size: 1.45rem; }
+@media (max-width: 1100px) { .vitrina__panel { grid-template-columns: 1fr; } .demo4d--vitrina { aspect-ratio: 16 / 9; } }

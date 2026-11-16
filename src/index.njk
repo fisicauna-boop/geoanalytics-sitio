@@ -177,16 +177,24 @@ clase_body: pagina-inicio
     <div class="vitrina" data-vitrina>
       <div class="vitrina__pestanas" role="tablist" aria-label="Demostraciones">
         {% for d in demos %}
-        <button class="vitrina__pestana" role="tab" id="tab-{{ d.id }}" aria-controls="panel-{{ d.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">
+        <button class="vitrina__pestana" role="tab" style="--i: {{ loop.index0 }}" id="tab-{{ d.id }}" aria-controls="panel-{{ d.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}">
           <span class="vitrina__pestana-titulo">{{ d.pestana }}</span>
           <span class="vitrina__pestana-sub">{{ d.pestana_sub }}</span>
+          <span class="vitrina__progreso" aria-hidden="true"></span>
         </button>
         {% endfor %}
         <p class="vitrina__nota">Datos simulados que se generan en su navegador. No representan resultados de clientes.</p>
       </div>
       {% for d in demos %}
       <div class="vitrina__panel" role="tabpanel" id="panel-{{ d.id }}" aria-labelledby="tab-{{ d.id }}"{% if not loop.first %} hidden{% endif %}>
-        <a class="vitrina__imagen" href="{{ d.url }}" tabindex="-1" aria-hidden="true"><img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy"></a>
+        <a class="vitrina__imagen" href="{{ d.url }}" tabindex="-1" aria-hidden="true">
+          <span class="demo4d demo4d--vitrina">
+            <span class="demo4d__foto"><img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy"></span>
+            <span class="intel__barrido"></span>
+            <span class="demo4d__vivo"><i></i>En vivo · datos simulados</span>
+            <span class="demo4d__abrir">Abrir demostración →</span>
+          </span>
+        </a>
         <div class="vitrina__texto">
           <p class="vitrina__sub">{{ d.subtitulo }}</p>
           <h3 class="vitrina__titulo">{{ d.titulo }}</h3>
