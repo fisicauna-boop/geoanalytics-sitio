@@ -33,6 +33,21 @@ clase_body: pagina-articulo
     <figcaption>Ilustración conceptual sobre el contorno de Paraguay (Natural Earth). Las capas no muestran datos medidos.</figcaption>
   </figure>
   <script type="module" src="/assets/js/paraguay3d.js"></script>
+  {% elif escena_3d == "red" %}
+  <figure class="articulo__portada articulo__portada--3d contenedor contenedor--ancho">
+    <div class="art3d">
+      <div class="hero3d" data-red3d>
+        <img class="hero3d__fijo" src="{{ imagen }}" alt="{{ imagen_alt }}" width="1600" height="800" fetchpriority="high">
+      </div>
+      <ul class="red3d__leyenda" aria-label="Leyenda">
+        <li><i class="l-propio"></i>Puntos propios</li><li><i class="l-comp"></i>Competidores</li><li><i class="l-area"></i>Área de influencia</li>
+        <li><i class="l-sup"></i>Superposición</li><li><i class="l-brecha"></i>Sin cobertura</li><li><i class="l-oport"></i>Oportunidad</li>
+      </ul>
+      <span class="art3d__pista" aria-hidden="true">Arrastre para girar</span>
+    </div>
+    <figcaption>Ilustración conceptual de una red comercial sobre una ciudad ficticia. No muestra ubicaciones ni datos reales.</figcaption>
+  </figure>
+  <script type="module" src="/assets/js/red3d.js"></script>
   {% elif imagen %}
   <figure class="articulo__portada contenedor contenedor--ancho">
     <img src="{{ imagen }}" alt="{{ imagen_alt }}" width="1200" height="675" fetchpriority="high">
@@ -113,6 +128,7 @@ clase_body: pagina-articulo
 {% if visualizaciones and visualizaciones.length or "data-viz" in content %}
 <script src="/assets/js/visualizaciones.js" defer></script>
 {% endif %}
+{% if mapas_red %}<script src="/assets/js/mapas-red.js" defer></script>{% endif %}
 {% if indice %}
 <script>
 (() => {
