@@ -1339,3 +1339,18 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
   .intel__foto img, .intel__barrido::before, .intel__chip, .intel__mini i, .intel__mini--linea::before, .intel__mini--anillo, .intel__mini--calor i { animation: none; }
 }
 .intel__mini--linea { width: 100%; min-width: 7rem; height: 22px; }
+.intel__mini--linea::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 22'%3E%3Cpath d='M0 18 L15 14 L30 16 L45 8 L60 11 L75 5 L90 9 L105 3 L120 18' fill='none' stroke='%2339D98A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 0 50% / 120px 22px repeat-x; animation: linea2 4s linear infinite; }
+@keyframes linea2 { to { background-position: -120px 50%; } }
+
+/* ---------- Soluciones para Retail y Distribución: imágenes con profundidad (4D) ---------- */
+.solucion-tarjeta__imagen.sol4d { aspect-ratio: 16 / 9; background: #061829; }
+.solucion-tarjeta__imagen.sol4d::after { background: linear-gradient(180deg, rgba(6,24,41,0) 60%, rgba(6,24,41,.35)); z-index: 1; }
+.sol4d__foto { position: absolute; inset: 0; overflow: hidden; }
+.sol4d__foto img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.16) translate(calc(var(--px, 0) * -22px), calc(var(--py, 0) * -16px)); transition: transform .5s cubic-bezier(.2,.7,.2,1), filter .3s; animation: respira 16s ease-in-out infinite alternate; }
+.solucion-tarjeta:hover .sol4d__foto img { transition: transform .12s linear, filter .3s; filter: saturate(1.12) brightness(1.05); }
+.sol4d .intel__barrido { z-index: 2; border-radius: 0; }
+.sol4d__chip { z-index: 3; transform: translate(calc(var(--px, 0) * 20px), calc(var(--py, 0) * 16px)); }
+.sol4d__chip--1 { top: 9%; right: 5%; left: auto; bottom: auto; }
+.sol4d__chip--2 { bottom: 10%; left: 5%; top: auto; right: auto; transform: translate(calc(var(--px, 0) * 32px), calc(var(--py, 0) * 24px)); }
+.solucion-tarjeta:nth-child(2) .intel__barrido::before { animation-delay: 3s; }
+@media (prefers-reduced-motion: reduce) { .sol4d__foto img { animation: none; } }

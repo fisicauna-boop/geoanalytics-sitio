@@ -89,11 +89,12 @@
           t.style.setProperty("--my", (y * 100).toFixed(1) + "%");
           t.style.setProperty("--rx", ((0.5 - y) * 7).toFixed(2) + "deg");
           t.style.setProperty("--ry", ((x - 0.5) * 9).toFixed(2) + "deg");
+          t.style.setProperty("--px", (x - 0.5).toFixed(3)); t.style.setProperty("--py", (y - 0.5).toFixed(3));
         });
       });
       t.addEventListener("pointerleave", () => {
         cancelAnimationFrame(raf);
-        t.style.setProperty("--rx", "0deg"); t.style.setProperty("--ry", "0deg");
+        t.style.setProperty("--rx", "0deg"); t.style.setProperty("--ry", "0deg"); t.style.setProperty("--px", "0"); t.style.setProperty("--py", "0");
       });
     });
 

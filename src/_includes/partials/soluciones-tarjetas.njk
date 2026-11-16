@@ -3,7 +3,16 @@
 <div class="soluciones-acceso">
   {% for s in soluciones %}
   <a class="solucion-tarjeta" href="/soluciones/{{ s.id }}/">
-    <span class="solucion-tarjeta__imagen"><img src="{{ s.imagen }}" alt="" width="1200" height="675" loading="lazy"></span>
+    <span class="solucion-tarjeta__imagen sol4d">
+      <span class="sol4d__foto"><img src="{{ s.imagen }}" alt="" width="916" height="726" loading="lazy"></span>
+      <span class="intel__barrido" aria-hidden="true"></span>
+      {% for c in s.chips %}
+      <span class="intel__chip sol4d__chip sol4d__chip--{{ loop.index }}" aria-hidden="true">
+        <span class="intel__chip-t">{{ c[0] }}</span>
+        <span class="intel__mini intel__mini--{{ c[1] }}"><i></i><i></i><i></i><i></i><i></i></span>
+      </span>
+      {% endfor %}
+    </span>
     <span class="solucion-tarjeta__cuerpo">
       <span class="solucion-tarjeta__ante"><span class="solucion-tarjeta__icono">{{ dibujarIcono(s.icono) }}</span>{{ s.antetitulo }}</span>
       <span class="solucion-tarjeta__titulo">{{ s.titulo }}</span>
