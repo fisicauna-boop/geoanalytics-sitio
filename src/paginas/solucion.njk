@@ -56,7 +56,17 @@ eleventyComputed:
           <p class="lateral__titulo">Qué medimos</p>
           <ul>{% for m in x.mide %}<li>{{ m }}</li>{% endfor %}</ul>
         </div>
-        {% if d %}
+        {% if x.galeria %}
+        <a class="solucion-item__demo" href="{{ d.url if d else '/demostraciones/' }}">
+          <span class="demo4d demo4d--galeria">
+            {% for img in x.galeria.imagenes %}<span class="demo4d__capa" style="--k: {{ loop.index0 }}"><img src="{{ img }}" alt="" width="584" height="460" loading="lazy"></span>{% endfor %}
+            <span class="intel__barrido" aria-hidden="true"></span>
+            <span class="demo4d__vivo" aria-hidden="true"><i></i>3D</span>
+            <span class="demo4d__abrir" aria-hidden="true">Abrir demostración →</span>
+          </span>
+          <span><strong>{{ x.galeria.titulo }}</strong>{% if d %}Laboratorio: {{ d.titulo }}, con datos simulados{% else %}Imágenes ilustrativas{% endif %}</span>
+        </a>
+        {% elif d %}
         <a class="solucion-item__demo" href="{{ d.url }}">
           <span class="demo4d">
             <span class="demo4d__foto"><img src="{{ d.imagen }}" alt="" width="600" height="338" loading="lazy"></span>

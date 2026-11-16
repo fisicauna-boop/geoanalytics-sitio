@@ -26,7 +26,15 @@
           "Cumplimiento de planograma"
         ],
         "servicio": "trade-marketing-y-retail-intelligence",
-        "demo": "gondola"
+        "demo": "gondola",
+        "galeria": {
+          "titulo": "Escenarios 3D interactivos",
+          "imagenes": [
+            "/media/soluciones/escenario-1.webp",
+            "/media/soluciones/escenario-2.webp",
+            "/media/soluciones/escenario-3.webp"
+          ]
+        }
       },
       {
         "titulo": "Análisis de precios, promociones y surtido",

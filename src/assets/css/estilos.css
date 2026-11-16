@@ -1379,3 +1379,22 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .solucion-item__num { transition: transform .4s cubic-bezier(.2,.7,.2,1); display: inline-block; }
 .solucion-item:hover .solucion-item__num { transform: translateY(-3px) scale(1.12); color: var(--azul-tec); }
 @media (prefers-reduced-motion: reduce) { .demo4d__foto img, .demo4d__vivo i { animation: none; } }
+/* Galería en profundidad: tres escenas que se alternan como un mazo */
+.demo4d--galeria { overflow: visible; background: none; border: 0; box-shadow: none; aspect-ratio: 16 / 11; }
+.solucion-item__demo:hover .demo4d--galeria { box-shadow: none; }
+.demo4d__capa { position: absolute; inset: 11% 10% 0 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--linea); box-shadow: 0 10px 24px rgba(11,45,74,.18);
+  animation: mazo 9s cubic-bezier(.6,0,.2,1) infinite; animation-delay: calc(var(--k) * -3s); }
+.demo4d__capa img { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; border-radius: 0; aspect-ratio: auto;
+  transform: scale(1.08) translate(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -10px)); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+@keyframes mazo {
+  0%, 28% { transform: translate(0, 0) scale(1); opacity: 1; z-index: 3; filter: none; }
+  33% { transform: translate(-6%, 8%) scale(.96) rotate(-2deg); opacity: 0; z-index: 3; }
+  34%, 61% { transform: translate(10%, -11%) scale(.94); opacity: .7; z-index: 1; filter: saturate(.7) brightness(.9); }
+  66%, 95% { transform: translate(5%, -5.5%) scale(.97); opacity: .9; z-index: 2; filter: saturate(.85); }
+  100% { transform: translate(0, 0) scale(1); opacity: 1; z-index: 3; filter: none; }
+}
+.demo4d--galeria .intel__barrido { inset: 11% 10% 0 0; border-radius: 10px; z-index: 4; }
+.demo4d--galeria .demo4d__vivo { z-index: 5; top: calc(11% + .5rem); }
+.demo4d--galeria .demo4d__abrir { z-index: 6; left: 47%; top: 53%; }
+.solucion-item__demo:hover .demo4d__capa { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .demo4d__capa { animation: none; } .demo4d__capa:not(:first-child) { display: none; } }
