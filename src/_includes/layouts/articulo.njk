@@ -11,6 +11,7 @@ clase_body: pagina-articulo
 <article class="articulo">
   <header class="articulo__cabecera contenedor contenedor--ancho">
     <div class="articulo__cat">{{ categoriaTag(cat) }}</div>
+    {% if antetitulo %}<p class="articulo__ante">{{ antetitulo }}</p>{% endif %}
     <h1 class="articulo__titulo">{{ title }}</h1>
     {% if description %}<p class="articulo__bajada">{{ description }}</p>{% endif %}
     <p class="articulo__meta">
@@ -21,7 +22,18 @@ clase_body: pagina-articulo
     </p>
   </header>
 
-  {% if imagen %}
+  {% if escena_3d == "paraguay" %}
+  <figure class="articulo__portada articulo__portada--3d contenedor contenedor--ancho">
+    <div class="art3d">
+      <div class="hero3d" data-paraguay3d>
+        <img class="hero3d__fijo" src="{{ imagen }}" alt="{{ imagen_alt }}" width="1258" height="840" fetchpriority="high">
+      </div>
+      <span class="art3d__pista" aria-hidden="true">Arrastre para girar</span>
+    </div>
+    <figcaption>Ilustración conceptual sobre el contorno de Paraguay (Natural Earth). Las capas no muestran datos medidos.</figcaption>
+  </figure>
+  <script type="module" src="/assets/js/paraguay3d.js"></script>
+  {% elif imagen %}
   <figure class="articulo__portada contenedor contenedor--ancho">
     <img src="{{ imagen }}" alt="{{ imagen_alt }}" width="1200" height="675" fetchpriority="high">
     {% if imagen_credito %}<figcaption>{{ imagen_credito }}</figcaption>{% endif %}
@@ -60,7 +72,8 @@ clase_body: pagina-articulo
       {% endif %}
     </div>
 
-    <aside class="articulo__lateral" aria-label="Compartir y servicios relacionados">
+    <aside class="articulo__lateral" aria-label="Índice, compartir y servicios relacionados">
+      {% if indice %}<nav class="indice" aria-label="En este artículo" data-indice><p class="lateral__titulo">En este artículo</p><ol></ol></nav>{% endif %}
       <div class="compartir">
         <p class="lateral__titulo">Compartir</p>
         <ul>
@@ -99,4 +112,16 @@ clase_body: pagina-articulo
 
 {% if visualizaciones and visualizaciones.length or "data-viz" in content %}
 <script src="/assets/js/visualizaciones.js" defer></script>
+{% endif %}
+{% if indice %}
+<script>
+(() => {
+  const nav = document.querySelector("[data-indice]"); if (!nav) return;
+  const lista = nav.querySelector("ol"), h2s = [...document.querySelectorAll(".articulo__cuerpo > h2")].filter((h) => !h.closest(".fuentes"));
+  h2s.forEach((h, i) => { if (!h.id) h.id = "s-" + (i + 1); const li = document.createElement("li"); li.innerHTML = `<a href="#${h.id}"></a>`; li.firstChild.textContent = h.textContent.replace(/^\d+\.\s*/, ""); lista.appendChild(li); });
+  const enlaces = [...lista.querySelectorAll("a")];
+  const obs = new IntersectionObserver((e) => e.forEach((x) => { if (x.isIntersecting) enlaces.forEach((a) => a.classList.toggle("es-actual", a.hash === "#" + x.target.id)); }), { rootMargin: "-20% 0px -70% 0px" });
+  h2s.forEach((h) => obs.observe(h));
+})();
+</script>
 {% endif %}

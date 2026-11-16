@@ -1480,3 +1480,35 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .lab-tarjeta:nth-child(2) .intel__barrido::before { animation-delay: 1.5s; } .lab-tarjeta:nth-child(3) .intel__barrido::before { animation-delay: 3s; } .lab-tarjeta:nth-child(4) .intel__barrido::before { animation-delay: 4.5s; }
 .lab-nota { margin: 1.4rem 0 0; font-size: .85rem; color: var(--texto-suave); }
 @media (max-width: 760px) { .lab-grilla { grid-template-columns: 1fr; } }
+
+/* ---------- Artículos con portada 3D, índice y cierre comercial ---------- */
+.articulo__ante { margin: .6rem 0 0; font: 700 .78rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--turquesa-osc); }
+.articulo__portada--3d .art3d { position: relative; border-radius: 18px; overflow: hidden; background: radial-gradient(70% 80% at 50% 45%, #E8F4FF 0%, #D4E8F8 100%); border: 1px solid var(--linea); box-shadow: 0 24px 50px rgba(11,45,74,.12); }
+.articulo__portada--3d .hero3d { aspect-ratio: 16 / 8; }
+.art3d__capa { position: absolute; display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .75rem; border-radius: 12px; font: 700 .78rem/1 var(--sans); color: #fff;
+  background: rgba(8,30,52,.78); border: 1px solid rgba(95,227,255,.55); backdrop-filter: blur(8px); box-shadow: 0 10px 24px rgba(11,45,74,.25); animation: flota 6s ease-in-out infinite; pointer-events: none; }
+.art3d__capa i { width: 9px; height: 9px; border-radius: 3px; background: var(--turquesa); }
+.art3d__capa--1 { top: 9%; left: 4%; } .art3d__capa--2 { top: 9%; right: 4%; animation-delay: -1.5s; } .art3d__capa--3 { bottom: 10%; left: 4%; animation-delay: -3s; } .art3d__capa--4 { bottom: 10%; right: 4%; animation-delay: -4.5s; }
+.art3d__capa--2 i { background: var(--azul-tec); } .art3d__capa--3 i { background: #F2A93B; } .art3d__capa--4 i { background: var(--verde); }
+.art3d__pista { position: absolute; left: 50%; bottom: .8rem; translate: -50% 0; font-size: .75rem; color: var(--texto-suave); background: rgba(255,255,255,.85); padding: .25rem .6rem; border-radius: 999px; }
+.indice { margin-bottom: 1.6rem; padding: 1.1rem 1.2rem; border: 1px solid var(--linea); border-radius: 14px; background: #fff; }
+.indice ol { list-style: none; margin: .5rem 0 0; padding: 0; counter-reset: ind; display: grid; gap: .45rem; }
+.indice li { counter-increment: ind; display: grid; grid-template-columns: 1.5rem 1fr; gap: .4rem; align-items: start; font-size: .88rem; line-height: 1.35; }
+.indice li::before { content: counter(ind); display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: var(--fondo); color: var(--turquesa-osc); font: 700 .72rem/1 var(--sans); }
+.indice a { color: var(--texto); text-decoration: none; }
+.indice a:hover, .indice a.es-actual { color: var(--azul-tec-texto); font-weight: 600; }
+.articulo__lateral { position: sticky; top: 6rem; align-self: start; }
+.prosa table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0 .5rem; display: block; overflow-x: auto; }
+.prosa th { text-align: left; background: var(--fondo); color: var(--azul); font-weight: 700; padding: .65rem .7rem; border-bottom: 2px solid var(--turquesa); white-space: nowrap; }
+.prosa td { padding: .6rem .7rem; border-bottom: 1px solid var(--linea); vertical-align: top; }
+.prosa tr:hover td { background: rgba(0,123,255,.03); }
+.cierre-comercial { margin: 2.5rem 0 1rem; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 18px; color: #DCE6EF; background: radial-gradient(60% 90% at 100% 0%, rgba(0,194,199,.25), transparent 60%), linear-gradient(135deg, #0B2D4A, #0F4C78); }
+.cierre-comercial p { color: #DCE6EF; }
+.prosa .cierre-comercial__ante { margin: 0 0 .5rem; font: 700 .74rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #7FE3E6; }
+.prosa .cierre-comercial__titulo { margin: 0 0 .8rem; font: 800 clamp(1.3rem, 2.4vw, 1.7rem)/1.25 var(--serif); color: #fff; }
+.cierre-comercial__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; margin-top: 1.2rem; }
+.cierre-comercial__acciones strong { color: #fff; }
+.cierre-comercial .boton { background: var(--turquesa); border-color: var(--turquesa); color: var(--azul); text-decoration: none; }
+.cierre-comercial .boton:hover { background: #fff; border-color: #fff; color: var(--azul); }
+@media (max-width: 760px) { .articulo__portada--3d .hero3d { aspect-ratio: 4 / 3; } .art3d__capa { font-size: .66rem; padding: .35rem .55rem; } .articulo__lateral { position: static; } }
+@media (prefers-reduced-motion: reduce) { .art3d__capa { animation: none; } }
