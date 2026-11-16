@@ -1845,3 +1845,11 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .est-matriz small { display: block; font-size: .74rem; font-weight: 400; color: var(--texto-suave); }
 .est-matriz thead small { color: #C9DCEB; }
 .est-matriz__tabla { overflow-x: auto; }
+
+/* Bloque de cierre comercial: textos destacados y listas legibles sobre fondo oscuro */
+.prosa .cierre-comercial strong, .prosa .cierre-comercial b { color: #fff; }
+.prosa .cierre-comercial a:not(.boton) { color: #7FE3E6; }
+.prosa .cierre-comercial ul { display: grid; gap: .55rem; margin: 1.1rem 0 1.3rem; padding: 0; list-style: none; }
+.prosa .cierre-comercial ul li { position: relative; margin: 0; padding: .7rem .9rem .7rem 2.6rem; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(127,227,230,.18); color: #DCE6EF; line-height: 1.45; }
+.prosa .cierre-comercial ul li::before { content: "✓"; position: absolute; left: .85rem; top: .78rem; display: grid; place-items: center; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--turquesa); color: var(--azul); font-size: .7rem; font-weight: 800; }
+.prosa .cierre-comercial ul li strong { color: #7FE3E6; }
