@@ -1,114 +1,186 @@
-{#- Simulador de costos. Variable "modo": "publico" o "interno" -#}
+{#- Estimador de inversión en estudios. Variable "modo": "publico", "vista" (vista previa con montos) o "interno" -#}
+{%- set conImportes = simulador.publicar_importes or modo != "publico" -%}
+{%- set iconos = {
+  trade: '<path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/>',
+  customer: '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M14.5 14.6c.8-.4 1.6-.6 2.5-.6 2.2 0 3.9 1.5 4.4 4.4"/>',
+  mystery: '<path d="M4 10h16M7 10l1.2-5h7.6L17 10"/><circle cx="8" cy="15" r="2.6"/><circle cx="16" cy="15" r="2.6"/><path d="M10.6 15h2.8M4 20c1.2-1.4 2.6-2 4-2M20 20c-1.2-1.4-2.6-2-4-2"/>',
+  focus: '<path d="M4 5h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-4"/>',
+  entrevistas: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+  localizacion: '<path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/><path d="M4 21h16"/>'
+} -%}
 <script type="application/json" id="simulador-config">{{ simulador | json | safe }}</script>
-<div class="simulador contenedor" data-simulador data-modo="{{ modo }}">
-  <form class="simulador__form" onsubmit="return false" aria-label="Datos del estudio">
-    <fieldset class="sim-bloque">
-      <legend><span class="sim-paso">1</span> ¿Qué estudio necesita?</legend>
-      <div class="sim-tipos">
-        {% for t in simulador.tipos %}
-        <label class="sim-tipo">
-          <input type="radio" name="tipo" value="{{ t.id }}" id="s-tipo-{{ t.id }}"{% if loop.first %} checked{% endif %}>
-          <span class="sim-tipo__nombre">{{ t.nombre }}</span>
-          <span class="sim-tipo__desc">{{ t.descripcion }}</span>
-        </label>
-        {% endfor %}
-      </div>
-    </fieldset>
+<div class="est" data-simulador data-modo="{{ modo }}" data-importes="{{ 'si' if conImportes else 'no' }}">
 
-    <fieldset class="sim-bloque">
-      <legend><span class="sim-paso">2</span> ¿Qué quiere saber?</legend>
-      <div class="sim-modos" role="radiogroup" aria-label="Tipo de cálculo">
-        <label class="sim-modo"><input type="radio" name="calculo" value="presupuesto" checked> <span><strong>¿Cuánto me alcanza?</strong> Tengo un presupuesto</span></label>
-        <label class="sim-modo"><input type="radio" name="calculo" value="cantidad"> <span><strong>¿Cuánto cuesta?</strong> Sé qué cantidad necesito</span></label>
+  {% if modo != "interno" %}
+  <section class="est-hero contenedor" aria-labelledby="est-titulo">
+    <div class="est-hero__texto">
+      <p class="est-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h2M12 18h4"/></svg> Estimador interactivo</p>
+      <h1 id="est-titulo" class="est-hero__titulo">Estimador de inversión en estudios</h1>
+      <p class="est-hero__lema">Calcule el alcance de su investigación antes de invertir.</p>
+      <p class="est-hero__bajada">Indique qué tipo de estudio necesita, su presupuesto y las condiciones del trabajo. Conozca un rango estimado de inversión o descubra cuántas encuestas, visitas, entrevistas o puntos de venta podría cubrir.</p>
+      <ul class="est-hero__puntos">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>Rangos referenciales</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Estimación en minutos</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Ajuste por ubicación</li>
+      </ul>
+    </div>
+    <div class="est-escena" aria-hidden="true">
+      <div class="est-escena__plano">
+        <div class="est-escena__puntos" data-puntos></div>
+        <span class="est-pin est-pin--1"><i></i></span><span class="est-pin est-pin--2"><i></i></span><span class="est-pin est-pin--3"><i></i></span>
       </div>
-      <div class="sim-entrada" data-entrada="presupuesto">
-        <label class="sim-etiqueta" for="s-presupuesto">Presupuesto disponible ({{ simulador.moneda }}, IVA incluido)</label>
-        <input type="number" id="s-presupuesto" min="100" step="100" value="{{ simulador.presupuesto_inicial }}" inputmode="numeric">
+      <div class="est-flota">
+        <span class="est-flota__et" data-chip-et>Cobertura estimada</span>
+        <strong class="est-flota__valor" data-chip>—</strong>
+        <span class="est-flota__uni" data-chip-uni></span>
       </div>
-      <div class="sim-entrada" data-entrada="cantidad" hidden>
-        <label class="sim-etiqueta" for="s-cantidad-num">Cantidad de <span data-unidades>unidades</span></label>
-        <div class="sim-cantidad">
-          <input type="range" id="s-cantidad" aria-label="Cantidad (control deslizante)">
-          <input type="number" id="s-cantidad-num" inputmode="numeric">
+    </div>
+  </section>
+  {% endif %}
+
+  <div class="est-grilla contenedor">
+    <form class="est-form" onsubmit="return false" aria-label="Datos del estudio">
+      <fieldset class="est-tarjeta est-tarjeta--tipos">
+        <legend><span class="est-paso">1</span> ¿Qué estudio necesita?</legend>
+        <div class="est-tipos">
+          {% for t in simulador.tipos %}
+          <label class="est-tipo">
+            <input type="radio" name="tipo" value="{{ t.id }}"{% if loop.first %} checked{% endif %}>
+            <svg class="est-tipo__icono" viewBox="0 0 24 24" aria-hidden="true">{{ (iconos[t.id] or iconos.customer) | safe }}</svg>
+            <span class="est-tipo__nombre">{{ t.nombre }}</span>
+            <span class="est-tipo__desc">{{ t.descripcion }}</span>
+          </label>
+          {% endfor %}
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
 
-    <fieldset class="sim-bloque">
-      <legend><span class="sim-paso">3</span> ¿Dónde se hace el trabajo de campo?</legend>
-      <label class="sim-etiqueta" for="s-fuera">Proporción fuera de Asunción y Gran Asunción: <strong id="s-fuera-valor">0 %</strong></label>
-      <input type="range" id="s-fuera" min="0" max="100" step="5" value="0">
-      <div class="campo" id="s-distancia-campo" hidden>
-        <label for="s-distancia">Distancia promedio desde Asunción</label>
+      <fieldset class="est-tarjeta">
+        <legend><span class="est-paso">2</span> ¿Qué quiere calcular?</legend>
+        <div class="est-segmento" role="radiogroup" aria-label="Tipo de cálculo">
+          <label><input type="radio" name="calculo" value="presupuesto" checked><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M16.5 7.5c-.8-1.2-2.4-2-4.5-2-2.6 0-4.3 1.3-4.3 3.2 0 4.4 9 2.4 9 7 0 1.9-1.9 3.3-4.7 3.3-2.3 0-4-.9-4.9-2.3"/></svg>Mi presupuesto</span></label>
+          <label><input type="radio" name="calculo" value="cantidad"><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h4"/></svg>Una cantidad</span></label>
+        </div>
+        <div class="est-entrada" data-entrada="presupuesto">
+          <label class="est-etiqueta" for="s-presupuesto">Presupuesto disponible <small>({{ simulador.moneda }}, IVA incluido)</small></label>
+          <input type="number" id="s-presupuesto" min="100" step="100" value="{{ simulador.presupuesto_inicial }}" inputmode="numeric">
+        </div>
+        <div class="est-entrada" data-entrada="cantidad" hidden>
+          <label class="est-etiqueta" for="s-cantidad-num">Cantidad de <span data-unidades>unidades</span></label>
+          <div class="est-cantidad">
+            <input type="range" id="s-cantidad" aria-label="Cantidad (control deslizante)">
+            <input type="number" id="s-cantidad-num" inputmode="numeric">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="est-tarjeta">
+        <legend><span class="est-paso">3</span> ¿Dónde se realiza el estudio?</legend>
+        <label class="est-etiqueta" for="s-fuera">Proporción fuera de Asunción y Gran Asunción</label>
+        <div class="est-deslizador">
+          <output id="s-fuera-valor" for="s-fuera">0 %</output>
+          <input type="range" id="s-fuera" min="0" max="100" step="5" value="0">
+          <div class="est-deslizador__ext"><span>0 %</span><span>100 %</span></div>
+        </div>
+        <label class="est-etiqueta" for="s-distancia">Distancia promedio desde Asunción</label>
         <select id="s-distancia">
           {% for d in simulador.viaje.distancias %}<option value="{{ d.id }}">{{ d.nombre }}</option>{% endfor %}
         </select>
-      </div>
-      <p class="sim-ayuda">Fuera de Asunción y Gran Asunción se suman viáticos, hotel y transporte del equipo de campo.</p>
-    </fieldset>
-  </form>
-
-  <section class="simulador__resultado" aria-labelledby="r-titulo" aria-live="polite">
-    <h2 id="r-titulo" class="sim-res__titulo">Le alcanza para aproximadamente</h2>
-    <p class="sim-res__total" id="r-total">—</p>
-    <p class="sim-res__rango" id="r-rango"></p>
-    <p class="sim-res__precision" id="r-precision" hidden></p>
-
-    <p class="sim-desglose__titulo" id="r-desglose-titulo">Costo estimado</p>
-    <dl class="sim-desglose">
-      <div><dt>Diseño y coordinación</dt><dd id="r-diseno"></dd></div>
-      <div><dt>Trabajo de campo</dt><dd id="r-campo"></dd></div>
-      <div><dt>Procesamiento, análisis e informe</dt><dd id="r-analisis"></dd></div>
-      <div><dt>Viáticos, hotel y transporte<small id="r-viaje-detalle"></small></dt><dd id="r-viaje"></dd></div>
-      <div class="sim-desglose__sub"><dt>Subtotal</dt><dd id="r-subtotal"></dd></div>
-      <div><dt>IVA ({{ (simulador.iva * 100) | round }} %)</dt><dd id="r-iva"></dd></div>
-      <div class="sim-desglose__total"><dt>Total con IVA</dt><dd id="r-con-iva"></dd></div>
-    </dl>
-
-    <details class="sim-escala">
-      <summary class="sim-escala__titulo">Economía de escala: precio por <span id="r-unidad-nombre">unidad</span> <strong id="r-unidad"></strong></summary>
-      <p class="sim-escala__nota" id="r-escala"></p>
-      <div class="sim-grafico" id="r-grafico"></div>
-    </details>
-
-    {% if modo == "interno" %}
-    <div class="sim-interno" aria-label="Detalle interno">
-      <p class="sim-interno__titulo">Detalle interno (no visible para clientes)</p>
-      <dl>
-        <div><dt>Costo operativo</dt><dd id="i-costo"></dd></div>
-        <div class="sim-interno__nota"><dd id="i-costo-detalle"></dd></div>
-        <div class="sim-interno__nota"><dd id="i-proporcion"></dd></div>
-        <div><dt>Margen aplicado</dt><dd id="i-margen"></dd></div>
-        <div><dt>Ganancia</dt><dd id="i-ganancia"></dd></div>
-        <div class="sim-interno__nota"><dd id="i-unitario"></dd></div>
-        <div class="sim-interno__nota"><dd id="i-campo"></dd></div>
-        <div class="sim-interno__nota"><dd id="i-viaje"></dd></div>
-      </dl>
-    </div>
-    {% endif %}
-
-    <button type="button" class="boton sim-res__cta" id="r-pedir" aria-expanded="false" aria-controls="sim-envio">Recibir esta cotización</button>
-    <form class="sim-envio" id="sim-envio" hidden
-      data-web3forms="{{ site.formulario.access_key }}" data-sheets="{{ site.formulario.google_sheets_url }}" data-asunto="Cotización desde el simulador">
-      <p class="sim-envio__intro">Deje sus datos y le enviamos la cotización formal. El detalle de esta simulación se adjunta automáticamente.</p>
-      <div class="campo"><label for="e-nombre">Nombre y apellido</label><input type="text" id="e-nombre" name="nombre" autocomplete="name" required></div>
-      <div class="campo"><label for="e-empresa">Empresa</label><input type="text" id="e-empresa" name="empresa" autocomplete="organization" required></div>
-      <div class="campo"><label for="e-email">Correo electrónico</label><input id="e-email" name="email" type="email" autocomplete="email" required></div>
-      <div class="campo"><label for="e-tel">Teléfono o WhatsApp <span class="opcional">(opcional)</span></label><input id="e-tel" name="telefono" type="tel" autocomplete="tel"></div>
-      <div class="campo"><label for="e-com">Comentario <span class="opcional">(opcional)</span></label><textarea id="e-com" name="comentario" rows="2"></textarea></div>
-      <input type="checkbox" name="botcheck" class="trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="boton" type="submit">Enviar solicitud</button>
-      <p class="formulario__estado" id="e-estado" role="status" aria-live="polite"></p>
+        <p class="est-ayuda" id="s-distancia-ayuda">Fuera de Asunción y Gran Asunción se suman viáticos, hotel y transporte del equipo de campo.</p>
+      </fieldset>
     </form>
-    <div class="sim-res__acciones">
-      <button type="button" class="enlace-btn" id="r-copiar">Copiar el resumen</button>
-      <a id="r-cotizar" href="/contacto/">Usar el formulario completo</a>
-    </div>
-    <p class="sim-res__aviso">Estimación orientativa, sin valor contractual. La cotización final depende del alcance, el cuestionario, la muestra y los plazos.</p>
+
+    <section class="est-resultado est-tarjeta" aria-labelledby="r-titulo" aria-live="polite">
+      <h2 id="r-titulo" class="est-resultado__titulo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg> Resultado estimado</h2>
+      {% if not conImportes %}<p class="est-validacion"><b>Rangos en validación.</b> Estamos validando los rangos referenciales de cada servicio. Mientras tanto, solicite una propuesta y le enviamos una estimación para su caso.</p>{% endif %}
+      <div class="est-resultado__fila">
+        <div class="est-res est-res--cobertura">
+          <svg class="est-res__icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M10.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/></svg>
+          <p class="est-res__et" id="r-cob-et">Cobertura estimada</p>
+          <p class="est-res__valor" id="r-total">—</p>
+          <p class="est-res__nota" id="r-cob-nota"></p>
+        </div>
+        <div class="est-res est-res--inversion">
+          <p class="est-res__et" id="r-inv-et">Inversión referencial</p>
+          <p class="est-res__valor est-res__valor--monto" id="r-inversion">—</p>
+          <p class="est-res__nota" id="r-inv-nota">con IVA incluido</p>
+        </div>
+        <ul class="est-contempla" aria-label="El cálculo contempla">
+          <li>Diseño metodológico</li><li>Trabajo de campo</li><li>Supervisión y control de calidad</li><li>Procesamiento y análisis</li><li>Cobertura geográfica seleccionada</li>
+        </ul>
+      </div>
+
+      {% if conImportes %}
+      <div class="est-escenarios" aria-label="Escenarios">
+        {% for e in simulador.escenarios %}
+        <div class="est-escenario{% if e.id == 'medio' %} es-medio{% endif %}" data-escenario="{{ e.id }}"><p class="est-escenario__nombre">{{ e.nombre }}</p><p class="est-escenario__valor">—</p><p class="est-escenario__desc">{{ e.descripcion }}</p></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <p class="est-precision" id="r-precision" hidden></p>
+      <p class="est-aviso"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.5"/></svg> {% if modo == "vista" %}Vista previa interna: ejemplo visual, no cotización ni tarifa validada de Geoanalytics. {% endif %}Estimaciones orientativas basadas en referencias de mercado y supuestos metodológicos. No constituyen una cotización comercial.</p>
+
+      {% if modo == "interno" %}
+      <div class="sim-interno" aria-label="Detalle interno">
+        <p class="sim-interno__titulo">Detalle interno, escenario medio (no visible para clientes)</p>
+        <dl>
+          <div><dt>Diseño y coordinación</dt><dd id="r-diseno"></dd></div>
+          <div><dt>Trabajo de campo</dt><dd id="r-campo"></dd></div>
+          <div><dt>Supervisión y control de calidad</dt><dd id="r-supervision"></dd></div>
+          <div><dt>Procesamiento, análisis e informe</dt><dd id="r-analisis"></dd></div>
+          <div><dt>Viáticos, hotel y transporte</dt><dd id="r-viaje"></dd></div>
+          <div><dt>Subtotal sin IVA</dt><dd id="r-subtotal"></dd></div>
+          <div><dt>Costo operativo</dt><dd id="i-costo"></dd></div>
+          <div class="sim-interno__nota"><dd id="i-costo-detalle"></dd></div>
+          <div><dt>Margen aplicado</dt><dd id="i-margen"></dd></div>
+          <div><dt>Ganancia</dt><dd id="i-ganancia"></dd></div>
+          <div class="sim-interno__nota"><dd id="i-viaje"></dd></div>
+          <div class="sim-interno__nota"><dd id="i-campo"></dd></div>
+        </dl>
+      </div>
+      {% endif %}
+
+      <div class="est-acciones">
+        <button type="button" class="boton est-cta" id="r-pedir" aria-expanded="false" aria-controls="sim-envio">Solicitar una propuesta →</button>
+        <button type="button" class="enlace-btn" id="r-copiar">Copiar el resumen</button>
+        <a id="r-cotizar" href="/contacto/">Usar el formulario completo</a>
+      </div>
+      <form class="sim-envio" id="sim-envio" hidden
+        data-web3forms="{{ site.formulario.access_key }}" data-sheets="{{ site.formulario.google_sheets_url }}" data-asunto="Solicitud de propuesta desde el estimador">
+        <p class="sim-envio__intro">Deje sus datos y le enviamos una propuesta comercial. Los parámetros de esta estimación se adjuntan automáticamente.</p>
+        <div class="campo"><label for="e-nombre">Nombre y apellido</label><input type="text" id="e-nombre" name="nombre" autocomplete="name" required></div>
+        <div class="campo"><label for="e-empresa">Empresa</label><input type="text" id="e-empresa" name="empresa" autocomplete="organization" required></div>
+        <div class="campo"><label for="e-email">Correo electrónico</label><input id="e-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="campo"><label for="e-tel">Teléfono o WhatsApp <span class="opcional">(opcional)</span></label><input id="e-tel" name="telefono" type="tel" autocomplete="tel"></div>
+        <div class="campo"><label for="e-com">Comentario <span class="opcional">(opcional)</span></label><textarea id="e-com" name="comentario" rows="2"></textarea></div>
+        <input type="checkbox" name="botcheck" class="trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="boton" type="submit">Enviar solicitud</button>
+        <p class="formulario__estado" id="e-estado" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+
+  {% if modo == "interno" %}
+  <section class="contenedor est-matriz" aria-labelledby="m-titulo">
+    <h2 id="m-titulo">Matriz de rangos para validar</h2>
+    <p>Precio por unidad sin IVA, con todo el campo en Asunción y Gran Asunción, para la cantidad inicial de cada servicio. Los valores salen de <code>simulador.json</code>; edítelos en Pages CMS y active «Mostrar montos y coberturas en el sitio público» solo cuando estén validados.</p>
+    <div class="est-matriz__tabla" id="m-tabla"></div>
   </section>
+  {% endif %}
+
+  {% if modo != "interno" %}
+  <div class="contenedor"><section class="est-banda">
+    <div class="est-banda__escena" aria-hidden="true"><span></span><span></span><span></span><span></span><i></i></div>
+    <div class="est-banda__texto">
+      <p class="est-banda__titulo">Tome decisiones con información confiable</p>
+      <p>Analice su mercado, optimice su red comercial y encuentre nuevas oportunidades con el respaldo de Geoanalytics.</p>
+    </div>
+    <a class="boton" href="#r-titulo" data-ir-propuesta>Solicitar una propuesta →</a>
+  </section></div>
+  {% endif %}
+
   <div class="sim-barra" hidden>
-    <span id="r-barra-etiqueta">Le alcanza para</span> <strong id="r-barra-total"></strong>
-    <button type="button" class="boton boton--claro">Ver detalle</button>
+    <span id="r-barra-etiqueta">Cobertura estimada</span> <strong id="r-barra-total"></strong>
+    <button type="button" class="boton boton--claro">Ver resultado</button>
   </div>
 </div>
 <script type="module" src="/assets/js/simulador.js"></script>

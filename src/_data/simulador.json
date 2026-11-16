@@ -1,9 +1,31 @@
 {
-  "aviso_valores": "Valores de ejemplo. Reemplácelos por los costos reales de Geoanalytics antes de publicar.",
+  "aviso_valores": "Valores de ejemplo, sin validar. Mientras «publicar_importes» esté desactivado, el sitio público no muestra montos ni coberturas calculadas.",
+  "publicar_importes": false,
   "moneda": "US$",
   "iva": 0.1,
   "rango_referencial": 0.1,
   "redondeo": 10,
+  "supervision": 0.12,
+  "escenarios": [
+    {
+      "id": "competitivo",
+      "nombre": "Competitivo",
+      "descripcion": "Alcance estándar, cuestionario breve y plazos holgados.",
+      "factor": 0.85
+    },
+    {
+      "id": "medio",
+      "nombre": "Medio",
+      "descripcion": "Alcance habitual, con controles de calidad regulares.",
+      "factor": 1
+    },
+    {
+      "id": "especializado",
+      "nombre": "Especializado",
+      "descripcion": "Perfiles difíciles de encontrar, controles reforzados o plazos cortos.",
+      "factor": 1.3
+    }
+  ],
   "margen_min": 0.5,
   "margen_max": 0.7,
   "margen_gastos_viaje": 0,

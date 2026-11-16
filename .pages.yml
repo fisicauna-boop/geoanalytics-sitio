@@ -435,10 +435,26 @@ content:
         label: Nota interna
         type: text
         description: Recordatorio para el equipo. No se muestra en el sitio.
+      - name: publicar_importes
+        label: Mostrar montos y coberturas en el sitio público
+        type: boolean
+        description: Actívelo solo cuando los rangos estén validados. Mientras esté apagado, el estimador público muestra «Rango en validación».
       - name: moneda
         label: Moneda
         type: string
         description: 'Por ejemplo: US$ o Gs.'
+      - name: supervision
+        label: Supervisión y control de calidad (0,12 = 12 % del costo de campo)
+        type: number
+      - name: escenarios
+        label: Escenarios del rango referencial
+        type: object
+        list: true
+        fields:
+          - { name: id, label: Identificador, type: string }
+          - { name: nombre, label: Nombre, type: string }
+          - { name: descripcion, label: Descripción, type: text }
+          - { name: factor, label: Factor sobre los honorarios (1 = escenario medio), type: number }
       - name: iva
         label: IVA (0,10 = 10 %)
         type: number
