@@ -42,8 +42,10 @@ async function iniciar() {
   };
 
   // ---------- Renderizador, cámara y luces ----------
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  // En pantallas de alta densidad se limita la resolución: el costo crece con el cuadrado
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  const renderer = new THREE.WebGLRenderer({ antialias: dpr < 1.5, alpha: true, powerPreference: "high-performance" });
+  renderer.setPixelRatio(dpr);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   const canvas = renderer.domElement;
   canvas.className = "hero3d__lienzo";
@@ -158,18 +160,25 @@ async function iniciar() {
   let azim = 0, azimObj = 0, elev = 0, elevObj = 0;
   const t0 = performance.now();
   let animando = true, visible = true, ancho = 1, alto = 1;
-  const SEP = 1.05, DESPL = 1.45;     // separación vertical y desplazamiento diagonal entre capas
+  // separación vertical entre capas; las capas quedan alineadas una sobre otra (solo un leve corrimiento)
+  const SEP = contenedor.closest(".articulo__portada--3d") ? 1.55 : 1.05, DESPL = contenedor.closest(".articulo__portada--3d") ? 0.12 : 1.45;
   const capas = [capa1, capa2, capa3];
   const BASE_Y = 0.16;
 
   // Posición de cada capa según la apertura (0 a 1)
+  let ultimoCr = -1, ultimaAp = -1;
+  const pts = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
   function posicionar(ap, cr) {
+    if (ap === ultimaAp && cr === ultimoCr) return pts;
     capas.forEach((c, k) => c.position.set(k * DESPL * ap, k === 0 ? 0 : BASE_Y + k * SEP * ap, -k * DESPL * ap));
-    celdas.forEach((c, i) => { m4.makeScale(1, Math.max(0.001, alturas[i] * cr), 1).setPosition(c.x, 0, c.z); hexes.setMatrixAt(i, m4); });
-    hexes.instanceMatrix.needsUpdate = true;
-    const pts = capas.map((c, k) => new THREE.Vector3(asu.x + c.position.x, (k === 0 ? BASE_Y : c.position.y) + 0.01, asu.z + c.position.z));
+    if (cr !== ultimoCr) {
+      celdas.forEach((c, i) => { m4.makeScale(1, Math.max(0.001, alturas[i] * cr), 1).setPosition(c.x, 0, c.z); hexes.setMatrixAt(i, m4); });
+      hexes.instanceMatrix.needsUpdate = true;
+    }
+    ultimaAp = ap; ultimoCr = cr;
+    capas.forEach((c, k) => pts[k].set(asu.x + c.position.x, (k === 0 ? BASE_Y : c.position.y) + 0.01, asu.z + c.position.z));
     const top = capas[2].position, alto = 0.75;
-    pts.push(new THREE.Vector3(asu.x + top.x, top.y + alto, asu.z + top.z));
+    pts[3].set(asu.x + top.x, top.y + alto, asu.z + top.z);
     ejeGeo.setFromPoints(pts);
     nodos.forEach((n, k) => n.position.copy(pts[k]));
     punta.position.copy(pts[3]);
@@ -199,7 +208,9 @@ async function iniciar() {
     const reservaPx = ancho < 520 ? 112 : 118;
     const anchoNec = (x1 - x0) / Math.max(0.5, 1 - reservaPx / ancho) * 1.03, altoNec = (y1 - y0) * 1.06;
     media = Math.max(altoNec / 2, anchoNec / 2 / asp);
-    centro.set(x0 - (x1 - x0) * 0.015 + media * asp, (y0 + y1) / 2);
+    // escena centrada; las etiquetas de la derecha desplazan el centro solo lo que ocupan
+    const reservaMundo = (reservaPx / ancho) * media * 2 * asp;
+    centro.set((x0 + x1) / 2 + reservaMundo / 2, (y0 + y1) / 2);
   }
 
   function ajustar() {
@@ -214,7 +225,7 @@ async function iniciar() {
     pedir();
   }
 
-  const v = new THREE.Vector3();
+  const v = new THREE.Vector3(), tmpV = new THREE.Vector3();
   function aPantalla(p) {
     v.copy(p).project(camara);
     return [(v.x + 1) / 2 * ancho, (1 - v.y) / 2 * alto];
@@ -222,6 +233,7 @@ async function iniciar() {
 
   function dibujar(ahora) {
     const t = (ahora - t0) / 1000;
+    if (reducido) { const pts0 = posicionar(1, 1); }
     if (!reducido) {
       const e = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
       apertura = e((t - 0.25) / 1.6);
@@ -233,7 +245,7 @@ async function iniciar() {
     renderer.render(escena, camara);
 
     capas.forEach((c, i) => {
-      const [sx, sy] = aPantalla(new THREE.Vector3(este[0] + c.position.x, c.position.y + (i === 0 ? 0.16 : 0), este[1] + c.position.z));
+      const [sx, sy] = aPantalla(tmpV.set(este[0] + c.position.x, c.position.y + (i === 0 ? 0.16 : 0), este[1] + c.position.z));
       etiquetas[i].style.transform = `translate(${Math.round(sx + 14)}px, ${Math.round(sy - 12)}px)`;
       etiquetas[i].style.opacity = i === 0 || apertura > 0.6 ? 1 : 0;
     });
@@ -242,7 +254,7 @@ async function iniciar() {
     etAsu.style.opacity = apertura > 0.8 ? 1 : 0;
 
     const quieto = Math.abs(azimObj - azim) < 1e-4 && Math.abs(elevObj - elev) < 1e-4;
-    animando = !(reducido || (t > 2.5 && quieto));
+    animando = !((reducido && !arrastre) || (t > 2.5 && quieto));
     if (animando && visible) requestAnimationFrame(dibujar);
   }
   function pedir() { if (!animando) { animando = true; requestAnimationFrame(dibujar); } }
@@ -256,6 +268,19 @@ async function iniciar() {
       pedir();
     });
   }
+  // Arrastre para girar
+  let arrastre = null;
+  contenedor.style.touchAction = "pan-y";
+  contenedor.addEventListener("pointerdown", (ev) => { arrastre = { x: ev.clientX, y: ev.clientY, a: azimObj, e: elevObj }; contenedor.setPointerCapture(ev.pointerId); contenedor.classList.add("es-arrastre"); });
+  contenedor.addEventListener("pointermove", (ev) => {
+    if (!arrastre) return;
+    azimObj = Math.max(-0.9, Math.min(0.9, arrastre.a + (ev.clientX - arrastre.x) * 0.006));
+    elevObj = Math.max(-0.25, Math.min(0.3, arrastre.e - (ev.clientY - arrastre.y) * 0.003));
+    if (reducido) { azim = azimObj; elev = elevObj; }
+    pedir();
+  });
+  const soltar = () => { arrastre = null; contenedor.classList.remove("es-arrastre"); };
+  contenedor.addEventListener("pointerup", soltar); contenedor.addEventListener("pointercancel", soltar);
   new ResizeObserver(ajustar).observe(contenedor);
   new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) pedir(); }).observe(contenedor);
 
