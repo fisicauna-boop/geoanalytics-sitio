@@ -1339,18 +1339,3 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
   .intel__foto img, .intel__barrido::before, .intel__chip, .intel__mini i, .intel__mini--linea::before, .intel__mini--anillo, .intel__mini--calor i { animation: none; }
 }
 .intel__mini--linea { width: 100%; min-width: 7rem; height: 22px; }
-/* Cinco miradas: dos tarjetas grandes arriba y tres abajo */
-.intel { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.intel__tarjeta { grid-column: span 2; }
-.intel__tarjeta:nth-child(-n+2) { grid-column: span 3; }
-.intel__escena { aspect-ratio: 16 / 9.4; }
-.intel__tarjeta:nth-child(n+3) .intel__chip { min-width: 0; }
-.intel__tarjeta:nth-child(n+3) .intel__chip--2 { display: none; }
-@media (max-width: 900px) { .intel { grid-template-columns: repeat(2, minmax(0, 1fr)); } .intel__tarjeta, .intel__tarjeta:nth-child(-n+2) { grid-column: auto; } .intel__tarjeta:last-child { grid-column: 1 / -1; } }
-@media (max-width: 720px) { .intel { grid-template-columns: 1fr; } .intel__tarjeta:last-child { grid-column: auto; } .intel__tarjeta:nth-child(n+3) .intel__chip--2 { display: grid; } }
-.intel__mini--linea::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 22'%3E%3Cpath d='M0 18 L15 14 L30 16 L45 8 L60 11 L75 5 L90 9 L105 3 L120 18' fill='none' stroke='%2339D98A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 0 50% / 120px 22px repeat-x; animation: linea2 4s linear infinite; }
-@keyframes linea2 { to { background-position: -120px 50%; } }
-.intel__tarjeta:nth-child(n+3) .intel__chip { padding: .4rem .55rem; gap: .25rem; transform: translateZ(60px) translate(calc(var(--px) * 10px), calc(var(--py) * 8px)) scale(.9); transform-origin: top right; }
-.intel__tarjeta:nth-child(n+3) .intel__chip-t { font-size: .66rem; }
-.intel__tarjeta:nth-child(n+3) .intel__mini--linea { min-width: 5.5rem; }
-.intel__tarjeta:nth-child(5) .intel__barrido::before { animation-delay: 2.2s; }

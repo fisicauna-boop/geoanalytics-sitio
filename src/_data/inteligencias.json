@@ -15,9 +15,7 @@
         "Indicadores",
         "barras"
       ]
-    ],
-    "w": 908,
-    "h": 492
+    ]
   },
   {
     "id": "territorio",
@@ -35,47 +33,23 @@
         "Cobertura",
         "anillo"
       ]
-    ],
-    "w": 908,
-    "h": 492
+    ]
   },
   {
     "id": "comercial",
     "titulo": "Inteligencia comercial",
-    "sub": "Visualización de mercados, comercios y puntos de venta",
+    "sub": "Mercados y canales",
     "imagen": "/media/inteligencias/comercial.webp",
-    "alt": "Maqueta 3D de un supermercado con góndolas, recorridos iluminados de compradores y un panel de indicadores flotante.",
+    "alt": "Auditor con una tableta frente a una góndola de supermercado, con indicadores de planograma, quiebres y share of shelf superpuestos.",
     "url": "/servicios/trade-marketing-y-retail-intelligence/",
     "chips": [
       [
-        "Recorrido del comprador",
-        "linea"
-      ],
-      [
         "Share of shelf",
         "anillo"
-      ]
-    ],
-    "w": 916,
-    "h": 726
-  },
-  {
-    "id": "operativa",
-    "titulo": "Optimización operativa",
-    "sub": "Territorios, redes logísticas y planificación",
-    "imagen": "/media/inteligencias/operativa.webp",
-    "alt": "Red logística vista desde arriba, con camiones, un centro de distribución y rutas de luz que conectan puntos de entrega.",
-    "url": "/servicios/ruteo-y-optimizacion-operativa/",
-    "w": 916,
-    "h": 726,
-    "chips": [
-      [
-        "Rutas optimizadas",
-        "linea"
       ],
       [
-        "Cobertura",
-        "anillo"
+        "Disponibilidad",
+        "barras"
       ]
     ]
   },
@@ -95,8 +69,6 @@
         "Satisfacción",
         "barras"
       ]
-    ],
-    "w": 908,
-    "h": 492
+    ]
   }
 ]

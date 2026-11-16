@@ -69,20 +69,20 @@ clase_body: pagina-inicio
   </div>
 </section>
 
-{# 3. Cinco miradas (imágenes con profundidad 4D) #}
+{# 3. Cuatro inteligencias (imágenes con profundidad 4D) #}
 <section class="seccion" aria-labelledby="intel-t">
   <div class="contenedor">
     <div class="seccion__cabecera">
       <div>
         <p class="seccion__ante">Cómo lo vemos</p>
-        <h2 id="intel-t" class="seccion__titulo">Cinco miradas, una decisión</h2>
+        <h2 id="intel-t" class="seccion__titulo">Cuatro inteligencias, una decisión</h2>
       </div>
     </div>
     <div class="intel">
       {% for i in inteligencias %}
       <a class="intel__tarjeta" href="{{ i.url }}" data-intel>
         <span class="intel__escena">
-          <span class="intel__foto"><img src="{{ i.imagen }}" alt="{{ i.alt }}" width="{{ i.w }}" height="{{ i.h }}" loading="lazy"></span>
+          <span class="intel__foto"><img src="{{ i.imagen }}" alt="{{ i.alt }}" width="908" height="492" loading="lazy"></span>
           <span class="intel__barrido" aria-hidden="true"></span>
           {% for c in i.chips %}
           <span class="intel__chip intel__chip--{{ loop.index }}" aria-hidden="true">
