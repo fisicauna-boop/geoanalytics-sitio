@@ -12,6 +12,21 @@
       "Share of shelf por marca, calculado desde los frentes de la góndola",
       "Espacios vacíos (quiebres) sobre el total de posiciones",
       "Presencia de la marca a la altura de los ojos"
+    ],
+    "lab_num": "01",
+    "lab_cat": "Trade marketing",
+    "lab_titulo": "Góndola 3D",
+    "lab_texto": "Explore la distribución de productos, identifique quiebres y analice la participación de las marcas en el espacio comercial.",
+    "lab_tipo": "Experiencia interactiva",
+    "lab_chips": [
+      [
+        "Share of shelf",
+        "anillo"
+      ],
+      [
+        "Quiebres",
+        "barras"
+      ]
     ]
   },
   {
@@ -27,6 +42,21 @@
       "Reparto de la cartera en zonas con igual cantidad de visitas",
       "Orden de visita optimizado con vecino más cercano y 2-opt",
       "Kilómetros, horas y costo por vendedor, antes y después"
+    ],
+    "lab_num": "02",
+    "lab_cat": "Field operations",
+    "lab_titulo": "Rutas y costos",
+    "lab_texto": "Compruebe cómo la planificación territorial y la optimización de recorridos mejoran la productividad y reducen costos.",
+    "lab_tipo": "Simulación dinámica",
+    "lab_chips": [
+      [
+        "Km optimizados",
+        "linea"
+      ],
+      [
+        "Costo por día",
+        "barras"
+      ]
     ]
   },
   {
@@ -42,6 +72,21 @@
       "Indicadores por sucursal y categoría en el período elegido",
       "Ranking de sucursales y promedio por zona",
       "Alertas de sucursales y categorías bajo el umbral"
+    ],
+    "lab_num": "03",
+    "lab_cat": "Retail analytics",
+    "lab_titulo": "Desempeño por sucursal",
+    "lab_texto": "Compare resultados, evalúe indicadores y detecte oportunidades de mejora en una red de sucursales.",
+    "lab_tipo": "Dashboard explorable",
+    "lab_chips": [
+      [
+        "Ventas / objetivo",
+        "barras"
+      ],
+      [
+        "Alertas",
+        "calor"
+      ]
     ]
   },
   {
@@ -57,6 +102,21 @@
       "Tamaño de muestra según confianza, margen de error y población",
       "Margen de error para una muestra dada",
       "Intervalos de confianza por zona, edad o canal de compra"
+    ],
+    "lab_num": "04",
+    "lab_cat": "Market research",
+    "lab_titulo": "Simulador de encuestas",
+    "lab_texto": "Explore el diseño muestral, calcule márgenes de error y analice los resultados de encuestas simuladas.",
+    "lab_tipo": "Simulación estadística",
+    "lab_chips": [
+      [
+        "Margen de error",
+        "linea"
+      ],
+      [
+        "Segmentos",
+        "barras"
+      ]
     ]
   }
 ]

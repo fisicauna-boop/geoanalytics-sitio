@@ -1425,3 +1425,58 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .demo4d--vitrina { aspect-ratio: 16 / 11; }
 .vitrina__titulo { font-size: 1.45rem; }
 @media (max-width: 1100px) { .vitrina__panel { grid-template-columns: 1fr; } .demo4d--vitrina { aspect-ratio: 16 / 9; } }
+
+/* ---------- Góndola 3D: selección, flotantes y zoom ---------- */
+.gondola-marco { position: relative; border-radius: 10px; overflow: hidden; }
+.gondola-capa { position: absolute; inset: 0; pointer-events: none; }
+.gflot { position: absolute; left: 0; top: 0; display: grid; gap: .15rem; padding: .5rem .75rem; margin: -2.6rem 0 0 -.2rem; border-radius: 12px; white-space: nowrap;
+  background: rgba(8,30,52,.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(95,227,255,.6); color: #fff;
+  box-shadow: 0 12px 28px rgba(11,45,74,.28), 0 0 18px rgba(0,194,199,.25); transition: opacity .2s; animation: flota 5s ease-in-out infinite; }
+.gflot b { font: 800 1.15rem/1 var(--sans); color: #fff; }
+.gflot span { font-size: .72rem; color: #CFF6F7; }
+.gflot--osa { margin-left: calc(-100% + .2rem); animation-delay: -2.5s; }
+.gflot--alerta { border-color: rgba(255,120,90,.8); box-shadow: 0 12px 28px rgba(11,45,74,.28), 0 0 18px rgba(255,90,60,.3); }
+.gflot--sku { margin: -3.4rem 0 0 0; translate: -50% 0; animation: none; background: rgba(0,119,125,.92); border-color: #7FE3E6; }
+.gflot--sku.gflot--alerta { background: rgba(150,40,20,.9); }
+.gflot--sku::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 12px; height: 12px; margin-left: -6px; transform: rotate(45deg); background: inherit; border-right: 1px solid; border-bottom: 1px solid; border-color: inherit; }
+.gflot[hidden] { display: none; }
+.gondola-zoom { position: absolute; right: .7rem; bottom: .7rem; display: grid; gap: .3rem; }
+.gondola-zoom button { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--linea); background: rgba(255,255,255,.92); color: var(--azul); font: 700 1.1rem/1 var(--sans); cursor: pointer; box-shadow: 0 4px 12px rgba(11,45,74,.12); }
+.gondola-zoom button:hover { border-color: var(--azul-tec); color: var(--azul-tec-texto); }
+.gsel { margin: 1rem 0; padding: 1rem 1.1rem; border-radius: 12px; border: 1px solid var(--turquesa); background: linear-gradient(180deg, rgba(0,194,199,.08), #fff); animation: entra .4s cubic-bezier(.16,.84,.24,1) both; }
+.gsel[hidden] { display: none; }
+.gsel__cab { display: flex; justify-content: space-between; align-items: center; }
+.gsel__t { margin: 0; font: 700 .72rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--turquesa-osc); }
+.gsel__cerrar { border: 0; background: none; font-size: 1.4rem; line-height: 1; color: var(--texto-suave); cursor: pointer; padding: 0 .2rem; }
+.gsel__sku { margin: .4rem 0 .1rem; font-size: 1.05rem; color: var(--azul); }
+.gsel__sku b { font: 800 1.25rem/1 var(--sans); }
+.gsel__cat { margin: 0 0 .7rem; font-size: .85rem; color: var(--texto-suave); }
+.gsel__kpis { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.gsel__kpis dt { font-size: .78rem; color: var(--texto-suave); }
+.gsel__kpis dd { margin: 0; font: 800 1.2rem/1.2 var(--sans); color: var(--azul); }
+.gsel__estado { margin: .7rem 0 0; font-size: .85rem; font-weight: 600; padding: .4rem .6rem; border-radius: 8px; }
+.gsel__estado--ok { background: rgba(57,217,138,.14); color: #0E7A4D; }
+.gsel__estado--alerta { background: rgba(255,90,60,.1); color: #A3341F; }
+@media (prefers-reduced-motion: reduce) { .gflot { animation: none; } }
+.gflot--share, .gflot--osa, .gflot--sku { margin: 0; }
+.gflot--sku { translate: none; }
+.gflot--sku { z-index: 2; }
+@media (max-width: 640px) { .gflot { padding: .35rem .55rem; } .gflot b { font-size: .95rem; } .gflot span { font-size: .64rem; } }
+
+/* ---------- Geoanalytics Lab ---------- */
+.lab-cab__lema { margin: .2rem 0 .8rem; font: 700 clamp(1.1rem, 2vw, 1.35rem)/1.3 var(--serif); color: var(--azul-tec-texto); }
+.lab-grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 1.75rem); }
+.lab-tarjeta { display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(11,45,74,.04); }
+.lab-tarjeta:hover { border-color: var(--azul-tec); box-shadow: 0 18px 40px rgba(11,45,74,.14); }
+.lab-tarjeta__escena { aspect-ratio: 16 / 9; border-radius: 0; border: 0; box-shadow: none; }
+.lab-tarjeta:hover .demo4d__foto img { transition: transform .12s linear, filter .3s; filter: saturate(1.1) brightness(1.03); }
+.lab-tarjeta__cuerpo { display: grid; gap: .45rem; align-content: start; padding: 1.3rem 1.4rem 1.4rem; }
+.lab-tarjeta__cat { font: 700 .76rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--turquesa-osc); }
+.lab-tarjeta__cat b { color: var(--azul-tec-texto); }
+.lab-tarjeta__titulo { font: 800 1.4rem/1.2 var(--serif); color: var(--azul); }
+.lab-tarjeta__texto { color: var(--texto); font-size: .97rem; }
+.lab-tarjeta__mas { margin-top: .4rem; font-weight: 700; color: var(--azul-tec-texto); }
+.lab-tarjeta:hover .lab-tarjeta__mas span { display: inline-block; transform: translateX(4px); transition: transform .2s; }
+.lab-tarjeta:nth-child(2) .intel__barrido::before { animation-delay: 1.5s; } .lab-tarjeta:nth-child(3) .intel__barrido::before { animation-delay: 3s; } .lab-tarjeta:nth-child(4) .intel__barrido::before { animation-delay: 4.5s; }
+.lab-nota { margin: 1.4rem 0 0; font-size: .85rem; color: var(--texto-suave); }
+@media (max-width: 760px) { .lab-grilla { grid-template-columns: 1fr; } }

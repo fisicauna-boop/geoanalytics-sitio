@@ -1,7 +1,7 @@
 ---
 layout: layouts/demo.njk
 title: Góndola 3D
-bajada: Una góndola simulada de cinco estantes. Gírela, pase el cursor sobre los productos y vea cómo se calculan los indicadores de trade marketing.
+bajada: Una góndola simulada de cinco estantes. Gírela, acérquela y haga clic en un producto para ver su SKU, sus frentes y su disponibilidad. Los indicadores se actualizan al instante.
 description: Demostración interactiva de share of shelf, quiebres de stock y presencia a la altura de los ojos en una góndola 3D simulada.
 permalink: /demostraciones/gondola/
 demo_id: gondola
@@ -11,9 +11,21 @@ con_datos_reales: En un estudio real, cada góndola se releva con fotos y un for
 <section class="seccion demo">
   <div class="contenedor demo__grilla" data-demo-gondola>
     <div class="demo__escena">
-      <div class="gondola3d" aria-label="Góndola 3D simulada" role="img"></div>
-      <p class="demo__ayuda">Arrastre para girar la góndola. Pase el cursor sobre un producto para ver su detalle.</p>
-      <div class="gondola-tip" hidden></div>
+      <div class="gondola-marco">
+        <div class="gondola3d" aria-label="Góndola 3D simulada: haga clic en un producto para seleccionarlo" role="img"></div>
+        <div class="gondola-capa" aria-hidden="true">
+          <div class="gflot gflot--share" data-flot="share"><b>—</b><span>Share of shelf</span></div>
+          <div class="gflot gflot--osa" data-flot="osa"><b>—</b><span>OSA</span></div>
+          <div class="gflot gflot--sku" data-flot="sku" hidden><b></b><span></span></div>
+        </div>
+        <div class="gondola-zoom" role="group" aria-label="Zoom">
+          <button type="button" data-zoom="mas" aria-label="Acercar">+</button>
+          <button type="button" data-zoom="menos" aria-label="Alejar">−</button>
+          <button type="button" data-zoom="centro" aria-label="Volver a la vista inicial">⟲</button>
+        </div>
+        <div class="gondola-tip" hidden></div>
+      </div>
+      <p class="demo__ayuda">Clic en un producto para seleccionarlo · arrastre para girar · Ctrl + rueda, pellizco o botones para acercar.</p>
     </div>
     <div class="demo__panel">
       <form class="demo__controles" onsubmit="return false">
@@ -22,8 +34,19 @@ con_datos_reales: En un estudio real, cada góndola se releva con fotos y un for
           <select id="g-marca"></select>
         </div>
         <label class="campo--check"><input type="checkbox" id="g-quiebres" checked> Resaltar espacios vacíos (quiebres)</label>
+        <div class="campo">
+          <label for="g-sku">Producto (SKU)</label>
+          <select id="g-sku"></select>
+        </div>
         <button class="boton boton--fantasma" type="button" id="g-nueva">Generar otra góndola</button>
       </form>
+      <section class="gsel" id="g-sel" hidden aria-live="polite" aria-label="Producto seleccionado">
+        <div class="gsel__cab"><p class="gsel__t">Producto seleccionado</p><button type="button" class="gsel__cerrar" data-cerrar aria-label="Quitar selección">×</button></div>
+        <p class="gsel__sku"><b data-s="sku"></b> · <span data-s="marca"></span></p>
+        <p class="gsel__cat"><span data-s="cat"></span> · <span data-s="pos"></span></p>
+        <dl class="gsel__kpis"><div><dt>Frentes con producto</dt><dd data-s="frentes"></dd></div><div><dt>Disponibilidad (OSA)</dt><dd data-s="osa"></dd></div></dl>
+        <p class="gsel__estado" data-s="estado"></p>
+      </section>
       <dl class="kpis">
         <div><dt>Share of shelf de <span data-marca-nombre>la marca</span></dt><dd id="k-share">—</dd></div>
         <div><dt>Frentes de la marca</dt><dd id="k-frentes">—</dd></div>
@@ -37,6 +60,7 @@ con_datos_reales: En un estudio real, cada góndola se releva con fotos y un for
           <li><strong>Share of shelf</strong>: frentes de la marca ÷ frentes ocupados de la góndola.</li>
           <li><strong>Altura de los ojos</strong>: participación de la marca en los estantes 2 y 3, contados desde arriba.</li>
           <li><strong>Espacios vacíos</strong>: posiciones sin producto ÷ posiciones totales.</li>
+          <li><strong>Disponibilidad (OSA) de un SKU</strong>: frentes con producto ÷ frentes asignados a ese SKU en la góndola.</li>
         </ul>
       </details>
     </div>

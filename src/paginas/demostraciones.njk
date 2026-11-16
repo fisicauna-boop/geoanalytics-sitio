@@ -1,29 +1,51 @@
 ---
 layout: layouts/base.njk
 title: Laboratorio de inteligencia comercial
-description: Explore con datos simulados una góndola 3D, un tablero de rutas y costos, un tablero por sucursal y categoría y un simulador de encuestas.
+description: Geoanalytics Lab. Explore con datos simulados una góndola 3D, rutas y costos, el desempeño por sucursal y un simulador de encuestas.
 permalink: /demostraciones/
 ---
-<header class="cabecera-pagina cabecera-pagina--oscura">
+<header class="cabecera-pagina cabecera-pagina--oscura lab-cab">
   <div class="contenedor">
+    <p class="seccion__ante">Geoanalytics Lab</p>
     <h1 class="cabecera-pagina__titulo">Laboratorio de inteligencia comercial</h1>
-    <p class="cabecera-pagina__bajada">Cuatro herramientas para explorar cómo convertimos datos en decisiones. Todas usan datos ficticios que se generan en su navegador: no representan clientes, marcas, sucursales ni resultados reales.</p>
+    <p class="lab-cab__lema">Explore los datos. Descubra oportunidades. Pruebe nuestras soluciones.</p>
+    <p class="cabecera-pagina__bajada">Un espacio interactivo donde mostramos cómo integramos estadística, inteligencia comercial, análisis geoespacial y tecnología para resolver desafíos empresariales.</p>
   </div>
 </header>
-<section class="seccion">
+<section class="seccion" aria-labelledby="lab-t">
   <div class="contenedor">
-    <div class="demos-grilla demos-grilla--claro demos-grilla--dos">
+    <div class="seccion__cabecera">
+      <div>
+        <h2 id="lab-t" class="seccion__titulo">Explore nuestras capacidades</h2>
+        <p class="seccion__bajada">Experiencias interactivas que muestran cómo analizamos mercados, optimizamos operaciones y transformamos información en conocimiento accionable.</p>
+      </div>
+    </div>
+    <div class="lab-grilla">
       {% for d in demos %}
-      <a class="demo-tarjeta" href="{{ d.url }}">
-        <img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy">
-        <span class="demo-tarjeta__sub">{{ d.subtitulo }}</span>
-        <span class="demo-tarjeta__titulo">{{ d.titulo }}</span>
-        <span class="demo-tarjeta__texto">{{ d.texto }}</span>
+      <a class="lab-tarjeta" href="{{ d.url }}">
+        <span class="demo4d lab-tarjeta__escena">
+          <span class="demo4d__foto"><img src="{{ d.imagen }}" alt="" width="1200" height="675" loading="lazy"></span>
+          <span class="intel__barrido" aria-hidden="true"></span>
+          <span class="demo4d__vivo" aria-hidden="true"><i></i>{{ d.lab_tipo }}</span>
+          {% for c in d.lab_chips %}
+          <span class="intel__chip sol4d__chip sol4d__chip--{{ loop.index }}" aria-hidden="true">
+            <span class="intel__chip-t">{{ c[0] }}</span>
+            <span class="intel__mini intel__mini--{{ c[1] }}"><i></i><i></i><i></i><i></i><i></i></span>
+          </span>
+          {% endfor %}
+        </span>
+        <span class="lab-tarjeta__cuerpo">
+          <span class="lab-tarjeta__cat"><b>{{ d.lab_num }}</b> · {{ d.lab_cat }}</span>
+          <span class="lab-tarjeta__titulo">{{ d.lab_titulo }}</span>
+          <span class="lab-tarjeta__texto">{{ d.lab_texto }}</span>
+          <span class="lab-tarjeta__mas">Explorar demostración <span aria-hidden="true">→</span></span>
+        </span>
       </a>
       {% endfor %}
     </div>
+    <p class="lab-nota">Todas las demostraciones usan información ficticia que se genera en su navegador. No representan clientes, marcas, sucursales ni resultados reales.</p>
   </div>
 </section>
 {% set cta_titulo = "¿Quiere ver esto con los datos de su empresa?" %}
-{% set cta_boton = "Solicitar propuesta" %}
+{% set cta_boton = "Solicitar una propuesta" %}
 {% include "partials/cta.njk" %}
