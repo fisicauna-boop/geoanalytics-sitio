@@ -48,6 +48,18 @@ clase_body: pagina-articulo
     <figcaption>Ilustración conceptual de una red comercial sobre una ciudad ficticia. No muestra ubicaciones ni datos reales.</figcaption>
   </figure>
   <script type="module" src="/assets/js/red3d.js"></script>
+  {% elif escena_3d == "capas" %}
+  <figure class="articulo__portada articulo__portada--3d contenedor contenedor--ancho">
+    <div class="art3d">
+      <div class="hero3d" data-capas3d>
+        <img class="hero3d__fijo" src="{{ imagen }}" alt="{{ imagen_alt }}" width="1600" height="800" fetchpriority="high">
+      </div>
+      <ol class="capas3d__pasos" aria-label="Capas"><li>Datos con ubicación</li><li>Análisis espacial</li><li>Decisión</li></ol>
+      <span class="art3d__pista" aria-hidden="true">Arrastre para girar</span>
+    </div>
+    <figcaption>Ilustración conceptual: los datos con ubicación se analizan y se convierten en una decisión. Ciudad y valores ficticios.</figcaption>
+  </figure>
+  <script type="module" src="/assets/js/capas3d.js"></script>
   {% elif imagen %}
   <figure class="articulo__portada contenedor contenedor--ancho">
     <img src="{{ imagen }}" alt="{{ imagen_alt }}" width="1200" height="675" fetchpriority="high">
@@ -128,6 +140,7 @@ clase_body: pagina-articulo
 {% if visualizaciones and visualizaciones.length or "data-viz" in content %}
 <script src="/assets/js/visualizaciones.js" defer></script>
 {% endif %}
+{% if mapas_geo %}<script src="/assets/js/mapas-geo.js" defer></script>{% endif %}
 {% if mapas_red %}<script src="/assets/js/mapas-red.js" defer></script>{% endif %}
 {% if indice %}
 <script>
