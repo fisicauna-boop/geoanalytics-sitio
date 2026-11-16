@@ -59,7 +59,7 @@
   if (intel.length) {
     const entrada = () => intel.forEach((t) => {
       const r = t.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.55)));
+      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.4)));
       t.style.setProperty("--entrada", (1 - Math.pow(1 - p, 3)).toFixed(3));
     });
     addEventListener("scroll", () => requestAnimationFrame(entrada), { passive: true });
