@@ -1513,6 +1513,7 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 @media (max-width: 760px) { .articulo__portada--3d .hero3d { aspect-ratio: 4 / 3; } .art3d__capa { font-size: .66rem; padding: .35rem .55rem; } .articulo__lateral { position: static; } }
 @media (prefers-reduced-motion: reduce) { .art3d__capa { animation: none; } }
 [data-paraguay3d] { cursor: grab; } [data-paraguay3d].es-arrastre { cursor: grabbing; }
-.articulo__portada--3d .hero3d { aspect-ratio: 16 / 9; }
-@media (max-width: 760px) { .articulo__portada--3d .hero3d { aspect-ratio: 1 / 1; } }
-.art3d__pista { bottom: auto; top: .8rem; }
+/* guía punteada desde la capa hasta su etiqueta alineada */
+[data-paraguay3d] .hero3d__etiqueta:not(.hero3d__etiqueta--lugar)::before { content: ""; position: absolute; right: 100%; top: 50%; width: var(--guia, 0); border-top: 1px dashed rgba(0,119,125,.7); }
+[data-paraguay3d] .hero3d__etiqueta:not(.hero3d__etiqueta--lugar) { min-width: 9.5rem; }
+@media (max-width: 560px) { [data-paraguay3d] .hero3d__etiqueta:not(.hero3d__etiqueta--lugar) { min-width: 7.6rem; } }

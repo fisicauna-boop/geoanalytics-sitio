@@ -161,7 +161,7 @@ async function iniciar() {
   const t0 = performance.now();
   let animando = true, visible = true, ancho = 1, alto = 1;
   // separación vertical entre capas; las capas quedan alineadas una sobre otra (solo un leve corrimiento)
-  const SEP = contenedor.closest(".articulo__portada--3d") ? 1.55 : 1.05, DESPL = contenedor.closest(".articulo__portada--3d") ? 0.12 : 1.45;
+  const SEP = 1.05, DESPL = 1.45;
   const capas = [capa1, capa2, capa3];
   const BASE_Y = 0.16;
 
@@ -244,9 +244,14 @@ async function iniciar() {
     orientar(azim, elev);
     renderer.render(escena, camara);
 
+    // Etiquetas alineadas en una misma columna, a la derecha de la capa más saliente
+    const puntosEt = capas.map((c, i) => aPantalla(tmpV.set(este[0] + c.position.x, c.position.y + (i === 0 ? 0.16 : 0), este[1] + c.position.z)));
+    const anchoEt = Math.max(...etiquetas.map((e) => e.offsetWidth));
+    const colX = Math.round(Math.min(ancho - anchoEt - 10, Math.max(...puntosEt.map((q) => q[0])) + 18));
     capas.forEach((c, i) => {
-      const [sx, sy] = aPantalla(tmpV.set(este[0] + c.position.x, c.position.y + (i === 0 ? 0.16 : 0), este[1] + c.position.z));
-      etiquetas[i].style.transform = `translate(${Math.round(sx + 14)}px, ${Math.round(sy - 12)}px)`;
+      const [sx, sy] = puntosEt[i];
+      etiquetas[i].style.transform = `translate(${colX}px, ${Math.round(sy - 12)}px)`;
+      etiquetas[i].style.setProperty("--guia", Math.max(0, colX - sx - 4) + "px");
       etiquetas[i].style.opacity = i === 0 || apertura > 0.6 ? 1 : 0;
     });
     const [ax, ay] = aPantalla(pts[3]);
