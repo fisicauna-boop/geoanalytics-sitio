@@ -53,8 +53,10 @@
   "url": {{ site.url | json | safe }},
   "description": {{ site.descripcion | json | safe }},
   "areaServed": "Paraguay"{% if site.contacto.email %},
-  "email": {{ site.contacto.email | json | safe }}{% endif %}{% if site.contacto.linkedin %},
-  "sameAs": [{{ site.contacto.linkedin | json | safe }}]{% endif %}
+  "email": {{ site.contacto.email | json | safe }}{% endif %}
+  {%- set perfiles = [] -%}{%- for k in ["linkedin", "facebook", "instagram", "youtube"] -%}{%- if site.contacto[k] -%}{%- set perfiles = (perfiles.push(site.contacto[k]), perfiles) -%}{%- endif -%}{%- endfor -%}
+  {%- if perfiles.length %},
+  "sameAs": {{ perfiles | json | safe }}{% endif %}
 }
 </script>
 {% endif %}

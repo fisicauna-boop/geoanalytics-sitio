@@ -23,6 +23,10 @@ permalink: /contacto/
         {% if site.contacto.whatsapp %}<li><a href="https://wa.me/{{ site.contacto.whatsapp | replace('+','') | replace(' ','') }}" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
       </ul>
       {% endif %}
+      {% if site.contacto.linkedin or site.contacto.facebook or site.contacto.instagram or site.contacto.youtube %}
+      <h2 class="lateral__titulo">Síganos</h2>
+      {% set clase_redes = "redes--contacto" %}{% include "partials/redes.njk" %}
+      {% endif %}
     </aside>
   </div>
 </section>

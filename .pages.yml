@@ -304,6 +304,15 @@ content:
           - name: linkedin
             label: Página de LinkedIn (URL)
             type: string
+          - name: facebook
+            label: Página de Facebook (URL)
+            type: string
+          - name: instagram
+            label: Perfil de Instagram (URL)
+            type: string
+          - name: youtube
+            label: Canal de YouTube (URL, opcional)
+            type: string
           - name: direccion
             label: Dirección
             type: string

@@ -1853,3 +1853,14 @@ input[type="search"], input[type="text"], input[type="email"], input[type="tel"]
 .prosa .cierre-comercial ul li { position: relative; margin: 0; padding: .7rem .9rem .7rem 2.6rem; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(127,227,230,.18); color: #DCE6EF; line-height: 1.45; }
 .prosa .cierre-comercial ul li::before { content: "✓"; position: absolute; left: .85rem; top: .78rem; display: grid; place-items: center; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--turquesa); color: var(--azul); font-size: .7rem; font-weight: 800; }
 .prosa .cierre-comercial ul li strong { color: #7FE3E6; }
+
+/* Redes sociales */
+.redes { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.redes li { margin: 0; }
+.redes a { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; transition: background .2s, color .2s, transform .2s; }
+.redes a:hover { transform: translateY(-2px); }
+.redes svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+.redes--pie a { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.18); }
+.redes--pie a:hover { background: var(--turquesa); color: var(--azul); }
+.redes--contacto a { background: #EAF4FA; color: var(--azul); border: 1px solid var(--linea); }
+.redes--contacto a:hover { background: var(--azul); color: #fff; }

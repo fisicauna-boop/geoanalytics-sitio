@@ -11,6 +11,7 @@
         {% if site.contacto.direccion %}<li>{{ site.contacto.direccion }}</li>{% endif %}
       </ul>
       {% endif %}
+      {% set clase_redes = "redes--pie" %}{% include "partials/redes.njk" %}
     </div>
 
     <div>
@@ -35,7 +36,6 @@
         <li><a href="/nosotros/">Sobre Geoanalytics</a></li>
         <li><a href="/contacto/">Contacto</a></li>
         <li><a href="/feed.xml">Suscripción RSS</a></li>
-        {% if site.contacto.linkedin %}<li><a href="{{ site.contacto.linkedin }}" rel="me noopener" target="_blank">LinkedIn</a></li>{% endif %}
       </ul>
     </div>
   </div>
